@@ -1,0 +1,61 @@
+
+{
+    "sidebar": {
+        "dashboard": "ଡାᱥବୋର୍ଡ",
+        "marketPrices": "ᱵᱟᱡᱟᱨ ᱨᱮᱭᱟᱜ ᱫᱟᴍ",
+        "expenseTracker": "ଖର୍ଚ୍ଚ ଟ୍ରାକର୍",
+        "diseaseDetection": "ᱨᱳᱜ  पहचान",
+        "chatbot": "ਚੈਟਬੋਟ",
+        "khetiSamachar": "खेती समाचार"
+    },
+    "dashboard": {
+        "welcome": "ଫੇର୍ ᱥᱣᱟਗତ, {{name}}!",
+        "tagline": "ᱛᱮᱦᱮᱧ ᱞᱟᱹਗᱤᱫ ᱟᱢᱟᱜ  स्मार्ट  खेती ଡାᱥବୋର୍ଡ।"
+    },
+    "advisoryCard": {
+        "title": "ଫସଲ ᱟᱨ  मौसम ᱥᱟܠహా",
+        "description": "व्यक्तिगत, मौसम-एकीकृत ᱥᱟܠహా ᱧᱟᱢ ᱞᱟᱹଗִᱫ ᱟᱢᱟᱜ ᱠᱷੇਤ ᱨᱮᱭᱟᱜ ᱵᱤବରଣ ᱯୂରଣ ᱢᱮ།",
+        "cropType": "ଫସଲ ᱨᱮᱭᱟᱜ ପ୍ରକାର",
+        "soilDetails": "माটির ᱵᱤବରଣ",
+        "currentCropStage": "ଫସଲ ᱨᱮᱭਾᱜ ବର୍ତ୍ତମਾਨ  अवस्था",
+        "location": "ସ୍ଥାନ",
+        "getAdvisory": "ᱥᱟܠహా ᱧᱟᴍ ᱢᱮ",
+        "generating": "ତିଆରି ᱦᱩᱭᱩᱜ ᱠᱟᱱᱟ...",
+        "loading": "आलिञ AI आमre data विश्लेषण-eda आर मौसमrе पूर्वानुमान ᱧᱟᴍ-eda...",
+        "weatherTitle": "{{location}} ᱨᱮ ᱛᱮᱦେᱧᱟᱜ मौसम",
+        "temperature": "तापमान",
+        "humidity": "आर्द्रता",
+        "windSpeed": "ହୋᱭ ᱨᱮᱭᱟᱜ ᱜତି",
+        "advisoryTitle": "AI-ଚାଳିତ ᱥᱟܠహా"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI ଫସଲ ᱨᱳᱜ डिटेक्टर",
+        "description": "ସମ୍ଭାବ୍ୟ ᱨᱳᱜ ᱧᱟᴍ ᱞᱟᱹགִᱫ ᱟᱨ ᱥᱩਝାਅ ᱮᱢᱟᱠᱟᱱ ᱥମାଧାନ ᱧᱟᴍ ᱞᱟᱹགִᱫ ᱟᱢᱟᱜ ଫସଲ ᱨᱮᱭᱟᱜ ᱪିତ୍ର अपलोड ᱢᱮ།",
+        "uploadCTA": "ᱪିତ୍ର अपलोड ᱞᱟᱹགִᱫ ક્લિક ᱢᱮ",
+        "uploadHint": "4MB পর্যন্ত PNG, JPG, WEBP",
+        "analyze": "ଫସଲ ᱨᱮᱭᱟᱜ ᱪିତ୍ର विश्लेषण ᱢᱮ",
+        "analyzing": "विश्लेषण ᱦᱩᱭᱩᱜ ᱠᱟᱱᱟ...",
+        "analysisComplete": "विश्लेषण ᱯୂਰਾ ᱦᱩᱭᱮᱱᱟ",
+        "diseaseDetected": "ᱨᱳᱜ ᱧᱟᴍ ᱮᱱᱟ!",
+        "noDiseaseDetected": "କୌଣସି ᱨᱳᱜ ᱵᱟᱝ ᱧᱟᴍ ᱟᱠᱟᱱᱟ",
+        "issueIdentified": "आलिञ AI ᱢᱤᱫ ସମ୍ଭାବ୍ୟ ᱥମସ୍ୟᱟ ᱧာᴍ ᱟᱠᱟᱫᱟ།",
+        "cropHealthy": "ᱟᱢᱟᱜ ଫସଲ  स्वस्थ ᱧେᱞᱚᱜ ᱠᱟᱱᱟ།",
+        "detectedDisease": "ᱧᱟᴍ ᱟᱠᱟᱱ ᱨᱳᱜ",
+        "confidenceLevel": "आत्मविश्वास ᱨᱮᱭᱟᱜ स्तर",
+        "suggestedSolutions": "ᱥᱩਝᱟਅ ᱮᱢᱟᱠᱟᱱ ᱥମାଧାନ"
+    },
+    "chatbotCard": {
+        "title": "एग्री-चैट ᱥਹਾୟକ",
+        "description": "ᱤᱧ ᱴᱷᱮན་ ᱟᱢᱟᱜ ଫସଲ, ମାଟି, ବା खेती ᱨᱮᱭᱟᱜ ᱯྲથા ବିଷୟରେ ᱡᱟᱦᱟᱸᱱᱟᱜ ᱠᱩᱞᱤ ᱢᱮ།",
+        "placeholder": "ᱟᱢᱟᱜ  संदेश ଟାଇପ ᱢᱮ...",
+        "empty": "এখনো পর্যন্ত কোনো संदेश ᱵᱟᱹਨᱩᱜ-ᱟ། बातचीत ᱮᱦੋᱵ ᱢᱮ!"
+    },
+    "diseaseDetectionPage": {
+        "title": "ଫସଲ ᱨᱳగ్  पहचान",
+        "description": "ᱢᱤᱫ ᱪିତ୍ର ᱠᱷᱚᱱ ତୁରੰତ ଫସଲ ᱨᱳగ్  पहचान ᱞᱟᱹགִᱫ आलिञ AI ᱵ୍ୟବହାର ᱢᱮ།"
+    },
+    "chatbotPage": {
+        "title": "एग्री-चैट ᱥਹਾୟକ",
+        "description": "ᱟᱢᱟᱜ 24/7 AI-ଚାଳିତ खेती विशेषज्ञ། ᱟᱢ ᱴᱷᱮན་ ଥିବା ᱡᱟᱦᱟᱸᱱᱟᱜ ᱠᱩᱞᱤ ᱢᱮ།"
+    }
+}

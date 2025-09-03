@@ -1,0 +1,135 @@
+
+{
+    "sidebar": {
+        "dashboard": "डैशबोर्ड",
+        "marketPrices": "बाजार मूल्य",
+        "expenseTracker": "व्यय ट्रैकर",
+        "diseaseDetection": "रोग पहचान",
+        "chatbot": "चैटबॉट",
+        "notifications": "सूचनाएं",
+        "cropCalendar": "फसल कैलेंडर",
+        "khetiSamachar": "खेती समाचार"
+    },
+    "dashboard": {
+        "welcome": "वापसी पर स्वागत है, {{name}}!",
+        "tagline": "आज के लिए आपका स्मार्ट फार्मिंग डैशबोर्ड यहां है।"
+    },
+    "advisoryCard": {
+        "title": "फसल और मौसम सलाहकार",
+        "description": "व्यक्तिगत, मौसम-एकीकृत सलाह प्राप्त करने के लिए अपने खेत का विवरण भरें।",
+        "cropType": "फसल का प्रकार",
+        "soilDetails": "मिट्टी का विवरण",
+        "currentCropStage": "फसल की वर्तमान अवस्था",
+        "location": "स्थान",
+        "getAdvisory": "सलाह प्राप्त करें",
+        "generating": "बनाया जा रहा है...",
+        "loading": "हमारा AI आपके डेटा का विश्लेषण कर रहा है और मौसम का पूर्वानुमान प्राप्त कर रहा है...",
+        "weatherTitle": "{{location}} में आज का मौसम",
+        "temperature": "तापमान",
+        "humidity": "आर्द्रता",
+        "windSpeed": "हवा की गति",
+        "advisoryTitle": "AI-संचालित सलाहकार"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI फसल रोग डिटेक्टर",
+        "description": "संभावित बीमारियों का पता लगाने और सुझाए गए समाधान प्राप्त करने के लिए अपनी फसल की एक छवि अपलोड करें।",
+        "uploadCTA": "एक छवि अपलोड करने के लिए क्लिक करें",
+        "uploadHint": "4MB तक PNG, JPG, WEBP",
+        "analyze": "फसल की छवि का विश्लेषण करें",
+        "analyzing": "विश्लेषण हो रहा है...",
+        "analysisComplete": "विश्लेषण पूर्ण",
+        "diseaseDetected": "रोग का पता चला!",
+        "noDiseaseDetected": "कोई रोग नहीं मिला",
+        "issueIdentified": "हमारे AI ने एक संभावित समस्या की पहचान की है।",
+        "cropHealthy": "आपकी फसल स्वस्थ दिखाई दे रही है।",
+        "detectedDisease": "पता चला रोग",
+        "confidenceLevel": "आत्मविश्वास स्तर",
+        "suggestedSolutions": "सुझाए गए समाधान"
+    },
+    "chatbotCard": {
+        "title": "कृषि-चैट सहायक",
+        "description": "मुझसे अपनी फसलों, मिट्टी, या खेती प्रथाओं के बारे में कुछ भी पूछें।",
+        "placeholder": "अपना संदेश टाइप करें...",
+        "empty": "अभी तक कोई संदेश नहीं है। बातचीत शुरू करें!"
+    },
+    "diseaseDetectionPage": {
+        "title": "फसल रोग पहचान",
+        "description": "एक छवि से तुरंत फसल रोगों की पहचान करने के लिए हमारे AI का उपयोग करें।"
+    },
+    "chatbotPage": {
+        "title": "कृषि-चैट सहायक",
+        "description": "आपका 24/7 AI-संचालित खेती विशेषज्ञ। आपके पास जो भी प्रश्न हो, पूछें।"
+    },
+    "cropCalendarPage": {
+        "title": "फसल कैलेंडर और अनुस्मारक",
+        "description": "बुवाई से लेकर कटाई तक, अपनी खेती की समय-सीमा का प्रबंधन करें।",
+        "cardTitle": "मेरा खेती कैलेंडर",
+        "cardDescription": "अपनी फसलों के लिए महत्वपूर्ण कार्य और समय-सीमा जोड़ें।"
+    },
+    "reminders": {
+        "title": "खेती अनुस्मारक",
+        "description": "अपनी खेती की गतिविधियों के लिए कस्टम अनुस्मारक शेड्यूल करें।",
+        "newTask": "नया अनुस्मारक कार्य",
+        "taskPlaceholder": "जैसे, गेहूं के खेत की सिंचाई करें",
+        "date": "दिनांक",
+        "pickDate": "एक तारीख चुनें",
+        "addReminder": "अनुस्मारक जोड़ें",
+        "upcomingReminders": "आपके आगामी कार्य",
+        "noUpcomingReminders": "आपके पास कोई आगामी कार्य नहीं है।",
+        "reminderSet": "अनुस्मारक सेट",
+        "reminderRemoved": "अनुस्मारक हटाया गया",
+        "reminderFor": "के लिए अनुस्मारक",
+        "on": "को",
+        "addErrorTitle": "आवश्यक जानकारी नहीं है",
+        "addErrorDescription": "कृपया एक कार्य दर्ज करें और अनुस्मारक के लिए एक तारीख चुनें।"
+    },
+    "notificationsPage": {
+        "title": "अधिसूचना सेटिंग्स",
+        "description": "आप eKheti से अलर्ट कैसे और कब प्राप्त करते हैं, इसका प्रबंधन करें।",
+        "settingsSaved": "सेटिंग्स सहेजी गईं",
+        "enabled": "सक्षम",
+        "disabled": "अक्षम",
+        "weatherAlerts": {
+            "title": "मौसम अलर्ट",
+            "description": "महत्वपूर्ण मौसम परिवर्तनों के बारे में सूचित रहें।",
+            "rain": "भारी बारिश की चेतावनी",
+            "frost": "पाला की चेतावनी",
+            "highWind": "तेज हवा की चेतावनी"
+        },
+        "priceAlerts": {
+            "title": "बाजार मूल्य अलर्ट",
+            "description": "फसल की कीमतें बदलने पर सूचित होने के लिए थ्रेसहोल्ड सेट करें।",
+            "newAlert": "नया अलर्ट बनाएं",
+            "cropName": "फसल का नाम (जैसे, गेहूं)",
+            "pricePlaceholder": "मूल्य (जैसे, 2200)",
+            "notifyAbove": "ऊपर जाने पर सूचित करें",
+            "notifyBelow": "नीचे जाने पर सूचित करें",
+            "activeAlerts": "आपके सक्रिय अलर्ट",
+            "noActiveAlerts": "आपके पास कोई सक्रिय मूल्य अलर्ट नहीं है।",
+            "alertSet": "मूल्य अलर्ट सेट",
+            "alertRemoved": "मूल्य अलर्ट हटाया गया",
+            "notifyWhen": "सूचित करें जब",
+            "goesAbove": "ऊपर जाता है",
+            "goesBelow": "नीचे जाता है",
+            "addErrorTitle": "आवश्यक जानकारी नहीं है",
+            "addErrorDescription": "कृपया फसल का नाम और मूल्य थ्रेसहोल्ड दोनों प्रदान करें।"
+        },
+        "reminders": {
+            "title": "खेती अनुस्मारक",
+            "description": "अपनी खेती की गतिविधियों के लिए कस्टम अनुस्मारक शेड्यूल करें।",
+            "newTask": "नया अनुस्मारक कार्य",
+            "taskPlaceholder": "जैसे, खेत की सिंचाई करें",
+            "date": "दिनांक",
+            "pickDate": "एक तारीख चुनें",
+            "addReminder": "अनुस्मारक जोड़ें",
+            "upcomingReminders": "आपके आगामी अनुस्मारक",
+            "noUpcomingReminders": "आपके पास कोई आगामी अनुस्मारक नहीं है।",
+            "reminderSet": "अनुस्मारक सेट",
+            "reminderRemoved": "अनुस्मारक हटाया गया",
+            "reminderFor": "के लिए अनुस्मारक",
+            "on": "को",
+            "addErrorTitle": "आवश्यक जानकारी नहीं है",
+            "addErrorDescription": "कृपया एक कार्य दर्ज करें और अनुस्मारक के लिए एक तारीख चुनें।"
+        }
+    }
+}

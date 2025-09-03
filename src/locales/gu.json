@@ -1,0 +1,61 @@
+
+{
+    "sidebar": {
+        "dashboard": "ડેશબોર્ડ",
+        "marketPrices": "બજાર ભાવ",
+        "expenseTracker": "ખર્ચ ટ્રેકર",
+        "diseaseDetection": "રોગની શોધ",
+        "chatbot": "ચેટબોટ",
+        "khetiSamachar": "ખેતી સમાચાર"
+    },
+    "dashboard": {
+        "welcome": "ફરી સ્વાગત છે, {{name}}!",
+        "tagline": "આજ માટે તમારું સ્માર્ટ ફાર્મિંગ ડેશબોર્ડ અહીં છે."
+    },
+    "advisoryCard": {
+        "title": "પાક અને હવામાન સલાહ",
+        "description": "વ્યક્તિગત, હવામાન-સંકલિત સલાਹ મેળવવા માટે તમારા ખેતરની વિગતો ભરો.",
+        "cropType": "પાકનો પ્રકાર",
+        "soilDetails": "જમીનની વિગતો",
+        "currentCropStage": "પાકનો વર્તમાન તબક્કો",
+        "location": "સ્થાન",
+        "getAdvisory": "સલાહ મેળવો",
+        "generating": "બનાવી રહ્યું છે...",
+        "loading": "અમારું AI તમારા ડેટાનું વિશ્લેષણ કરી રહ્યું છે અને હવામાનની આગાહી મેળવી રહ્યું છે...",
+        "weatherTitle": "{{location}} માં આજનું હવામાન",
+        "temperature": "તાપમાન",
+        "humidity": "ભેજ",
+        "windSpeed": "પવનની ગતિ",
+        "advisoryTitle": "AI-સંચાલિત સલાહ"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI પાક રોગ શોધક",
+        "description": "સંભવિત રોગો શોધવા અને સૂચવેલા ઉકેલો મેળવવા માટે તમારા પાકનો ફોટો અપલોડ કરો.",
+        "uploadCTA": "એક છબી અપલોડ કરવા માટે ક્લિક કરો",
+        "uploadHint": "PNG, JPG, WEBP 4MB સુધી",
+        "analyze": "પાકની છબીનું વિશ્લેષણ કરો",
+        "analyzing": "વિશ્લેષણ કરી રહ્યું છે...",
+        "analysisComplete": "વિશ્લેષણ પૂર્ણ",
+        "diseaseDetected": "રોગ મળી આવ્યો!",
+        "noDiseaseDetected": "કોઈ રોગ મળ્યો નથી",
+        "issueIdentified": "અમારા AI એ સંભવિત સમસ્યા ઓળખી છે.",
+        "cropHealthy": "તમારો પાક સ્વસ્થ દેખાય છે.",
+        "detectedDisease": "શોધાયેલ રોગ",
+        "confidenceLevel": "આત્મવિશ્વાસ સ્તર",
+        "suggestedSolutions": "સૂચવેલા ઉકેલો"
+    },
+    "chatbotCard": {
+        "title": "કૃષિ-ચેટ સહાયક",
+        "description": "મને તમારા પાક, જમીન, અથવા ખેતી પદ્ધતિઓ વિશે કંઈપણ પૂછો.",
+        "placeholder": "તમારો સંદેશ લખો...",
+        "empty": "હજી સુધી कोई સંદેશ નથી. વાતચીત શરૂ કરો!"
+    },
+    "diseaseDetectionPage": {
+        "title": "પાક રોગ શોધ",
+        "description": "એક છબીમાંથી તરત જ પાક રોગોને ઓળખવા માટે અમારા AI નો ઉપયોગ કરો."
+    },
+    "chatbotPage": {
+        "title": "કૃષિ-ચેટ સહાયક",
+        "description": "તમારા 24/7 AI-સંચાલિત ખેતી નિષ્ણાત. તમારી પાસે જે પણ પ્રશ્ન હોય તે પૂછો."
+    }
+}

@@ -1,0 +1,61 @@
+
+{
+    "sidebar": {
+        "dashboard": "डॅशबोर्ड",
+        "marketPrices": "बाजारभाव",
+        "expenseTracker": "खर्च ट्रॅकर",
+        "diseaseDetection": "रोग निदान",
+        "chatbot": "चॅटबॉट",
+        "khetiSamachar": "शेती समाचार"
+    },
+    "dashboard": {
+        "welcome": "पुन्हा स्वागत आहे, {{name}}!",
+        "tagline": "आजसाठी तुमचा स्मार्ट फार्मिंग डॅशबोर्ड येथे आहे."
+    },
+    "advisoryCard": {
+        "title": "पीक आणि हवामान सल्ला",
+        "description": "वैयक्तिकृत, हवामान-एकात्मिक सल्ला मिळवण्यासाठी तुमच्या शेतीचे तपशील भरा.",
+        "cropType": "पिकाचा प्रकार",
+        "soilDetails": "मातीचे तपशील",
+        "currentCropStage": "सध्याची पिकाची अवस्था",
+        "location": "स्थान",
+        "getAdvisory": "सल्ला मिळवा",
+        "generating": "तयार होत आहे...",
+        "loading": "आमचे AI तुमच्या डेटाचे विश्लेषण करत आहे आणि हवामानाचा अंदाज मिळवत आहे...",
+        "weatherTitle": "{{location}} मधील आजचे हवामान",
+        "temperature": " तापमान",
+        "humidity": "आर्द्रता",
+        "windSpeed": "वाऱ्याचा वेग",
+        "advisoryTitle": "AI-चालित सल्ला"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI पीक रोग शोधक",
+        "description": "संभाव्य रोग ओळखण्यासाठी आणि सुचवलेले उपाय मिळवण्यासाठी तुमच्या पिकाची प्रतिमा अपलोड करा.",
+        "uploadCTA": "प्रतिमा अपलोड करण्यासाठी क्लिक करा",
+        "uploadHint": "4MB पर्यंत PNG, JPG, WEBP",
+        "analyze": "पीक प्रतिमेचे विश्लेषण करा",
+        "analyzing": "विश्लेषण करत आहे...",
+        "analysisComplete": "विश्लेषण पूर्ण झाले",
+        "diseaseDetected": "रोग आढळला!",
+        "noDiseaseDetected": "रोग आढळला नाही",
+        "issueIdentified": "आमच्या AI ਨੇ संभाव्य समस्या ओळखली आहे.",
+        "cropHealthy": "तुमचे पीक निरोगी दिसत आहे.",
+        "detectedDisease": "ओळखलेला रोग",
+        "confidenceLevel": "आत्मविश्वास पातळी",
+        "suggestedSolutions": "सुचवलेले उपाय"
+    },
+    "chatbotCard": {
+        "title": "कृषी-चॅट सहाय्यक",
+        "description": "तुमच्या पिकांबद्दल, मातीबद्दल किंवा शेती पद्धतींबद्दल मला काहीही विचारा.",
+        "placeholder": "तुमचा संदेश टाइप करा...",
+        "empty": "अद्याप संदेश नाहीत. संभाषण सुरू करा!"
+    },
+    "diseaseDetectionPage": {
+        "title": "पीक रोग निदान",
+        "description": "एका प्रतिमेवरून त्वरित पीक रोग ओळखण्यासाठी आमचे AI वापरा."
+    },
+    "chatbotPage": {
+        "title": "कृषी-चॅट सहाय्यक",
+        "description": "तुमचे 24/7 AI-चालित शेती तज्ञ. तुमच्याकडे असलेला कोणताही प्रश्न विचारा."
+    }
+}

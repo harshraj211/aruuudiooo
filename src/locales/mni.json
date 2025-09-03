@@ -1,0 +1,61 @@
+
+{
+    "sidebar": {
+        "dashboard": "ডેશবোর্ড",
+        "marketPrices": "মার্কেটকী মমল",
+        "expenseTracker": "খরচ ট্র্যাকার",
+        "diseaseDetection": "লাইনা খঙদোকপা",
+        "chatbot": "চ্যাটবট",
+        "khetiSamachar": "খেতি সমাচার"
+    },
+    "dashboard": {
+        "welcome": "অমুক হন্না অমুক୍କা ওকचরি, {{name}}!",
+        "tagline": "ঙসিগীদমক নহাক্কী স্মার্ট फार्मिং ডેશবোর্ড।"
+    },
+    "advisoryCard": {
+        "title": "মহৈ-রোশিং অমসুং নোং-নైংশা સલાહ",
+        "description": "व्यक्तिगत, নোং-নైংশা-সংയോजित सलाह ফংনবগীদমক নহাক্কী ফার্মগী डिटेल्स পিরो।",
+        "cropType": "মহৈ-রোশিংগী মখল",
+        "soilDetails": "লৈपाक্কী डिटेल्स",
+        "currentCropStage": "মহৈ-রোশিংগী হৌজিক্কী stage",
+        "location": "morfom",
+        "getAdvisory": " सलाह লൗ",
+        "generating": "শেমgatli...",
+        "loading": "eikhoygee AI-na nahakkee data analyze touri amsung nong-ningsha forecast louri...",
+        "weatherTitle": "{{location}}-da ngasigee nong-ningsha",
+        "temperature": "तापमान",
+        "humidity": " आर्द्रता",
+        "windSpeed": "নুংশitki गति",
+        "advisoryTitle": "AI-powerd सलाह"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI মহৈ-রোশিং লাইনা খঙদোকpa",
+        "description": "সম্ভাব্য লাইনা খঙদোকnaba amsung suggest touriba solution fangnabageedamak nahakkee mahai-rosinggee image upload toubiyu.",
+        "uploadCTA": "image upload tounabageedamak click toubiyu",
+        "uploadHint": "4MB faoba PNG, JPG, WEBP",
+        "analyze": "মহৈ-রোশিংগী image analyze toubiyu",
+        "analyzing": "analyze touri...",
+        "analysisComplete": "analyze complete toukhre",
+        "diseaseDetected": "লাইনা fang-ngi!",
+        "noDiseaseDetected": "লাইনা fangde",
+        "issueIdentified": "eikhoygee AI-na সম্ভাব্য समस्या khangdokkhre.",
+        "cropHealthy": "nahakkee মহৈ-রোশিং anaba leite.",
+        "detectedDisease": "খঙdokpa লাইনা",
+        "confidenceLevel": "आत्मविश्वासki level",
+        "suggestedSolutions": "suggest touriba solution"
+    },
+    "chatbotCard": {
+        "title": "एग्री-चैट assistant",
+        "description": "eikhoyda nahakkee mahai-rosing, leipak, nattraga farming practice-kee maramda karigumba hangbiyu.",
+        "placeholder": "nahakkee message type toubiyu...",
+        "empty": "houjik faobada message leite. wari sharo!"
+    },
+    "diseaseDetectionPage": {
+        "title": "মহৈ-রোশিং লাইনা খঙdоkpa",
+        "description": "image-dagi tusinna mahai-rosinggee laina khangdoknabageedamak eikhoygee AI sijinnabiyu."
+    },
+    "chatbotPage": {
+        "title": "एग्री-चैट assistant",
+        "description": "nahakkee 24/7 AI-powerd farming expert. nahakkee leiba question hangbiyu."
+    }
+}

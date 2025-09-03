@@ -1,0 +1,61 @@
+
+{
+    "sidebar": {
+        "dashboard": "डैशबोर्ड",
+        "marketPrices": "बाजार दी कीमतां",
+        "expenseTracker": "खर्च ट्रैकर",
+        "diseaseDetection": "रोग दी पन्छान",
+        "chatbot": "चैटबॉट",
+        "khetiSamachar": "खेती समाचार"
+    },
+    "dashboard": {
+        "welcome": "वापस औने पर स्वागत ऐ, {{name}}!",
+        "tagline": "ਅੱਜ ਲਈ ਤੁਹਾਡਾ ਸਮਾਰਟ ਫਾਰਮਿੰਗ ਡੈਸ਼ਬੋਰਡ।"
+    },
+    "advisoryCard": {
+        "title": "फसल ते मौसम सलाहकार",
+        "description": "व्यक्तिगत, मौसम-एकीकृत सलाह लेई अपने खेत दे ब्यौरे भरो।",
+        "cropType": "फसल दी किस्म",
+        "soilDetails": "मिट्टी दे ब्यौरे",
+        "currentCropStage": "फसल दी मौजूदा अवस्था",
+        "location": "स्थान",
+        "getAdvisory": "सलाह लैओ",
+        "generating": "बनाया जा करदा ऐ...",
+        "loading": "साढ़ा AI तुहाडे डेटा दा विश्लेषण करदा ऐ ते मौसम दा पूर्वानुमान लै करदा ऐ...",
+        "weatherTitle": "{{location}} च अज्ज दा मौसम",
+        "temperature": "तापमान",
+        "humidity": "नमी",
+        "windSpeed": "ह्वा दी गति",
+        "advisoryTitle": "AI-संचालित सलाहकार"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI फसल रोग डिटेक्टर",
+        "description": "संभावित बीमारियां दा पता लाने ते सुझाए गेदे समाधान पाने लेई अपनी फसल दी इक तस्वीर अपलोड करो।",
+        "uploadCTA": "तस्वीर अपलोड करने लेई क्लिक करो",
+        "uploadHint": "4MB तगर PNG, JPG, WEBP",
+        "analyze": "फसल दी तस्वीर दा विश्लेषण करो",
+        "analyzing": "विश्लेषण होई करदा ऐ...",
+        "analysisComplete": "विश्लेषण पूरा होई गेदा",
+        "diseaseDetected": "रोग पाया गेदा!",
+        "noDiseaseDetected": "कोई रोग नेईं पाया गेदा",
+        "issueIdentified": "साढ़े AI ने इक संभावित समस्या दी पन्छान कीत्ती ऐ।",
+        "cropHealthy": "तुहाडी फसल स्वस्थ दिसदी ऐ।",
+        "detectedDisease": "पता लाया गेदा रोग",
+        "confidenceLevel": "आत्मविश्वास दा स्तर",
+        "suggestedSolutions": "सुझाए गेदे समाधान"
+    },
+    "chatbotCard": {
+        "title": "एग्री-चैट सहायक",
+        "description": "मेंगी अपनी फसलें, मिट्टी, या खेती दे तरीकें दे बारे च किश बी पुच्छो।",
+        "placeholder": "अपना संदेश टाइप करो...",
+        "empty": "अजे तगर कोई संदेश नेईं। गल्लबात शुरू करो!"
+    },
+    "diseaseDetectionPage": {
+        "title": "फसल रोग दी पन्छान",
+        "description": "इक तस्वीर थमां तुरंत फसल दे रोगें दी पन्छान करने लेई साढ़े AI दा इस्तेमाल करो।"
+    },
+    "chatbotPage": {
+        "title": "एग्री-चैट सहायक",
+        "description": "तुहाडा 24/7 AI-संचालित खेती विशेषज्ञ। तुसेंदे कोई बी सवाल पुच्छो।"
+    }
+}

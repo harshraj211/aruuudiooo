@@ -1,0 +1,61 @@
+
+{
+    "sidebar": {
+        "dashboard": "डॅशबोर्ड",
+        "marketPrices": "बाजार भाव",
+        "expenseTracker": "खर्च ट्रॅकर",
+        "diseaseDetection": "रोग निदान",
+        "chatbot": "चॅटबॉट",
+        "khetiSamachar": "खेती समाचार"
+    },
+    "dashboard": {
+        "welcome": "परत स्वागत, {{name}}!",
+        "tagline": "आयजचो तुमचो स्मार्ट शेती डॅशबोर्ड हांगा आसा।"
+    },
+    "advisoryCard": {
+        "title": "पीक आनी हवामान सल्ला",
+        "description": "वैयक्तिक, हवामान-एकत्रित सल्ला मेळोवपाक तुमच्या शेताची म्हायती भरा.",
+        "cropType": "पिकाचो प्रकार",
+        "soilDetails": "मातीची म्हायती",
+        "currentCropStage": "सध्याची पिकाची अवस्था",
+        "location": "स्थान",
+        "getAdvisory": "सल्ला मेळोवचो",
+        "generating": "तयार जाता...",
+        "loading": "आमचें AI तुमचो डेटा विश्लेषण करता आनी हवामान अदमास मेळयता...",
+        "weatherTitle": "{{location}} त आजचें हवामान",
+        "temperature": "तापमान",
+        "humidity": "दमटपण",
+        "windSpeed": "वाऱ्याचो वेग",
+        "advisoryTitle": "AI-चलित सल्ला"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI पीक रोग शोधक",
+        "description": "संभाव्य रोगांचें निदान करूंक आनी सुचयल्लीं उपायां मेळोवपाक तुमच्या पिकाची प्रतिमा अपलोड करा.",
+        "uploadCTA": "प्रतिमा अपलोड करपाक क्लिक करा",
+        "uploadHint": "4MB मेरेन PNG, JPG, WEBP",
+        "analyze": "पिकाची प्रतिमा विश्लेषण करा",
+        "analyzing": "विश्लेषण जाता...",
+        "analysisComplete": "विश्लेषण पूर्ण",
+        "diseaseDetected": "रोग मेळ्ळो!",
+        "noDiseaseDetected": "रोग मेळूंक ना",
+        "issueIdentified": "आमच्या AI न एक संभाव्य समस्या सोदून काडल्या।",
+        "cropHealthy": "तुमचें पीक निरोगी दिसता।",
+        "detectedDisease": "मेळिल्लो रोग",
+        "confidenceLevel": "आत्मविश्वास पातळी",
+        "suggestedSolutions": "सुचयल्लीं उपायां"
+    },
+    "chatbotCard": {
+        "title": "कृषी-चॅट सहाय्यक",
+        "description": "तुमच्या पिकां, माती, वा शेती पद्दतींविशीं म्हाका कितेंय विचारात।",
+        "placeholder": "तुमचो संदेश टायप करा...",
+        "empty": "अजून मेरेन संदेश नात। संवाद सुरू करा!"
+    },
+    "diseaseDetectionPage": {
+        "title": "पीक रोग निदान",
+        "description": "एका प्रतिमे वयल्यान रोखडोच पीक रोगांची वळख करपाक आमच्या AI चो वापर करा।"
+    },
+    "chatbotPage": {
+        "title": "कृषी-चॅट सहाय्यक",
+        "description": "तुमचो 24/7 AI-चलित शेती तज्ञ। तुमकां आशिल्लो खंयचोय प्रस्न विचारात।"
+    }
+}

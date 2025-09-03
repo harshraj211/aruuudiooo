@@ -1,0 +1,61 @@
+
+{
+    "sidebar": {
+        "dashboard": "ডেশ্ববৰ্ড",
+        "marketPrices": "বজাৰৰ মূল্য",
+        "expenseTracker": "খৰচ ট্ৰেকাৰ",
+        "diseaseDetection": "ৰোগ চিনাক্তকৰণ",
+        "chatbot": "চেটবট",
+        "khetiSamachar": "খেতি সমাচাৰ"
+    },
+    "dashboard": {
+        "welcome": "পুনৰ স্বাগতম, {{name}}!",
+        "tagline": "আজিৰ বাবে আপোনাৰ স্মাৰ্ট ফাৰ্মিং ডেশ্ববৰ্ড।"
+    },
+    "advisoryCard": {
+        "title": "শস্য আৰু বতৰৰ পৰামৰ্শ",
+        "description": "ব্যক্তিগত, বতৰ-সংയോजित পৰামৰ্ש লাভ কৰিবলৈ আপোনাৰ খেতিৰ বিৱৰণ পূৰণ কৰক।",
+        "cropType": "শস্যৰ প্ৰকাৰ",
+        "soilDetails": "মাটিৰ বিৱৰণ",
+        "currentCropStage": "শস্যৰ বৰ্তমান পর্যায়",
+        "location": "অৱস্থান",
+        "getAdvisory": "পৰামৰ্ש লাভ কৰক",
+        "generating": "প্রস্তুত হৈ আছে...",
+        "loading": "আমাৰ AI আপোনাৰ ডাটা বিশ্লেষণ কৰি আছে আৰু বতৰৰ আগজাননী সংগ্ৰহ কৰি আছে...",
+        "weatherTitle": "{{location}}-ত আজিৰ বতৰ",
+        "temperature": "তাপমাত্রা",
+        "humidity": "আর্দ্রতা",
+        "windSpeed": "বতাহৰ গতি",
+        "advisoryTitle": "AI-চালিত পৰামৰ্শ"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI শস্য ৰোগ চিনাক্তকাৰী",
+        "description": "সম্ভাব্য ৰোগ চিনাক্ত কৰিবলৈ আৰু సూచించిన समाधान লাভ কৰিবলৈ আপোনাৰ শস্যৰ এখন ছবি আপলোড কৰক।",
+        "uploadCTA": "এখন ছবি আপলোড কৰিবলৈ ক্লিক কৰক",
+        "uploadHint": "4MB লৈকে PNG, JPG, WEBP",
+        "analyze": "শস্যৰ ছবি বিশ্লেষণ কৰক",
+        "analyzing": "বিশ্লেষণ কৰি আছে...",
+        "analysisComplete": "বিশ্লেষণ সম্পূৰ্ণ",
+        "diseaseDetected": "ৰোগ চিনাক্ত হৈছে!",
+        "noDiseaseDetected": "কোনো ৰোগ চিনাক্ত হোৱা নাই",
+        "issueIdentified": "আমাৰ AI-এ এক সম্ভাব্য ಸಮಸ್ಯೆ চিনাক্ত কৰিছে।",
+        "cropHealthy": "আপোনাৰ শস্য স্বাস্থ্যৱান যেন লাগিছে।",
+        "detectedDisease": "চিনাক্ত হোৱা ৰোগ",
+        "confidenceLevel": "आत्मविश्वास स्तर",
+        "suggestedSolutions": "సూచించిన समाधान"
+    },
+    "chatbotCard": {
+        "title": "कृषि-чат सहायक",
+        "description": "মোক আপোনাৰ শস্য, মাটি, বা কৃষি পদ্ধতিৰ বিষয়ে যিকোনো प्रश्न সোধক।",
+        "placeholder": "আপোনাৰ বাৰ্তা টাইপ কৰক...",
+        "empty": "এতিয়ালৈকে কোনো বাৰ্তা নাই। আলোচনা আৰম্ভ কৰক!"
+    },
+    "diseaseDetectionPage": {
+        "title": "শস্য ৰোগ চিনাক্তকৰণ",
+        "description": "এখন ছবিৰ পৰা তৎক্ষণাত শস্য ৰোগ চিনাক্ত কৰিবলৈ আমাৰ AI ব্যৱহাৰ কৰক।"
+    },
+    "chatbotPage": {
+        "title": "कृषि-чат सहायक",
+        "description": "আপোনাৰ 24/7 AI-চালিত কৃষি विशेषज्ञ। আপুনি যিকোনো प्रश्न সোধক।"
+    }
+}

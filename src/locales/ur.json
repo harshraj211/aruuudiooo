@@ -1,0 +1,61 @@
+
+{
+    "sidebar": {
+        "dashboard": "ڈیش بورڈ",
+        "marketPrices": "مارکیٹ کی قیمتیں",
+        "expenseTracker": "اخراجات کا ٹریکر",
+        "diseaseDetection": "بیماری کا पता लगाना",
+        "chatbot": "چیٹ بوٹ",
+        "khetiSamachar": "کھیتی سماچار"
+    },
+    "dashboard": {
+        "welcome": "خوش آمدید، {{name}}!",
+        "tagline": "آج کے لیے آپ کا سمارٹ فارمنگ ڈیش بورڈ۔"
+    },
+    "advisoryCard": {
+        "title": "فصل اور موسم کی مشاورت",
+        "description": "ذاتی نوعیت کی، موسم کے ساتھ مربوط مشاورت حاصل کرنے کے لیے اپنے فارم کی تفصیلات پر کریں۔",
+        "cropType": "فصل کی قسم",
+        "soilDetails": "مٹی کی تفصیلات",
+        "currentCropStage": "فصل کا موجودہ مرحلہ",
+        "location": "مقام",
+        "getAdvisory": "مشاورت حاصل کریں",
+        "generating": "تیار کیا جا رہا ہے...",
+        "loading": "ہمارا AI آپ کے ڈیٹا کا تجزیہ کر رہا ہے اور موسم کی پیشین گوئی حاصل کر रहा ہے۔",
+        "weatherTitle": "{{location}} میں آج کا موسم",
+        "temperature": "درجہ حرارت",
+        "humidity": "نمی",
+        "windSpeed": "ہوا کی رفتار",
+        "advisoryTitle": "AI-طاقتور مشاورت"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI فصل کی بیماری کا पता लगाने والا",
+        "description": "ممکنہ بیماریوں کا पता लगाने اور تجویز کردہ حل حاصل کرنے کے لیے اپنی فصل کی تصویر اپ لوڈ کریں۔",
+        "uploadCTA": "تصویر اپ لوڈ کرنے کے لیے کلک کریں",
+        "uploadHint": "4MB تک PNG, JPG, WEBP",
+        "analyze": "فصل کی تصویر کا تجزیہ کریں",
+        "analyzing": "تجزیہ کیا جا रहा ہے...",
+        "analysisComplete": "تجزیہ مکمل",
+        "diseaseDetected": "بیماری کا पता चला!",
+        "noDiseaseDetected": "کوئی بیماری نہیں ملی",
+        "issueIdentified": "ہمارے AI نے ایک ممکنہ مسئلے کی نشاندہی کی ہے۔",
+        "cropHealthy": "آپ کی فصل صحت مند نظر آتی ہے۔",
+        "detectedDisease": "پتہ चली बीमारी",
+        "confidenceLevel": "اعتماد کی سطح",
+        "suggestedSolutions": "تجویز کردہ حل"
+    },
+    "chatbotCard": {
+        "title": "ایگری-چیٹ اسسٹنٹ",
+        "description": "مجھ سے اپنی فصلوں، مٹی، یا کاشتکاری کے طریقوں کے بارے میں کچھ بھی پوچھیں۔",
+        "placeholder": "اپنا پیغام ٹائپ کریں...",
+        "empty": "ابھی تک कोई پیغام نہیں ہے۔ گفتگو شروع کریں!"
+    },
+    "diseaseDetectionPage": {
+        "title": "فصل کی بیماری کا پتہ लगाना",
+        "description": "تصویر سے فوری طور پر فصل کی بیماریوں کی شناخت کے لیے ہمارا AI استعمال کریں۔"
+    },
+    "chatbotPage": {
+        "title": "ایگری-چیٹ اسسٹنٹ",
+        "description": "آپ کا 24/7 AI-طاقتور کاشتکاری کا ماہر۔ کوئی بھی سوال پوچھیں۔"
+    }
+}

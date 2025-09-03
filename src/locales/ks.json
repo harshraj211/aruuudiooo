@@ -1,0 +1,61 @@
+
+{
+    "sidebar": {
+        "dashboard": "ڈیش بورڈ",
+        "marketPrices": "بازارٕکؠ قٲمت",
+        "expenseTracker": "خرچہٕ ٹریکر",
+        "diseaseDetection": "بیمٲرؠ ژھانٛડُن",
+        "chatbot": "چیٹ بوٹ",
+        "khetiSamachar": "کھیتی سماچار"
+    },
+    "dashboard": {
+        "welcome": "واپس یِنَس پؠٹھ स्वागत, {{name}}!",
+        "tagline": "اَز چھُ تُہُنٛد سمارٹ فارمنگ ڈیش بورڈ۔"
+    },
+    "advisoryCard": {
+        "title": "فصل تہٕ موسمی सलाह",
+        "description": "ذٲتی، موسمی طورس پؠٹھ مربوط सलाह حٲصِل کرنہٕ خٲطرٕ پنُن فارمُک تفصیٖل بٔرِو۔",
+        "cropType": "فصلٕچ قٕسم",
+        "soilDetails": "zamiinuk tafsiil",
+        "currentCropStage": "فصلٕچ موجودٕ مرحل",
+        "location": "জায়",
+        "getAdvisory": " सलाह حٲصِل کٔرِو",
+        "generating": "تیار گژھَن...",
+        "loading": "اسُنٛد AI چھُ تُہُنٛد ڈیٹا تجزیہٕ کران تہٕ موسمی پیشین گوئی حٲصِل کران...",
+        "weatherTitle": "{{location}} منٛز اَزُک موسم",
+        "temperature": " درجہ حرارت",
+        "humidity": " نمی",
+        "windSpeed": " ہوإچ رفتار",
+        "advisoryTitle": "AI-ذریعہٕ सलाह"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI فصلٕچ بیمٲرؠ ژھانٛડَن وول",
+        "description": "ممکنہٕ بیمٲرؠ ژھانٛડنہٕ خٲطرٕ تہٕ تجویز شدٕ حل حٲصِل کرنہٕ خٲطرٕ پنُنؠ فصلٕچ اَکھ تصویر اپلوڈ کٔرِو۔",
+        "uploadCTA": "تصویر اپلوڈ کرنہٕ خٲطرٕ کلک کٔرِو",
+        "uploadHint": "4MB تام PNG, JPG, WEBP",
+        "analyze": "فصلٕچ تصویر تجزیہٕ کٔرِو",
+        "analyzing": "تجزیہٕ گژھَن...",
+        "analysisComplete": "تجزیہٕ मुकम्मल",
+        "diseaseDetected": "بیمٲرؠ لبنہٕ!",
+        "noDiseaseDetected": "کanh بیمٲرؠ چھُ न لبنہٕ",
+        "issueIdentified": "اسُنٛد AI چھُ اَکھ ممکنہٕ مسئلٕچ نشاندہی كرمُت۔",
+        "cropHealthy": "تُہُنٛد فصل چھُ صحت مند نظر یوان۔",
+        "detectedDisease": "لبنہٕ آمُت بیمٲرؠ",
+        "confidenceLevel": "اعتمادُک سطح",
+        "suggestedSolutions": "تجویز شدٕ حل"
+    },
+    "chatbotCard": {
+        "title": "ایگری-چیٹ معاون",
+        "description": "مےٚ پنُنؠ فصلن، زمین، یا کاشتکاری طریقن متعلق کینٛہہ تہٕ پرژھِو۔",
+        "placeholder": "پنُن پیغام ٹائپ کٔرِو...",
+        "empty": "وۆنؠ تام کanh پیغام چھُ न۔ گفتگو شۆروٗع کٔرِو!"
+    },
+    "diseaseDetectionPage": {
+        "title": "فصلٕچ بیمٲرؠ ژھانٛડُن",
+        "description": "اَکھ تصویر پیٹھہٕ sofort فصلٕچ بیمٲرؠ ژھانٛડنہٕ خٲطرٕ اسُنٛد AI استعمال کٔرِو۔"
+    },
+    "chatbotPage": {
+        "title": "ایگری-چیٹ معاون",
+        "description": "تُہُنٛد 24/7 AI-ذریعہٕ کاشتکاری ماہر۔ یُس تہٕ سوال تُہہٕ آسہِ، پرژھِو۔"
+    }
+}

@@ -1,0 +1,61 @@
+
+{
+    "sidebar": {
+        "dashboard": "ڊيش بورڊ",
+        "marketPrices": "مارڪيٽ اگهه",
+        "expenseTracker": "خرچ ٽريڪر",
+        "diseaseDetection": "بيماري جي سڃاڻپ",
+        "chatbot": "چيٽ بوٽ",
+        "khetiSamachar": "کيتي سماچار"
+    },
+    "dashboard": {
+        "welcome": "ٻيهر ڀليڪار, {{name}}!",
+        "tagline": "اڄ لاءِ توهان جو سمارٽ فارمنگ ڊيش بورڊ."
+    },
+    "advisoryCard": {
+        "title": "فصل ۽ موسم جي صلاح",
+        "description": "ذاتي، موسم سان جڙيل صلاح حاصل ڪرڻ لاءِ پنهنجي فارم جا تفصيل ڀريو.",
+        "cropType": "فصل جو قسم",
+        "soilDetails": "مٽي جا تفصيل",
+        "currentCropStage": "فصل جو موجوده مرحلو",
+        "location": "جاءِ",
+        "getAdvisory": "صلاح حاصل ڪريو",
+        "generating": "ٺاهي رهيو آهي...",
+        "loading": "اسان جو AI توهان جي ڊيٽا جو تجزيو ڪري رهيو آهي ۽ موسم جي اڳڪٿي حاصل ڪري رهيو آهي...",
+        "weatherTitle": "{{location}} ۾ اڄ جي موسم",
+        "temperature": "گرمي پد",
+        "humidity": "نمي",
+        "windSpeed": "هوا جي رفتار",
+        "advisoryTitle": "AI-طاقتور صلاح"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI فصل جي بيماري سڃاڻيندڙ",
+        "description": "ممڪن بيمارين کي سڃاڻڻ ۽ تجويز ڪيل حل حاصل ڪرڻ لاءِ پنهنجي فصل جي تصوير اپلوڊ ڪريو.",
+        "uploadCTA": "تصوير اپلوڊ ڪرڻ لاءِ ڪلڪ ڪريو",
+        "uploadHint": "4MB تائين PNG, JPG, WEBP",
+        "analyze": "فصل جي تصوير جو تجزيو ڪريو",
+        "analyzing": "تجزيو ڪري رهيو آهي...",
+        "analysisComplete": "تجزيو مڪمل",
+        "diseaseDetected": "بيماري سڃاتي وئي!",
+        "noDiseaseDetected": "ڪا به بيماري نه سڃاتي وئي",
+        "issueIdentified": "اسان جي AI هڪ ممڪن مسئلو سڃاتو آهي.",
+        "cropHealthy": "توهان جو فصل صحتمند نظر اچي ٿو.",
+        "detectedDisease": "سڃاتل بيماري",
+        "confidenceLevel": "اعتماد جي سطح",
+        "suggestedSolutions": "تجويز ڪيل حل"
+    },
+    "chatbotCard": {
+        "title": "ايگري-چيٽ اسسٽنٽ",
+        "description": "مون کان پنهنجي فصلن، مٽي، يا زراعت جي طريقن بابت ڪجهه به پڇو.",
+        "placeholder": "پنهنجو پيغام ଟାଇପ ڪريو...",
+        "empty": "اڃا تائين ڪوبه پيغام ناهي. گفتگو شروع ڪريو!"
+    },
+    "diseaseDetectionPage": {
+        "title": "فصل جي بيماري جي سڃاڻپ",
+        "description": "هڪ تصوير مان فوري طور تي فصلن جي بيمارين کي سڃاڻڻ لاءِ اسان جو AI استعمال ڪريو."
+    },
+    "chatbotPage": {
+        "title": "ايگري-چيٽ اسسٽنٽ",
+        "description": "توهان جو 24/7 AI-طاقتور زراعت ماهر. توهان جو ڪوبه سوال پڇو."
+    }
+}

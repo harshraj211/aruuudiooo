@@ -1,0 +1,135 @@
+
+{
+    "sidebar": {
+        "dashboard": "Dashboard",
+        "marketPrices": "Market Prices",
+        "expenseTracker": "Expense Tracker",
+        "diseaseDetection": "Disease Detection",
+        "chatbot": "Chatbot",
+        "notifications": "Notifications",
+        "cropCalendar": "Crop Calendar",
+        "khetiSamachar": "Agri News"
+    },
+    "dashboard": {
+        "welcome": "Welcome back, {{name}}!",
+        "tagline": "Here's your smart farming dashboard for today."
+    },
+    "advisoryCard": {
+        "title": "Crop & Weather Advisory",
+        "description": "Fill in your farm details to receive a personalized, weather-integrated advisory.",
+        "cropType": "Crop Type",
+        "soilDetails": "Soil Details",
+        "currentCropStage": "Current Crop Stage",
+        "location": "Location",
+        "getAdvisory": "Get Advisory",
+        "generating": "Generating...",
+        "loading": "Our AI is analyzing your data and fetching weather forecasts...",
+        "weatherTitle": "Today's Weather in {{location}}",
+        "temperature": "Temperature",
+        "humidity": "Humidity",
+        "windSpeed": "Wind Speed",
+        "advisoryTitle": "AI-Powered Advisory"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI Crop Disease Detector",
+        "description": "Upload an image of your crop to detect potential diseases and receive suggested solutions.",
+        "uploadCTA": "Click to upload an image",
+        "uploadHint": "PNG, JPG, WEBP up to 4MB",
+        "analyze": "Analyze Crop Image",
+        "analyzing": "Analyzing...",
+        "analysisComplete": "Analysis Complete",
+        "diseaseDetected": "Disease Detected!",
+        "noDiseaseDetected": "No Disease Detected",
+        "issueIdentified": "Our AI has identified a potential issue.",
+        "cropHealthy": "Your crop appears to be healthy.",
+        "detectedDisease": "Detected Disease",
+        "confidenceLevel": "Confidence Level",
+        "suggestedSolutions": "Suggested Solutions"
+    },
+    "chatbotCard": {
+        "title": "Agri-Chat Assistant",
+        "description": "Ask me anything about your crops, soil, or farming practices.",
+        "placeholder": "Type your message...",
+        "empty": "No messages yet. Start a conversation!"
+    },
+    "diseaseDetectionPage": {
+        "title": "Crop Disease Detection",
+        "description": "Use our AI to instantly identify crop diseases from an image."
+    },
+    "chatbotPage": {
+        "title": "Agri-Chat Assistant",
+        "description": "Your 24/7 AI-powered farming expert. Ask any question you have."
+    },
+    "cropCalendarPage": {
+        "title": "Crop Calendar & Reminders",
+        "description": "Manage your farming schedule, from sowing to harvest.",
+        "cardTitle": "My Farming Calendar",
+        "cardDescription": "Add important tasks and deadlines for your crops."
+    },
+    "reminders": {
+        "title": "Farming Reminders",
+        "description": "Schedule custom reminders for your farming activities.",
+        "newTask": "New Reminder Task",
+        "taskPlaceholder": "e.g., Irrigate the wheat field",
+        "date": "Date",
+        "pickDate": "Pick a date",
+        "addReminder": "Add Reminder",
+        "upcomingReminders": "Your Upcoming Tasks",
+        "noUpcomingReminders": "You have no upcoming tasks.",
+        "reminderSet": "Reminder Set",
+        "reminderRemoved": "Reminder Removed",
+        "reminderFor": "Reminder for",
+        "on": "on",
+        "addErrorTitle": "Missing Information",
+        "addErrorDescription": "Please enter a task and select a date for the reminder."
+    },
+    "notificationsPage": {
+        "title": "Notification Settings",
+        "description": "Manage how and when you receive alerts from eKheti.",
+        "settingsSaved": "Settings Saved",
+        "enabled": "enabled",
+        "disabled": "disabled",
+        "weatherAlerts": {
+            "title": "Weather Alerts",
+            "description": "Get notified about important weather changes.",
+            "rain": "Heavy Rain Warning",
+            "frost": "Frost Warning",
+            "highWind": "High Wind Warning"
+        },
+        "priceAlerts": {
+            "title": "Market Price Alerts",
+            "description": "Set thresholds to get notified when crop prices change.",
+            "newAlert": "Create New Alert",
+            "cropName": "Crop Name (e.g., Wheat)",
+            "pricePlaceholder": "Price (e.g., 2200)",
+            "notifyAbove": "Notify Above",
+            "notifyBelow": "Notify Below",
+            "activeAlerts": "Your Active Alerts",
+            "noActiveAlerts": "You have no active price alerts.",
+            "alertSet": "Price Alert Set",
+            "alertRemoved": "Price Alert Removed",
+            "notifyWhen": "Notify when",
+            "goesAbove": "goes above",
+            "goesBelow": "goes below",
+            "addErrorTitle": "Missing Information",
+            "addErrorDescription": "Please provide both a crop name and a price threshold."
+        },
+        "reminders": {
+            "title": "Farming Reminders",
+            "description": "Schedule custom reminders for your farming activities.",
+            "newTask": "New Reminder Task",
+            "taskPlaceholder": "e.g., Irrigate the field",
+            "date": "Date",
+            "pickDate": "Pick a date",
+            "addReminder": "Add Reminder",
+            "upcomingReminders": "Your Upcoming Reminders",
+            "noUpcomingReminders": "You have no upcoming reminders.",
+            "reminderSet": "Reminder Set",
+            "reminderRemoved": "Reminder Removed",
+            "reminderFor": "Reminder for",
+            "on": "on",
+            "addErrorTitle": "Missing Information",
+            "addErrorDescription": "Please enter a task and select a date for the reminder."
+        }
+    }
+}

@@ -1,0 +1,61 @@
+
+{
+    "sidebar": {
+        "dashboard": "डैशबोर्ड",
+        "marketPrices": "बाजार के दाम",
+        "expenseTracker": "खर्च ट्रैकर",
+        "diseaseDetection": "रोग पहचान",
+        "chatbot": "चैटबॉट",
+        "khetiSamachar": "खेती समाचार"
+    },
+    "dashboard": {
+        "welcome": "फेरसँ स्वागत अछि, {{name}}!",
+        "tagline": "आई के लेल अहांक स्मार्ट फार्मिंग डैशबोर्ड।"
+    },
+    "advisoryCard": {
+        "title": "फसल आओर मौसम सलाहकार",
+        "description": "व्यक्तिगत, मौसम-एकीकृत सलाह लेल अपन खेत के विवरण भरू।",
+        "cropType": "फसल के प्रकार",
+        "soilDetails": "माटि के विवरण",
+        "currentCropStage": "फसल के वर्तमान अवस्था",
+        "location": "स्थान",
+        "getAdvisory": "सलाह लिअ",
+        "generating": "बनाओल जा रहल अछि...",
+        "loading": "हम्मर AI अहांक डेटा के विश्लेषण क रहल अछि आओर मौसम के पूर्वानुमान प्राप्त क रहल अछि...",
+        "weatherTitle": "{{location}} मे आई के मौसम",
+        "temperature": "तापमान",
+        "humidity": "आर्द्रता",
+        "windSpeed": "हवा के गति",
+        "advisoryTitle": "AI-संचालित सलाहकार"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI फसल रोग डिटेक्टर",
+        "description": "संभावित रोग के पता लगेबाक आओर सुझाएल गेल समाधान प्राप्त करबाक लेल अपन फसल के एकटा छवि अपलोड करू।",
+        "uploadCTA": "छवि अपलोड करबाक लेल क्लिक करू",
+        "uploadHint": "4MB तक PNG, JPG, WEBP",
+        "analyze": "फसल के छवि के विश्लेषण करू",
+        "analyzing": "विश्लेषण भ रहल अछि...",
+        "analysisComplete": "विश्लेषण पूरा भेल",
+        "diseaseDetected": "रोग भेटल!",
+        "noDiseaseDetected": "कोनो रोग नहि भेटल",
+        "issueIdentified": "हम्मर AI एकटा संभावित समस्या के पहचान केलक अछि।",
+        "cropHealthy": "अहांक फसल स्वस्थ लागि रहल अछि।",
+        "detectedDisease": "पता लागल रोग",
+        "confidenceLevel": "आत्मविश्वास स्तर",
+        "suggestedSolutions": "सुझाएल गेल समाधान"
+    },
+    "chatbotCard": {
+        "title": "एग्री-चैट सहायक",
+        "description": "हमरा सँ अपन फसल, माटि, वा खेती के प्रथा के बारे मे किछु पूछू।",
+        "placeholder": "अपन संदेश टाइप करू...",
+        "empty": "एखन धरि कोनो संदेश नहि। बातचीत शुरू करू!"
+    },
+    "diseaseDetectionPage": {
+        "title": "फसल रोग पहचान",
+        "description": "एकटा छवि सँ तुरंत फसल रोग के पहचान करबाक लेल हम्マー AI के उपयोग करू।"
+    },
+    "chatbotPage": {
+        "title": "एग्री-चैट सहायक",
+        "description": "अहांक 24/7 AI-संचालित खेती विशेषज्ञ। अहांक जे कोनो प्रश्न हो, पूछू।"
+    }
+}

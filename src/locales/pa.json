@@ -1,0 +1,61 @@
+
+{
+    "sidebar": {
+        "dashboard": "ਡੈਸ਼ਬੋਰਡ",
+        "marketPrices": "ਬਾਜ਼ਾਰ ਦੀਆਂ ਕੀਮਤਾਂ",
+        "expenseTracker": "ਖਰਚਾ ਟਰੈकर",
+        "diseaseDetection": "ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ",
+        "chatbot": "ਚੈਟਬੋਟ",
+        "khetiSamachar": "ਖੇਤੀ ਸਮਾਚਾਰ"
+    },
+    "dashboard": {
+        "welcome": "ਜੀ ਆਇਆਂ ਨੂੰ, {{name}}!",
+        "tagline": "ਅੱਜ ਲਈ ਤੁਹਾਡਾ ਸਮਾਰਟ ਫਾਰਮਿੰਗ ਡੈਸ਼ਬੋਰਡ ਇੱਥੇ ਹੈ।"
+    },
+    "advisoryCard": {
+        "title": "ਫਸਲ ਅਤੇ ਮੌਸਮ ਸਲਾਹਕਾਰ",
+        "description": "ਵਿਅਕਤੀਗਤ, ਮੌਸਮ-ਏਕੀਕ੍ਰਿਤ ਸਲਾਹ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੇ ਖੇਤ ਦੇ ਵੇਰਵੇ ਭਰੋ।",
+        "cropType": "ਫਸਲ ਦੀ ਕਿਸਮ",
+        "soilDetails": "ਮਿੱਟੀ ਦੇ ਵੇਰਵੇ",
+        "currentCropStage": "ਫਸਲ ਦਾ ਮੌਜੂਦਾ ਪੜਾਅ",
+        "location": "ਸਥਾਨ",
+        "getAdvisory": "ਸਲਾਹ ਲਵੋ",
+        "generating": "ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ...",
+        "loading": "ਸਾਡਾ AI ਤੁਹਾਡੇ ਡੇਟਾ ਦਾ ਵਿਸ਼ਲੇਸ਼ણ ਕਰ ਰਿਹਾ ਹੈ ਅਤੇ ਮੌਸਮ ਦੀ ਭਵਿੱਖਬਾਣੀ ਪ੍ਰਾਪਤ ਕਰ ਰਿਹਾ ਹੈ...",
+        "weatherTitle": "{{location}} ਵਿੱਚ ਅੱਜ ਦਾ ਮੌਸਮ",
+        "temperature": "ਤਾਪਮਾਨ",
+        "humidity": "ਨमी",
+        "windSpeed": "ਹਵਾ ਦੀ ਗਤੀ",
+        "advisoryTitle": "AI-ਸੰਚਾਲਿਤ ਸਲਾਹਕਾਰ"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI ਫਸਲ ਰੋਗ ਖੋਜਕ",
+        "description": "ਸੰਭਾਵੀ ਬਿਮਾਰੀਆਂ ਦਾ ਪਤਾ ਲਗਾਉਣ ਅਤੇ ਸੁਝਾਏ गए ਹੱਲ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੀ ਫਸਲ ਦੀ ਤਸਵੀਰ ਅੱਪਲੋਡ ਕਰੋ।",
+        "uploadCTA": "ਇੱਕ ਚਿੱਤਰ ਅੱਪਲੋਡ ਕਰਨ ਲਈ ਕਲਿੱਕ ਕਰੋ",
+        "uploadHint": "4MB ਤੱਕ PNG, JPG, WEBP",
+        "analyze": "ਫਸਲ ਦੇ ਚਿੱਤਰ ਦਾ ਵਿਸ਼ਲੇਸ਼ણ ਕਰੋ",
+        "analyzing": "ਵਿਸ਼ਲੇਸ਼ણ ਹੋ ਰਿਹਾ ਹੈ...",
+        "analysisComplete": "ਵਿਸ਼ਲੇਸ਼ણ ਪੂਰਾ ਹੋਇਆ",
+        "diseaseDetected": "ਬਿਮਾਰੀ ਲੱਭੀ ਗਈ!",
+        "noDiseaseDetected": "ਕੋਈ ਬਿਮਾਰੀ ਨਹੀਂ ਲੱਭੀ",
+        "issueIdentified": "ਸਾਡੇ AI ਨੇ ਇੱਕ ਸੰਭਾਵੀ ਸਮੱਸਿਆ ਦੀ ਪਛਾਣ ਕੀਤੀ ਹੈ।",
+        "cropHealthy": "ਤੁਹਾਡੀ ਫਸਲ ਸਿਹਤਮੰਦ ਜਾਪਦੀ ਹੈ।",
+        "detectedDisease": "ਪਛਾણી ਗਈ ਬਿਮਾਰੀ",
+        "confidenceLevel": "ਵਿਸ਼ਵਾਸ ਪੱਧਰ",
+        "suggestedSolutions": "ਸੁਝਾਏ ਗਏ ਹੱਲ"
+    },
+    "chatbotCard": {
+        "title": "ਐਗਰੀ-ਚैट ਸਹਾਇਕ",
+        "description": "ਮੇਰੇ ਤੋਂ اپنی ਫਸਲਾਂ, ਮਿੱਟੀ, ਜਾਂ ਖੇਤੀ ਅਭਿਆਸਾਂ ਬਾਰੇ ਕੁਝ ਵੀ ਪੁੱਛੋ।",
+        "placeholder": "ਆਪਣਾ ਸੁਨੇਹਾ ਟਾਈਪ ਕਰੋ...",
+        "empty": "ਅਜੇ ਕੋਈ ਸੁਨੇਹਾ ਨਹੀਂ ਹੈ। ਗੱਲਬਾਤ ਸ਼ੁਰੂ ਕਰੋ!"
+    },
+    "diseaseDetectionPage": {
+        "title": "ਫਸਲ ਰੋਗ ਖੋਜ",
+        "description": "ਇੱਕ ਚਿੱਤਰ ਤੋਂ ਤੁਰੰਤ ਫਸਲ ਰੋਗਾਂ ਦੀ ਪਛਾਣ ਕਰਨ ਲਈ ਸਾਡੇ AI ਦੀ ਵਰਤੋਂ ਕਰੋ।"
+    },
+    "chatbotPage": {
+        "title": "ਐਗਰੀ-ਚੈਟ ਸਹਾਇਕ",
+        "description": "ਤੁਹਾਡਾ 24/7 AI-ਸੰਚਾਲਿਤ ਖੇਤੀ ਮਾਹਰ। ਕੋਈ ਵੀ ਸਵਾਲ ਪੁੱਛੋ।"
+    }
+}

@@ -1,0 +1,61 @@
+
+{
+    "sidebar": {
+        "dashboard": "ড্যাশবোর্ড",
+        "marketPrices": "বাজার দর",
+        "expenseTracker": "খরচ ট্র্যাকার",
+        "diseaseDetection": "রোগ সনাক্তকরণ",
+        "chatbot": "চ্যাটবট",
+        "khetiSamachar": "খেতি সমাচার"
+    },
+    "dashboard": {
+        "welcome": "আবার स्वागत, {{name}}!",
+        "tagline": "আজকের জন্য আপনার স্মার্ট ফার্মিং ড্যাশবোর্ড এখানে।"
+    },
+    "advisoryCard": {
+        "title": "ফসল ও আবহাওয়া ಸಲಹೆ",
+        "description": "ব্যক্তিগতকৃত, আবহাওয়া-সমন্বিত পরামর্শ পেতে আপনার খামারের বিবরণ পূরণ করুন।",
+        "cropType": "ফসলের ধরন",
+        "soilDetails": "মাটির বিবরণ",
+        "currentCropStage": "ফসলের বর্তমান পর্যায়",
+        "location": "অবস্থান",
+        "getAdvisory": "পରାমর্শ পান",
+        "generating": "তৈরি হচ্ছে...",
+        "loading": "আমাদের AI আপনার ডেটা বিশ্লেষণ করছে এবং আবহাওয়ার পূর্বাভাস আনছে...",
+        "weatherTitle": "{{location}} এ আজকের আবহাওয়া",
+        "temperature": "তাপমাত্রা",
+        "humidity": "আর্দ্রতা",
+        "windSpeed": "বায়ুপ্রবাহ",
+        "advisoryTitle": "AI-চালিত পরামর্শ"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI ফসল রোগ 탐지কারী",
+        "description": "সম্ভাব্য রোগ সনাক্ত করতে এবং প্রস্তাবিত সমাধান পেতে আপনার ফসলের একটি ছবি আপলোড করুন।",
+        "uploadCTA": "একটি ছবি আপলোড করতে ক্লিক করুন",
+        "uploadHint": "4MB পর্যন্ত PNG, JPG, WEBP",
+        "analyze": "ফসলের ছবি বিশ্লেষণ করুন",
+        "analyzing": "বিশ্লেষণ করা হচ্ছে...",
+        "analysisComplete": "বিশ্লেষণ সম্পন্ন",
+        "diseaseDetected": "রোগ সনাক্ত হয়েছে!",
+        "noDiseaseDetected": "কোনো রোগ সনাক্ত হয়নি",
+        "issueIdentified": "আমাদের AI একটি সম্ভাব্য সমস্যা চিহ্নিত করেছে।",
+        "cropHealthy": "আপনার ফসল সুস্থ বলে মনে হচ্ছে।",
+        "detectedDisease": "শনাক্ত করা রোগ",
+        "confidenceLevel": "আত্মবিশ্বাস স্তর",
+        "suggestedSolutions": "প্রস্তাবিত সমাধান"
+    },
+    "chatbotCard": {
+        "title": "এগ্রি-চ্যাট সহকারী",
+        "description": "আপনার ফসল, মাটি, বা চাষাবাদ পদ্ধতি সম্পর্কে আমাকে কিছু জিজ্ঞাসা করুন।",
+        "placeholder": "আপনার বার্তা টাইপ করুন...",
+        "empty": "এখনও কোনও বার্তা নেই। কথোপকথন শুরু করুন!"
+    },
+    "diseaseDetectionPage": {
+        "title": "ফসল রোগ সনাক্তকরণ",
+        "description": "একটি ছবি থেকে অবিলম্বে ফসল রোগ সনাক্ত করতে আমাদের AI ব্যবহার করুন।"
+    },
+    "chatbotPage": {
+        "title": "এগ্রি-চ্যাট সহকারী",
+        "description": "আপনার 24/7 AI-চালিত কৃষি বিশেষজ্ঞ। আপনার যেকোনো প্রশ্ন জিজ্ঞাসা করুন।"
+    }
+}

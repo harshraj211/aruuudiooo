@@ -1,0 +1,61 @@
+
+{
+    "sidebar": {
+        "dashboard": "डेशबोर्ड",
+        "marketPrices": "बाजारनि बेसेन",
+        "expenseTracker": "खरसा ट्रेकार",
+        "diseaseDetection": "बेमारि नायनाय",
+        "chatbot": "चेटबट",
+        "khetiSamachar": "खेति समाचार"
+    },
+    "dashboard": {
+        "welcome": "फिन खेबसेबाव बरायबाय, {{name}}!",
+        "tagline": "दिनैनि थाखाय नोंनि स्मार्ट फार्मिं डेशबोर्ड।"
+    },
+    "advisoryCard": {
+        "title": "फसल आरो बोथोरनि सल्uttab",
+        "description": "बेक्तिगत, बोथोर-जों ज'रा सल्uttab मोननो थाखाय नोंनि फार्मनि बिथांखि फोरखौ हो।",
+        "cropType": "फसलनि रोखोम",
+        "soilDetails": "हानि बिथांखि",
+        "currentCropStage": "फसलनि दाथा अवस्था",
+        "location": "जायगा",
+        "getAdvisory": "सल्uttab मोन",
+        "generating": "তৈয়ার जाबाय...",
+        "loading": "जोंनि AI नोंनि डाटाखौ नायबिजिरगासिनो दं आरो बोथोरनि फोरमान लागासिनो दं...",
+        "weatherTitle": "{{location}}-आव दिनैनि बोथोर",
+        "temperature": "तापमान",
+        "humidity": "आर्द्रता",
+        "windSpeed": "बारनि गति",
+        "advisoryTitle": "AI-जों सोलिनाय सल्uttab"
+    },
+    "diseaseDetectorCard": {
+        "title": "AI फसल बेमारि नायनाय",
+        "description": "नोंनि फसलनि सावगारि अपलोड खालामनानै संभाव्य बेमारि फोरखौ नाय आरो समाधाननि सल्uttab मोन।",
+        "uploadCTA": "सावगारि अपलोड खालामनो थु",
+        "uploadHint": "4MB सिम PNG, JPG, WEBP",
+        "analyze": "फसलनि सावगारि नायबिजिर",
+        "analyzing": "नायबिजिरगासिनो...",
+        "analysisComplete": "नायबिजिरनाय जोबबाय",
+        "diseaseDetected": "बेमारि मोनबाय!",
+        "noDiseaseDetected": "बेमारि मोननाय जायाखै",
+        "issueIdentified": "जोंनि AI-आ मोनसे संभाव्य समस्या मोनदों।",
+        "cropHealthy": "नोंनि फसल मोजां नुदों।",
+        "detectedDisease": "मोननाय बेमारि",
+        "confidenceLevel": "आत्मविश्वास स्तर",
+        "suggestedSolutions": "समाधाननि सल्uttab"
+    },
+    "chatbotCard": {
+        "title": "एग्रि-चेट assistant",
+        "description": "नोंनि फसल, हानि, एबा फार्मिं खान्थि फोरनि बागै जेबो सों।",
+        "placeholder": "नोंनि मैसेज टाइप खालाम...",
+        "empty": "दासिम जेबो मैसेज गैया। सावरायनाय जागाय!"
+    },
+    "diseaseDetectionPage": {
+        "title": "फसल बेमारि नायनाय",
+        "description": "सावगारि निफ्राय थाबैनो फसलनि बेमारि नायनो थाखाय जोंनि AI बाहाय।"
+    },
+    "chatbotPage": {
+        "title": "एग्रि-चेट assistant",
+        "description": "नोंनि 24/7 AI-जों सोलिनाय फार्मिं expert। जेबो सोंलु सों।"
+    }
+}
