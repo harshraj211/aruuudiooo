@@ -3,7 +3,7 @@
     "sidebar": {
         "dashboard": "ਡੈਸ਼ਬੋਰਡ",
         "marketPrices": "ਬਾਜ਼ਾਰ ਦੀਆਂ ਕੀਮਤਾਂ",
-        "expenseTracker": "ਖਰਚਾ ਟਰੈकर",
+        "expenseTracker": "ਖਰਚਾ ਟਰੈਕਰ",
         "diseaseDetection": "ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ",
         "chatbot": "ਚੈਟਬੋਟ",
         "khetiSamachar": "ਖੇਤੀ ਸਮਾਚਾਰ"
@@ -30,23 +30,23 @@
     },
     "diseaseDetectorCard": {
         "title": "AI ਫਸਲ ਰੋਗ ਖੋਜਕ",
-        "description": "ਸੰਭਾਵੀ ਬਿਮਾਰੀਆਂ ਦਾ ਪਤਾ ਲਗਾਉਣ ਅਤੇ ਸੁਝਾਏ गए ਹੱਲ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੀ ਫਸਲ ਦੀ ਤਸਵੀਰ ਅੱਪਲੋਡ ਕਰੋ।",
+        "description": "ਸੰਭਾਵੀ ਬਿਮਾਰੀਆਂ ਦਾ ਪਤਾ ਲਗਾਉਣ ਅਤੇ ਸੁਝਾਏ ਗਏ ਹੱਲ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੀ ਫਸਲ ਦੀ ਤਸਵੀਰ ਅੱਪਲੋਡ ਕਰੋ।",
         "uploadCTA": "ਇੱਕ ਚਿੱਤਰ ਅੱਪਲੋਡ ਕਰਨ ਲਈ ਕਲਿੱਕ ਕਰੋ",
         "uploadHint": "4MB ਤੱਕ PNG, JPG, WEBP",
-        "analyze": "ਫਸਲ ਦੇ ਚਿੱਤਰ ਦਾ ਵਿਸ਼ਲੇਸ਼ણ ਕਰੋ",
-        "analyzing": "ਵਿਸ਼ਲੇਸ਼ણ ਹੋ ਰਿਹਾ ਹੈ...",
-        "analysisComplete": "ਵਿਸ਼ਲੇਸ਼ણ ਪੂਰਾ ਹੋਇਆ",
+        "analyze": "ਫਸਲ ਦੇ ਚਿੱਤਰ ਦਾ ਵਿਸ਼ਲੇਸ਼ਣ ਕਰੋ",
+        "analyzing": "ਵਿਸ਼ਲੇਸ਼ਣ ਹੋ ਰਿਹਾ ਹੈ...",
+        "analysisComplete": "ਵਿਸ਼ਲੇਸ਼ਣ ਪੂਰਾ ਹੋਇਆ",
         "diseaseDetected": "ਬਿਮਾਰੀ ਲੱਭੀ ਗਈ!",
         "noDiseaseDetected": "ਕੋਈ ਬਿਮਾਰੀ ਨਹੀਂ ਲੱਭੀ",
         "issueIdentified": "ਸਾਡੇ AI ਨੇ ਇੱਕ ਸੰਭਾਵੀ ਸਮੱਸਿਆ ਦੀ ਪਛਾਣ ਕੀਤੀ ਹੈ।",
         "cropHealthy": "ਤੁਹਾਡੀ ਫਸਲ ਸਿਹਤਮੰਦ ਜਾਪਦੀ ਹੈ।",
-        "detectedDisease": "ਪਛਾણી ਗਈ ਬਿਮਾਰੀ",
+        "detectedDisease": "ਪਛਾਣੀ ਗਈ ਬਿਮਾਰੀ",
         "confidenceLevel": "ਵਿਸ਼ਵਾਸ ਪੱਧਰ",
         "suggestedSolutions": "ਸੁਝਾਏ ਗਏ ਹੱਲ"
     },
     "chatbotCard": {
-        "title": "ਐਗਰੀ-ਚैट ਸਹਾਇਕ",
-        "description": "ਮੇਰੇ ਤੋਂ اپنی ਫਸਲਾਂ, ਮਿੱਟੀ, ਜਾਂ ਖੇਤੀ ਅਭਿਆਸਾਂ ਬਾਰੇ ਕੁਝ ਵੀ ਪੁੱਛੋ।",
+        "title": "ਐਗਰੀ-ਚੈਟ ਸਹਾਇਕ",
+        "description": "ਮੇਰੇ ਤੋਂ ਆਪਣੀਆਂ ਫਸਲਾਂ, ਮਿੱਟੀ, ਜਾਂ ਖੇਤੀ ਅਭਿਆਸਾਂ ਬਾਰੇ ਕੁਝ ਵੀ ਪੁੱਛੋ।",
         "placeholder": "ਆਪਣਾ ਸੁਨੇਹਾ ਟਾਈਪ ਕਰੋ...",
         "empty": "ਅਜੇ ਕੋਈ ਸੁਨੇਹਾ ਨਹੀਂ ਹੈ। ਗੱਲਬਾਤ ਸ਼ੁਰੂ ਕਰੋ!"
     },
@@ -57,5 +57,77 @@
     "chatbotPage": {
         "title": "ਐਗਰੀ-ਚੈਟ ਸਹਾਇਕ",
         "description": "ਤੁਹਾਡਾ 24/7 AI-ਸੰਚਾਲਿਤ ਖੇਤੀ ਮਾਹਰ। ਕੋਈ ਵੀ ਸਵਾਲ ਪੁੱਛੋ।"
+    },
+    "marketPricesPage": {
+        "title": "ਬਾਜ਼ਾਰ ਦੀਆਂ ਕੀਮਤਾਂ",
+        "description": "ਵੱਖ-ਵੱਖ ਬਾਜ਼ਾਰਾਂ (ਮੰਡੀਆਂ) ਤੋਂ ਨਵੀਨਤਮ ਫਸਲਾਂ ਦੀਆਂ ਕੀਮਤਾਂ ਪ੍ਰਾਪਤ ਕਰੋ।",
+        "search": {
+            "title": "ਬਾਜ਼ਾਰ ਦੀਆਂ ਕੀਮਤਾਂ ਖੋਜੋ",
+            "description": "ਨਵੀਨਤਮ ਮੰਡੀ ਕੀਮਤਾਂ ਲੱਭਣ ਲਈ ਇੱਕ ਸਥਾਨ ਅਤੇ ਫਸਲ ਦੀ ਚੋਣ ਕਰੋ।",
+            "locationLabel": "ਸਥਾਨ (ਰਾਜ)",
+            "locationPlaceholder": "ਜਿਵੇਂ, ਪੰਜਾਬ",
+            "cropLabel": "ਫਸਲ",
+            "cropPlaceholder": "ਫਸਲ ਚੁਣੋ",
+            "button": "ਕੀਮਤਾਂ ਖੋਜੋ"
+        },
+        "results": {
+            "title": "{{location}} ਵਿੱਚ {{crop}} ਲਈ ਕੀਮਤ ਨਤੀਜੇ",
+            "description": "ਪ੍ਰਤੀ ਕੁਇੰਟਲ (100 ਕਿਲੋਗ੍ਰਾਮ) ਨਵੀਨਤਮ ਉਪਲਬਧ ਕੀਮਤਾਂ ਪ੍ਰਦਰਸ਼ਿਤ ਕਰਨਾ।",
+            "errorTitle": "ਗਲਤੀ",
+            "noResults": "ਚੁਣੇ ਗਏ ਮਾਪਦੰਡਾਂ ਲਈ ਕੋਈ ਕੀਮਤ ਨਹੀਂ ਮਿਲੀ।",
+            "cropVariety": "ਫਸਲ / ਕਿਸਮ",
+            "market": "ਬਾਜ਼ਾਰ (ਮੰਡੀ)",
+            "arrivalDate": "ਆਗਮਨ ਮਿਤੀ",
+            "minPrice": "ਘੱਟੋ-ਘੱਟ ਕੀਮਤ (₹)",
+            "maxPrice": "ਵੱਧ ਤੋਂ ਵੱਧ ਕੀਮਤ (₹)",
+            "modalPrice": "ਮਾਡਲ ਕੀਮਤ (₹)"
+        }
+    },
+    "expenseTrackerPage": {
+        "title": "ਖਰਚਾ ਟਰੈਕਰ",
+        "description": "ਆਪਣੇ ਵਿੱਤ ਦਾ ਪ੍ਰਬੰਧਨ ਕਰਨ ਲਈ ਆਪਣੇ ਖੇਤ ਦੀ ਆਮਦਨ (ਆਯ) ਅਤੇ ਖਰਚਿਆਂ (ਖਰਚਾ) ਨੂੰ ਟਰੈਕ ਕਰੋ।",
+        "exportPdf": "PDF ਨਿਰਯਾਤ ਕਰੋ",
+        "summary": {
+            "title": "ਇਸ ਮਹੀਨੇ ਦਾ ਸਾਰ (INR)",
+            "totalIncome": "ਕੁੱਲ ਆਮਦਨ (ਆਯ)",
+            "totalExpense": "ਕੁੱਲ ਖਰਚਾ (ਖਰਚਾ)",
+            "profitLoss": "ਲਾਭ / ਨੁਕਸਾਨ"
+        },
+        "transactionList": {
+            "title": "ਹਾਲੀਆ ਲੈਣ-ਦੇਣ",
+            "description": "ਤੁਹਾਡੀ ਹਾਲੀਆ ਆਮਦਨ ਅਤੇ ਖਰਚਿਆਂ ਦੀ ਸੂਚੀ।",
+            "type": "ਕਿਸਮ",
+            "description": "ਵੇਰਵਾ",
+            "date": "ਮਿਤੀ",
+            "amount": "ਰਕਮ",
+            "noTransactions": "ਅਜੇ ਤੱਕ ਕੋਈ ਲੈਣ-ਦੇਣ ਨਹੀਂ।",
+            "income": "ਆਮਦਨ",
+            "expense": "ਖਰਚਾ",
+            "deleteTitle": "ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਹੋ?",
+            "deleteDescription": "ਇਹ ਕਾਰਵਾਈ ਵਾਪਸ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕਦੀ। ਇਹ ਇਸ ਲੈਣ-ਦੇਣ ਨੂੰ ਸਥਾਈ ਤੌਰ 'ਤੇ ਮਿਟਾ ਦੇਵੇਗਾ।",
+            "deleteCancel": "ਰੱਦ ਕਰੋ",
+            "deleteConfirm": "ਮਿਟਾਓ"
+        },
+        "addTransaction": {
+            "title": "ਲੈਣ-ਦੇਣ ਸ਼ਾਮਲ ਕਰੋ",
+            "description": "ਇੱਕ ਨਵੀਂ ਆਮਦਨ ਜਾਂ ਖਰਚਾ ਦਰਜ ਕਰੋ।",
+            "typeLabel": "ਕਿਸਮ",
+            "expense": "ਖਰਚਾ",
+            "income": "ਆਮਦਨ",
+            "amountLabel": "ਰਕਮ",
+            "amountPlaceholder": "ਜਿਵੇਂ, 5000",
+            "currencyLabel": "ਮੁਦਰਾ",
+            "currencyPlaceholder": "ਮੁਦਰਾ ਚੁਣੋ",
+            "categoryLabel": "ਸ਼੍ਰੇਣੀ",
+            "categoryPlaceholder": "ਜਿਵੇਂ, ਬੀਜ, ਖਾਦ, ਵਿਕਰੀ",
+            "dateLabel": "ਮਿਤੀ",
+            "datePlaceholder": "ਇੱਕ ਮਿਤੀ ਚੁਣੋ",
+            "descriptionLabel": "ਵੇਰਵਾ",
+            "descriptionPlaceholder": "ਵਿਕਲਪਿਕ: ਇੱਕ ਛੋਟਾ ਨੋਟ ਸ਼ਾਮਲ ਕਰੋ",
+            "submit": "ਲੈਣ-ਦੇਣ ਸ਼ਾਮਲ ਕਰੋ",
+            "submitting": "ਸ਼ਾਮਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ...",
+            "toastSuccessTitle": "ਲੈਣ-ਦੇਣ ਸ਼ਾਮਲ ਕੀਤਾ ਗਿਆ",
+            "toastSuccessDescription": "ਤੁਹਾਡਾ {{amount}} {{currency}} ਦਾ {{type}} ਦਰਜ ਕੀਤਾ ਗਿਆ ਹੈ।"
+        }
     }
 }

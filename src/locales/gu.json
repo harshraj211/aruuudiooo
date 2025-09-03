@@ -14,7 +14,7 @@
     },
     "advisoryCard": {
         "title": "પાક અને હવામાન સલાહ",
-        "description": "વ્યક્તિગત, હવામાન-સંકલિત સલાਹ મેળવવા માટે તમારા ખેતરની વિગતો ભરો.",
+        "description": "વ્યક્તિગત, હવામાન-સંકલિત સલાહ મેળવવા માટે તમારા ખેતરની વિગતો ભરો.",
         "cropType": "પાકનો પ્રકાર",
         "soilDetails": "જમીનની વિગતો",
         "currentCropStage": "પાકનો વર્તમાન તબક્કો",
@@ -57,5 +57,77 @@
     "chatbotPage": {
         "title": "કૃષિ-ચેટ સહાયક",
         "description": "તમારા 24/7 AI-સંચાલિત ખેતી નિષ્ણાત. તમારી પાસે જે પણ પ્રશ્ન હોય તે પૂછો."
+    },
+     "marketPricesPage": {
+        "title": "બજાર ભાવ",
+        "description": "વિવિધ બજારો (મંડીઓ) માંથી નવીનતમ પાકના ભાવ મેળવો.",
+        "search": {
+            "title": "બજાર ભાવ શોધો",
+            "description": "નવીનતમ મંડી ભાવ શોધવા માટે સ્થાન અને પાક પસંદ કરો.",
+            "locationLabel": "સ્થાન (રાજ્ય)",
+            "locationPlaceholder": "દા.ત., ગુજરાત",
+            "cropLabel": "પાક",
+            "cropPlaceholder": "પાક પસંદ કરો",
+            "button": "ભાવ શોધો"
+        },
+        "results": {
+            "title": "{{location}} માં {{crop}} માટે ભાવ પરિણામો",
+            "description": "પ્રતિ ક્વિન્ટલ (100 કિગ્રા) નવીનતમ ઉપલબ્ધ ભાવ પ્રદર્શિત કરી રહ્યા છીએ.",
+            "errorTitle": "ભૂલ",
+            "noResults": "પસંદ કરેલ માપદંડ માટે કોઈ ભાવ મળ્યા નથી.",
+            "cropVariety": "પાક / જાત",
+            "market": "બજાર (મંડી)",
+            "arrivalDate": "આવક તારીખ",
+            "minPrice": "ન્યૂનતમ ભાવ (₹)",
+            "maxPrice": "મહત્તમ ભાવ (₹)",
+            "modalPrice": "મોડલ ભાવ (₹)"
+        }
+    },
+    "expenseTrackerPage": {
+        "title": "ખર્ચ ટ્રેકર",
+        "description": "તમારા ખેતરની આવક (આય) અને ખર્ચ (ખર્ચ) ને તમારા નાણાકીય વ્યવસ્થાપન માટે ટ્રેક કરો.",
+        "exportPdf": "PDF નિકાસ કરો",
+        "summary": {
+            "title": "આ મહિનાનો સારાંશ (INR)",
+            "totalIncome": "કુલ આવક (આય)",
+            "totalExpense": "કુલ ખર્ચ (ખર્ચ)",
+            "profitLoss": "નફો / નુકસાન"
+        },
+        "transactionList": {
+            "title": "તાજેતરના વ્યવહારો",
+            "description": "તમારી તાજેતરની આવક અને ખર્ચની સૂચિ.",
+            "type": "પ્રકાર",
+            "description": "વર્ણન",
+            "date": "તારીખ",
+            "amount": "રકમ",
+            "noTransactions": "હજી સુધી કોઈ વ્યવહાર નથી.",
+            "income": "આવક",
+            "expense": "ખર્ચ",
+            "deleteTitle": "શું તમે નિશ્ચિત છો?",
+            "deleteDescription": "આ ક્રિયા પૂર્વવત્ કરી શકાતી નથી. આ આ વ્યવહારને કાયમ માટે કાઢી નાખશે.",
+            "deleteCancel": "રદ કરો",
+            "deleteConfirm": "કાઢી નાખો"
+        },
+        "addTransaction": {
+            "title": "વ્યવહાર ઉમેરો",
+            "description": "નવી આવક અથવા ખર્ચ રેકોર્ડ કરો.",
+            "typeLabel": "પ્રકાર",
+            "expense": "ખર્ચ",
+            "income": "આવક",
+            "amountLabel": "રકમ",
+            "amountPlaceholder": "દા.ત., 5000",
+            "currencyLabel": "ચલણ",
+            "currencyPlaceholder": "ચલણ પસંદ કરો",
+            "categoryLabel": "શ્રેણી",
+            "categoryPlaceholder": "દા.ત., બીજ, ખાતર, વેચાણ",
+            "dateLabel": "તારીખ",
+            "datePlaceholder": "તારીખ પસંદ કરો",
+            "descriptionLabel": "વર્ણન",
+            "descriptionPlaceholder": "વૈકલ્પિક: ટૂંકી નોંધ ઉમેરો",
+            "submit": "વ્યવહાર ઉમેરો",
+            "submitting": "ઉમેરી રહ્યું છે...",
+            "toastSuccessTitle": "વ્યવહાર ઉમેરાયો",
+            "toastSuccessDescription": "તમારો {{amount}} {{currency}} નો {{type}} રેકોર્ડ કરવામાં આવ્યો છે."
+        }
     }
 }

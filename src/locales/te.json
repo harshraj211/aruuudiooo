@@ -57,5 +57,77 @@
     "chatbotPage": {
         "title": "అగ్రి-చాట్ అసిస్టెంట్",
         "description": "మీ 24/7 AI-ఆధారిత వ్యవసాయ నిపుణుడు. మీకు ఉన్న ఏ ప్రశ్న అయినా అడగండి."
+    },
+    "marketPricesPage": {
+        "title": "మార్కెట్ ధరలు",
+        "description": "వివిధ మార్కెట్ల (మండీలు) నుండి తాజా పంట ధరలను పొందండి.",
+        "search": {
+            "title": "మార్కెట్ ధరలను శోధించండి",
+            "description": "తాజా మండీ ధరలను కనుగొనడానికి ఒక ప్రదేశం మరియు పంటను ఎంచుకోండి.",
+            "locationLabel": "ప్రదేశం (రాష్ట్రం)",
+            "locationPlaceholder": "ఉదా., తెలంగాణ",
+            "cropLabel": "పంట",
+            "cropPlaceholder": "పంటను ఎంచుకోండి",
+            "button": "ధరలను శోధించు"
+        },
+        "results": {
+            "title": "{{location}} లో {{crop}} కోసం ధర ఫలితాలు",
+            "description": "ఒక క్వింటాల్ (100 కిలోలు) కు తాజా అందుబాటులో ఉన్న ధరలను ప్రదర్శిస్తోంది.",
+            "errorTitle": "లోపం",
+            "noResults": "ఎంచుకున్న ప్రమాణాలకు ధరలు కనుగొనబడలేదు.",
+            "cropVariety": "పంట / రకం",
+            "market": "మార్కెట్ (మండీ)",
+            "arrivalDate": "రాక తేదీ",
+            "minPrice": "కనిష్ట ధర (₹)",
+            "maxPrice": "గరిష్ట ధర (₹)",
+            "modalPrice": "మోడల్ ధర (₹)"
+        }
+    },
+    "expenseTrackerPage": {
+        "title": "ఖర్చు ట్రాకర్",
+        "description": "మీ ఆర్థిక నిర్వహణ కోసం మీ వ్యవసాయ క్షేత్రం యొక్క ఆదాయం (ఆయ) మరియు ఖర్చులను (ఖర్చా) ట్రాక్ చేయండి.",
+        "exportPdf": "PDF ఎగుమతి చేయండి",
+        "summary": {
+            "title": "ఈ నెల సారాంశం (INR)",
+            "totalIncome": "మొత్తం ఆదాయం (ఆయ)",
+            "totalExpense": "మొత్తం ఖర్చు (ఖర్చా)",
+            "profitLoss": "లాభం / నష్టం"
+        },
+        "transactionList": {
+            "title": "ఇటీవలి లావాదేవీలు",
+            "description": "మీ ఇటీవలి ఆదాయం మరియు ఖర్చుల జాబితా.",
+            "type": "రకం",
+            "description": "వివరణ",
+            "date": "తేదీ",
+            "amount": "మొత్తం",
+            "noTransactions": "ఇంకా లావాదేవీలు లేవు.",
+            "income": "ఆదాయం",
+            "expense": "ఖర్చు",
+            "deleteTitle": "మీరు ఖచ్చితంగా ఉన్నారా?",
+            "deleteDescription": "ఈ చర్యను రద్దు చేయలేరు. ఇది ఈ లావాదేవీని శాశ్వతంగా తొలగిస్తుంది.",
+            "deleteCancel": "రద్దు",
+            "deleteConfirm": "తొలగించు"
+        },
+        "addTransaction": {
+            "title": "లావాదేవీని జోడించండి",
+            "description": "కొత్త ఆదాయం లేదా ఖర్చును నమోదు చేయండి.",
+            "typeLabel": "రకం",
+            "expense": "ఖర్చు",
+            "income": "ఆదాయం",
+            "amountLabel": "మొత్తం",
+            "amountPlaceholder": "ఉదా., 5000",
+            "currencyLabel": "కరెన్సీ",
+            "currencyPlaceholder": "కరెన్సీని ఎంచుకోండి",
+            "categoryLabel": "వర్గం",
+            "categoryPlaceholder": "ఉదా., విత్తనాలు, ఎరువులు, అమ్మకాలు",
+            "dateLabel": "తేదీ",
+            "datePlaceholder": "తేదీని ఎంచుకోండి",
+            "descriptionLabel": "వివరణ",
+            "descriptionPlaceholder": "ఐచ్ఛికం: చిన్న గమనికను జోడించండి",
+            "submit": "లావాదేవీని జోడించండి",
+            "submitting": "జోడిస్తోంది...",
+            "toastSuccessTitle": "లావాదేవీ జోడించబడింది",
+            "toastSuccessDescription": "మీ {{amount}} {{currency}} యొక్క {{type}} నమోదు చేయబడింది."
+        }
     }
 }

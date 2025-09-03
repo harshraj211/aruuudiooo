@@ -10,6 +10,7 @@ import { getMarketPrices, type GetMarketPricesOutput } from '@/ai/flows/get-mark
 import { Loader2, Search } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useTranslation } from '@/hooks/useTranslation';
 
 type MarketPrice = GetMarketPricesOutput['prices'][0];
 
@@ -21,6 +22,7 @@ export function MarketPricesView() {
   const [prices, setPrices] = useState<MarketPrice[]>([]);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   const fetchPrices = () => {
     setError(null);
@@ -52,26 +54,26 @@ export function MarketPricesView() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Search Market Prices</CardTitle>
-          <CardDescription>Select a location and crop to find the latest mandi prices.</CardDescription>
+          <CardTitle>{t('marketPricesPage.search.title')}</CardTitle>
+          <CardDescription>{t('marketPricesPage.search.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSearch} className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-4 items-end">
             <div className="sm:col-span-2 md:col-span-1">
-              <label htmlFor="location" className="block text-sm font-medium mb-1">Location (State)</label>
+              <label htmlFor="location" className="block text-sm font-medium mb-1">{t('marketPricesPage.search.locationLabel')}</label>
               <Input
                 id="location"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                placeholder="e.g., Punjab"
+                placeholder={t('marketPricesPage.search.locationPlaceholder')}
                 disabled={isPending}
               />
             </div>
             <div>
-              <label htmlFor="crop" className="block text-sm font-medium mb-1">Crop</label>
+              <label htmlFor="crop" className="block text-sm font-medium mb-1">{t('marketPricesPage.search.cropLabel')}</label>
                <Select onValueChange={setCrop} defaultValue={crop} disabled={isPending}>
                   <SelectTrigger id="crop">
-                    <SelectValue placeholder="Select crop" />
+                    <SelectValue placeholder={t('marketPricesPage.search.cropPlaceholder')} />
                   </SelectTrigger>
                   <SelectContent>
                     {popularCrops.map(c => <SelectItem key={c} value={c}>{c}</SelectItem>)}
@@ -81,7 +83,7 @@ export function MarketPricesView() {
             <div className="md:col-span-2">
               <Button type="submit" className="w-full sm:w-auto" disabled={isPending}>
                 {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Search className="mr-2 h-4 w-4" />}
-                Search Prices
+                {t('marketPricesPage.search.button')}
               </Button>
             </div>
           </form>
@@ -90,8 +92,8 @@ export function MarketPricesView() {
       
       <Card>
         <CardHeader>
-            <CardTitle>Price Results for {crop} in {location}</CardTitle>
-            <CardDescription>Displaying the latest available prices per quintal (100 kg).</CardDescription>
+            <CardTitle>{t('marketPricesPage.results.title', { crop, location })}</CardTitle>
+            <CardDescription>{t('marketPricesPage.results.description')}</CardDescription>
         </CardHeader>
         <CardContent>
             {isPending ? (
@@ -100,24 +102,24 @@ export function MarketPricesView() {
                 </div>
             ) : error ? (
                 <Alert variant="destructive">
-                    <AlertTitle>Error</AlertTitle>
+                    <AlertTitle>{t('marketPricesPage.results.errorTitle')}</AlertTitle>
                     <AlertDescription>{error}</AlertDescription>
                 </Alert>
             ) : prices.length === 0 ? (
                 <div className="flex items-center justify-center h-48">
-                    <p className="text-muted-foreground">No prices found for the selected criteria.</p>
+                    <p className="text-muted-foreground">{t('marketPricesPage.results.noResults')}</p>
                 </div>
             ) : (
               <ScrollArea className="h-[50vh]">
                 <Table>
                     <TableHeader className="sticky top-0 bg-secondary">
                         <TableRow>
-                        <TableHead>Crop / Variety</TableHead>
-                        <TableHead>Market (Mandi)</TableHead>
-                        <TableHead>Arrival Date</TableHead>
-                        <TableHead className="text-right">Min Price (₹)</TableHead>
-                        <TableHead className="text-right">Max Price (₹)</TableHead>
-                        <TableHead className="text-right font-semibold">Modal Price (₹)</TableHead>
+                        <TableHead>{t('marketPricesPage.results.cropVariety')}</TableHead>
+                        <TableHead>{t('marketPricesPage.results.market')}</TableHead>
+                        <TableHead>{t('marketPricesPage.results.arrivalDate')}</TableHead>
+                        <TableHead className="text-right">{t('marketPricesPage.results.minPrice')}</TableHead>
+                        <TableHead className="text-right">{t('marketPricesPage.results.maxPrice')}</TableHead>
+                        <TableHead className="text-right font-semibold">{t('marketPricesPage.results.modalPrice')}</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>

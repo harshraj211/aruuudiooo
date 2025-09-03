@@ -32,6 +32,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import type { Transaction } from '@/app/dashboard/expense-tracker/page';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const formSchema = z.object({
   type: z.enum(['income', 'expense'], { required_error: "You need to select a transaction type."}),
@@ -51,6 +52,7 @@ type AddTransactionFormProps = {
 export function AddTransactionForm({ onSubmit }: AddTransactionFormProps) {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -68,8 +70,8 @@ export function AddTransactionForm({ onSubmit }: AddTransactionFormProps) {
     startTransition(() => {
         onSubmit(values);
         toast({
-            title: 'Transaction Added',
-            description: `Your ${values.type} of ${values.amount} ${values.currency} has been recorded.`
+            title: t('expenseTrackerPage.addTransaction.toastSuccessTitle'),
+            description: t('expenseTrackerPage.addTransaction.toastSuccessDescription', {type: values.type, amount: values.amount, currency: values.currency})
         });
         form.reset();
         form.setValue('currency', 'INR');
@@ -81,8 +83,8 @@ export function AddTransactionForm({ onSubmit }: AddTransactionFormProps) {
   return (
     <Card>
         <CardHeader>
-            <CardTitle>Add Transaction</CardTitle>
-            <CardDescription>Record a new income or expense.</CardDescription>
+            <CardTitle>{t('expenseTrackerPage.addTransaction.title')}</CardTitle>
+            <CardDescription>{t('expenseTrackerPage.addTransaction.description')}</CardDescription>
         </CardHeader>
         <CardContent>
             <Form {...form}>
@@ -92,7 +94,7 @@ export function AddTransactionForm({ onSubmit }: AddTransactionFormProps) {
                         name="type"
                         render={({ field }) => (
                             <FormItem className="space-y-3">
-                            <FormLabel>Type</FormLabel>
+                            <FormLabel>{t('expenseTrackerPage.addTransaction.typeLabel')}</FormLabel>
                             <FormControl>
                                 <RadioGroup
                                 onValueChange={field.onChange}
@@ -103,13 +105,13 @@ export function AddTransactionForm({ onSubmit }: AddTransactionFormProps) {
                                     <FormControl>
                                     <RadioGroupItem value="expense" />
                                     </FormControl>
-                                    <FormLabel className="font-normal">Expense (Kharcha)</FormLabel>
+                                    <FormLabel className="font-normal">{t('expenseTrackerPage.addTransaction.expense')}</FormLabel>
                                 </FormItem>
                                 <FormItem className="flex items-center space-x-2 space-y-0">
                                     <FormControl>
                                     <RadioGroupItem value="income" />
                                     </FormControl>
-                                    <FormLabel className="font-normal">Income (Aay)</FormLabel>
+                                    <FormLabel className="font-normal">{t('expenseTrackerPage.addTransaction.income')}</FormLabel>
                                 </FormItem>
                                 </RadioGroup>
                             </FormControl>
@@ -123,9 +125,9 @@ export function AddTransactionForm({ onSubmit }: AddTransactionFormProps) {
                             name="amount"
                             render={({ field }) => (
                                 <FormItem className="flex-1">
-                                    <FormLabel>Amount</FormLabel>
+                                    <FormLabel>{t('expenseTrackerPage.addTransaction.amountLabel')}</FormLabel>
                                     <FormControl>
-                                        <Input type="number" placeholder="e.g., 5000" {...field} />
+                                        <Input type="number" placeholder={t('expenseTrackerPage.addTransaction.amountPlaceholder')} {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -136,11 +138,11 @@ export function AddTransactionForm({ onSubmit }: AddTransactionFormProps) {
                         name="currency"
                         render={({ field }) => (
                             <FormItem className="w-1/3">
-                                <FormLabel>Currency</FormLabel>
+                                <FormLabel>{t('expenseTrackerPage.addTransaction.currencyLabel')}</FormLabel>
                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                     <FormControl>
                                     <SelectTrigger>
-                                        <SelectValue placeholder="Select currency" />
+                                        <SelectValue placeholder={t('expenseTrackerPage.addTransaction.currencyPlaceholder')} />
                                     </SelectTrigger>
                                     </FormControl>
                                     <SelectContent>
@@ -159,9 +161,9 @@ export function AddTransactionForm({ onSubmit }: AddTransactionFormProps) {
                         name="category"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Category</FormLabel>
+                                <FormLabel>{t('expenseTrackerPage.addTransaction.categoryLabel')}</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="e.g., Seeds, Fertilizer, Sales" {...field} />
+                                    <Input placeholder={t('expenseTrackerPage.addTransaction.categoryPlaceholder')} {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -172,7 +174,7 @@ export function AddTransactionForm({ onSubmit }: AddTransactionFormProps) {
                         name="date"
                         render={({ field }) => (
                             <FormItem className="flex flex-col">
-                            <FormLabel>Date</FormLabel>
+                            <FormLabel>{t('expenseTrackerPage.addTransaction.dateLabel')}</FormLabel>
                             <Popover>
                                 <PopoverTrigger asChild>
                                 <FormControl>
@@ -186,7 +188,7 @@ export function AddTransactionForm({ onSubmit }: AddTransactionFormProps) {
                                     {field.value ? (
                                         format(field.value, "PPP")
                                     ) : (
-                                        <span>Pick a date</span>
+                                        <span>{t('expenseTrackerPage.addTransaction.datePlaceholder')}</span>
                                     )}
                                     <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                                     </Button>
@@ -213,16 +215,16 @@ export function AddTransactionForm({ onSubmit }: AddTransactionFormProps) {
                         name="description"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Description</FormLabel>
+                                <FormLabel>{t('expenseTrackerPage.addTransaction.descriptionLabel')}</FormLabel>
                                 <FormControl>
-                                    <Textarea placeholder="Optional: add a short note" {...field} />
+                                    <Textarea placeholder={t('expenseTrackerPage.addTransaction.descriptionPlaceholder')} {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
                     <Button type="submit" className="w-full" disabled={isPending}>
-                        {isPending ? 'Adding...' : 'Add Transaction'}
+                        {isPending ? t('expenseTrackerPage.addTransaction.submitting') : t('expenseTrackerPage.addTransaction.submit')}
                     </Button>
                 </form>
             </Form>

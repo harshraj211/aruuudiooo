@@ -131,5 +131,77 @@
             "addErrorTitle": "Missing Information",
             "addErrorDescription": "Please enter a task and select a date for the reminder."
         }
+    },
+    "marketPricesPage": {
+        "title": "Market Prices",
+        "description": "Get the latest crop prices from various markets (mandis).",
+        "search": {
+            "title": "Search Market Prices",
+            "description": "Select a location and crop to find the latest mandi prices.",
+            "locationLabel": "Location (State)",
+            "locationPlaceholder": "e.g., Punjab",
+            "cropLabel": "Crop",
+            "cropPlaceholder": "Select crop",
+            "button": "Search Prices"
+        },
+        "results": {
+            "title": "Price Results for {{crop}} in {{location}}",
+            "description": "Displaying the latest available prices per quintal (100 kg).",
+            "errorTitle": "Error",
+            "noResults": "No prices found for the selected criteria.",
+            "cropVariety": "Crop / Variety",
+            "market": "Market (Mandi)",
+            "arrivalDate": "Arrival Date",
+            "minPrice": "Min Price (₹)",
+            "maxPrice": "Max Price (₹)",
+            "modalPrice": "Modal Price (₹)"
+        }
+    },
+    "expenseTrackerPage": {
+        "title": "Expense Tracker",
+        "description": "Track your farm's income (Aay) and expenses (Kharcha) to manage your finances.",
+        "exportPdf": "Export PDF",
+        "summary": {
+            "title": "This Month's Summary (INR)",
+            "totalIncome": "Total Income (Aay)",
+            "totalExpense": "Total Expense (Kharcha)",
+            "profitLoss": "Profit / Loss"
+        },
+        "transactionList": {
+            "title": "Recent Transactions",
+            "description": "A list of your recent income and expenses.",
+            "type": "Type",
+            "description": "Description",
+            "date": "Date",
+            "amount": "Amount",
+            "noTransactions": "No transactions yet.",
+            "income": "Income",
+            "expense": "Expense",
+            "deleteTitle": "Are you sure?",
+            "deleteDescription": "This action cannot be undone. This will permanently delete this transaction.",
+            "deleteCancel": "Cancel",
+            "deleteConfirm": "Delete"
+        },
+        "addTransaction": {
+            "title": "Add Transaction",
+            "description": "Record a new income or expense.",
+            "typeLabel": "Type",
+            "expense": "Expense (Kharcha)",
+            "income": "Income (Aay)",
+            "amountLabel": "Amount",
+            "amountPlaceholder": "e.g., 5000",
+            "currencyLabel": "Currency",
+            "currencyPlaceholder": "Select currency",
+            "categoryLabel": "Category",
+            "categoryPlaceholder": "e.g., Seeds, Fertilizer, Sales",
+            "dateLabel": "Date",
+            "datePlaceholder": "Pick a date",
+            "descriptionLabel": "Description",
+            "descriptionPlaceholder": "Optional: add a short note",
+            "submit": "Add Transaction",
+            "submitting": "Adding...",
+            "toastSuccessTitle": "Transaction Added",
+            "toastSuccessDescription": "Your {{type}} of {{amount}} {{currency}} has been recorded."
+        }
     }
 }

@@ -14,12 +14,12 @@
     },
     "advisoryCard": {
         "title": "শস্য আৰু বতৰৰ পৰামৰ্শ",
-        "description": "ব্যক্তিগত, বতৰ-সংയോजित পৰামৰ্ש লাভ কৰিবলৈ আপোনাৰ খেতিৰ বিৱৰণ পূৰণ কৰক।",
+        "description": "ব্যক্তিগত, বতৰ-সংയോजित পৰামৰ্শ লাভ কৰিবলৈ আপোনাৰ খেতিৰ বিৱৰণ পূৰণ কৰক।",
         "cropType": "শস্যৰ প্ৰকাৰ",
         "soilDetails": "মাটিৰ বিৱৰণ",
         "currentCropStage": "শস্যৰ বৰ্তমান পর্যায়",
         "location": "অৱস্থান",
-        "getAdvisory": "পৰামৰ্ש লাভ কৰক",
+        "getAdvisory": "পৰামৰ্শ লাভ কৰক",
         "generating": "প্রস্তুত হৈ আছে...",
         "loading": "আমাৰ AI আপোনাৰ ডাটা বিশ্লেষণ কৰি আছে আৰু বতৰৰ আগজাননী সংগ্ৰহ কৰি আছে...",
         "weatherTitle": "{{location}}-ত আজিৰ বতৰ",
@@ -30,7 +30,7 @@
     },
     "diseaseDetectorCard": {
         "title": "AI শস্য ৰোগ চিনাক্তকাৰী",
-        "description": "সম্ভাব্য ৰোগ চিনাক্ত কৰিবলৈ আৰু సూచించిన समाधान লাভ কৰিবলৈ আপোনাৰ শস্যৰ এখন ছবি আপলোড কৰক।",
+        "description": "সম্ভাব্য ৰোগ চিনাক্ত কৰিবলৈ আৰু સૂચించిన समाधान লাভ কৰিবলৈ আপোনাৰ শস্যৰ এখন ছবি আপলোড কৰক।",
         "uploadCTA": "এখন ছবি আপলোড কৰিবলৈ ক্লিক কৰক",
         "uploadHint": "4MB লৈকে PNG, JPG, WEBP",
         "analyze": "শস্যৰ ছবি বিশ্লেষণ কৰক",
@@ -42,7 +42,7 @@
         "cropHealthy": "আপোনাৰ শস্য স্বাস্থ্যৱান যেন লাগিছে।",
         "detectedDisease": "চিনাক্ত হোৱা ৰোগ",
         "confidenceLevel": "आत्मविश्वास स्तर",
-        "suggestedSolutions": "సూచించిన समाधान"
+        "suggestedSolutions": "సూচించిన समाधान"
     },
     "chatbotCard": {
         "title": "कृषि-чат सहायक",
@@ -57,5 +57,77 @@
     "chatbotPage": {
         "title": "कृषि-чат सहायक",
         "description": "আপোনাৰ 24/7 AI-চালিত কৃষি विशेषज्ञ। আপুনি যিকোনো प्रश्न সোধক।"
+    },
+    "marketPricesPage": {
+        "title": "বজাৰৰ মূল্য",
+        "description": "বিভিন্ন বজাৰ (মandi)ৰ পৰা নতুন শস্যৰ মূল্য লাভ কৰক।",
+        "search": {
+            "title": "বজাৰৰ মূল্য সন্ধান কৰক",
+            "description": "নতুন mandi মূল্য বিচাৰিবলৈ এটা অৱস্থান আৰু শস্য বাছনি কৰক।",
+            "locationLabel": "অৱস্থান (ৰাজ্য)",
+            "locationPlaceholder": "যেনে, অসম",
+            "cropLabel": "শস্য",
+            "cropPlaceholder": "শস্য বাছনি কৰক",
+            "button": "মূল্য সন্ধান কৰক"
+        },
+        "results": {
+            "title": "{{location}}-ত {{crop}}ৰ বাবে মূল্যৰ ফলাফল",
+            "description": "প্ৰতি কুইণ্টল (100 kg) নতুন উপলব্ধ মূল্য প্ৰদৰ্শন কৰা হৈছে।",
+            "errorTitle": "ত্রুটি",
+            "noResults": "বাছনি কৰা মাপকাঠীৰ বাবে কোনো মূল্য পোৱা নগ'ল।",
+            "cropVariety": "শস্য / প্ৰকাৰ",
+            "market": "বজাৰ (Mandi)",
+            "arrivalDate": "আগমনৰ তাৰিখ",
+            "minPrice": "ন्यूनतम মূল্য (₹)",
+            "maxPrice": "সর্বাধিক মূল্য (₹)",
+            "modalPrice": "মডেল মূল্য (₹)"
+        }
+    },
+    "expenseTrackerPage": {
+        "title": "খৰচ ট্ৰেকাৰ",
+        "description": "আপোনাৰ நிதி পৰিচালনা কৰিবলৈ আপোনাৰ খেতিৰ আয় (Aay) আৰু খৰচ (Kharcha) ট্ৰেক কৰক।",
+        "exportPdf": "PDF ৰপ্তানি কৰক",
+        "summary": {
+            "title": "এই মাহৰ সাৰাংশ (INR)",
+            "totalIncome": "মুঠ আয় (Aay)",
+            "totalExpense": "মুঠ খৰচ (Kharcha)",
+            "profitLoss": "লাভ / লোকচান"
+        },
+        "transactionList": {
+            "title": "শেহতীয়া লেনদেন",
+            "description": "আপোনাৰ শেহতীয়া আয় আৰু খৰচৰ তালিকা।",
+            "type": "প্ৰকাৰ",
+            "description": "বিৱৰণ",
+            "date": "তাৰিখ",
+            "amount": "পৰিমাণ",
+            "noTransactions": "এতিয়ালৈকে কোনো লেনদেন নাই।",
+            "income": "আয়",
+            "expense": "খৰচ",
+            "deleteTitle": "আপুনি নিশ্চিতনে?",
+            "deleteDescription": "এই কাৰ্যটো বাতিল কৰিব নোৱাৰি। ই এই লেনদেনটো স্থায়ীভাৱে মচি পেলাব।",
+            "deleteCancel": "বাতিল কৰক",
+            "deleteConfirm": "মচি পেলাওক"
+        },
+        "addTransaction": {
+            "title": "লেনদেন যোগ কৰক",
+            "description": "এটা নতুন আয় বা খৰচ ৰেকৰ্ড কৰক।",
+            "typeLabel": "প্ৰকাৰ",
+            "expense": "খৰচ (Kharcha)",
+            "income": "আয় (Aay)",
+            "amountLabel": "পৰিমাণ",
+            "amountPlaceholder": "যেনে, 5000",
+            "currencyLabel": "মুদ্রা",
+            "currencyPlaceholder": "মুদ্রা বাছনি কৰক",
+            "categoryLabel": "শ্ৰেণী",
+            "categoryPlaceholder": "যেনে, বীজ, সাৰ, বিক্ৰী",
+            "dateLabel": "তাৰিখ",
+            "datePlaceholder": "এটা তাৰিখ বাছনি কৰক",
+            "descriptionLabel": "বিৱৰণ",
+            "descriptionPlaceholder": "বৈকল্পিক: এটা চমু টোকা যোগ কৰক",
+            "submit": "লেনদেন যোগ কৰক",
+            "submitting": "যোগ কৰি আছে...",
+            "toastSuccessTitle": "লেনদেন যোগ কৰা হ'ল",
+            "toastSuccessDescription": "আপোনাৰ {{amount}} {{currency}} ৰ {{type}} ৰেকৰ্ড কৰা হৈছে।"
+        }
     }
 }

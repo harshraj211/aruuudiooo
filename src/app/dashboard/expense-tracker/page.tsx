@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { FileDown } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import { useTranslation } from '@/hooks/useTranslation';
+
 
 export type Transaction = {
   id: string;
@@ -25,6 +27,7 @@ const initialTransactions: Transaction[] = [];
 export default function ExpenseTrackerPage() {
     const [transactions, setTransactions] = useState<Transaction[]>(initialTransactions);
     const { user } = useAuth();
+    const { t } = useTranslation();
 
     const handleAddTransaction = (transaction: Omit<Transaction, 'id'>) => {
         // In a real app, you would save this to Firestore
@@ -52,14 +55,14 @@ export default function ExpenseTrackerPage() {
     <main>
       <div className="flex items-center justify-between mb-8">
         <div className="space-y-2">
-            <h1 className="text-3xl font-bold">Expense Tracker</h1>
+            <h1 className="text-3xl font-bold">{t('expenseTrackerPage.title')}</h1>
             <p className="text-muted-foreground">
-            Track your farm's income (Aay) and expenses (Kharcha) to manage your finances.
+            {t('expenseTrackerPage.description')}
             </p>
         </div>
         <Button onClick={handleExport} disabled={transactions.length === 0}>
             <FileDown className="mr-2 h-4 w-4" />
-            Export PDF
+            {t('expenseTrackerPage.exportPdf')}
         </Button>
       </div>
 

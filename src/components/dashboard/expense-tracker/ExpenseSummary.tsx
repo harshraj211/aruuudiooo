@@ -4,6 +4,7 @@ import { DollarSign, TrendingDown, TrendingUp } from 'lucide-react';
 import type { Transaction } from '@/app/dashboard/expense-tracker/page';
 import { useMemo } from 'react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/useTranslation';
 
 type ExpenseSummaryProps = {
   transactions: Transaction[];
@@ -16,7 +17,7 @@ const currencySymbols = {
 };
 
 export function ExpenseSummary({ transactions }: ExpenseSummaryProps) {
-
+  const { t } = useTranslation();
   const summary = useMemo(() => {
     // Note: This is a simplified summary. In a real app, you'd want to handle currency conversions
     // or group by currency. For this prototype, we'll assume all transactions are in INR for the summary.
@@ -39,7 +40,7 @@ export function ExpenseSummary({ transactions }: ExpenseSummaryProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>This Month's Summary (INR)</CardTitle>
+        <CardTitle>{t('expenseTrackerPage.summary.title')}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center justify-between p-4 rounded-lg bg-secondary">
@@ -48,7 +49,7 @@ export function ExpenseSummary({ transactions }: ExpenseSummaryProps) {
                     <TrendingUp className="h-6 w-6 text-green-600 dark:text-green-400" />
                 </div>
                 <div>
-                    <div className="text-sm text-muted-foreground">Total Income (Aay)</div>
+                    <div className="text-sm text-muted-foreground">{t('expenseTrackerPage.summary.totalIncome')}</div>
                     <div className="text-2xl font-bold">₹{summary.totalIncome.toLocaleString()}</div>
                 </div>
             </div>
@@ -59,7 +60,7 @@ export function ExpenseSummary({ transactions }: ExpenseSummaryProps) {
                     <TrendingDown className="h-6 w-6 text-red-600 dark:text-red-400" />
                 </div>
                 <div>
-                    <div className="text-sm text-muted-foreground">Total Expense (Kharcha)</div>
+                    <div className="text-sm text-muted-foreground">{t('expenseTrackerPage.summary.totalExpense')}</div>
                     <div className="text-2xl font-bold">₹{summary.totalExpense.toLocaleString()}</div>
                 </div>
             </div>
@@ -70,7 +71,7 @@ export function ExpenseSummary({ transactions }: ExpenseSummaryProps) {
                     <DollarSign className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div>
-                    <div className="text-sm text-muted-foreground">Profit / Loss</div>
+                    <div className="text-sm text-muted-foreground">{t('expenseTrackerPage.summary.profitLoss')}</div>
                     <div className={cn("text-2xl font-bold", summary.profitLoss >= 0 ? 'text-green-600' : 'text-red-600')}>
                         {summary.profitLoss < 0 ? '-' : ''}₹{Math.abs(summary.profitLoss).toLocaleString()}
                     </div>

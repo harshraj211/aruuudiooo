@@ -9,7 +9,7 @@
         "khetiSamachar": "খেতি সমাচার"
     },
     "dashboard": {
-        "welcome": "আবার स्वागत, {{name}}!",
+        "welcome": "আবার স্বাগত, {{name}}!",
         "tagline": "আজকের জন্য আপনার স্মার্ট ফার্মিং ড্যাশবোর্ড এখানে।"
     },
     "advisoryCard": {
@@ -57,5 +57,77 @@
     "chatbotPage": {
         "title": "এগ্রি-চ্যাট সহকারী",
         "description": "আপনার 24/7 AI-চালিত কৃষি বিশেষজ্ঞ। আপনার যেকোনো প্রশ্ন জিজ্ঞাসা করুন।"
+    },
+    "marketPricesPage": {
+        "title": "বাজার দর",
+        "description": "বিভিন্ন বাজার (মান্ডি) থেকে সর্বশেষ ফসলের দাম পান।",
+        "search": {
+            "title": "বাজার দর অনুসন্ধান করুন",
+            "description": "সর্বশেষ মান্ডি দর খুঁজে পেতে একটি অবস্থান এবং ফসল নির্বাচন করুন।",
+            "locationLabel": "অবস্থান (রাজ্য)",
+            "locationPlaceholder": "যেমন, পশ্চিমবঙ্গ",
+            "cropLabel": "ফসল",
+            "cropPlaceholder": "ফসল নির্বাচন করুন",
+            "button": "দর অনুসন্ধান করুন"
+        },
+        "results": {
+            "title": "{{location}} এ {{crop}} এর জন্য দরের ফলাফল",
+            "description": "প্রতি কুইন্টাল (100 কেজি) সর্বশেষ উপলব্ধ দর প্রদর্শন করা হচ্ছে।",
+            "errorTitle": "ত্রুটি",
+            "noResults": "নির্বাচিত মানদণ্ডের জন্য কোনো দর পাওয়া যায়নি।",
+            "cropVariety": "ফসল / প্রকার",
+            "market": "বাজার (মান্ডি)",
+            "arrivalDate": "আগমন তারিখ",
+            "minPrice": "সর্বনিম্ন দর (₹)",
+            "maxPrice": "সর্বোচ্চ দর (₹)",
+            "modalPrice": "মডেল দর (₹)"
+        }
+    },
+    "expenseTrackerPage": {
+        "title": "খরচ ট্র্যাকার",
+        "description": "আপনার আর্থিক পরিচালনার জন্য আপনার খামারের আয় এবং খরচ ট্র্যাক করুন।",
+        "exportPdf": "পিডিএফ রপ্তানি করুন",
+        "summary": {
+            "title": "এই মাসের সারাংশ (INR)",
+            "totalIncome": "মোট আয়",
+            "totalExpense": "মোট খরচ",
+            "profitLoss": "লাভ / ক্ষতি"
+        },
+        "transactionList": {
+            "title": "সাম্প্রতিক লেনদেন",
+            "description": "আপনার সাম্প্রতিক আয় এবং খরচের একটি তালিকা।",
+            "type": "প্রকার",
+            "description": "বিবরণ",
+            "date": "তারিখ",
+            "amount": "পরিমাণ",
+            "noTransactions": "এখনো কোনো লেনদেন নেই।",
+            "income": "আয়",
+            "expense": "খরচ",
+            "deleteTitle": "আপনি কি নিশ্চিত?",
+            "deleteDescription": "এই কাজটি পূর্বাবস্থায় ফেরানো যাবে না। এটি এই লেনদেনটি স্থায়ীভাবে মুছে ফেলবে।",
+            "deleteCancel": "বাতিল করুন",
+            "deleteConfirm": "মুছে ফেলুন"
+        },
+        "addTransaction": {
+            "title": "লেনদেন যোগ করুন",
+            "description": "একটি নতুন আয় বা খরচ রেকর্ড করুন।",
+            "typeLabel": "প্রকার",
+            "expense": "খরচ",
+            "income": "আয়",
+            "amountLabel": "পরিমাণ",
+            "amountPlaceholder": "যেমন, 5000",
+            "currencyLabel": "মুদ্রা",
+            "currencyPlaceholder": "মুদ্রা নির্বাচন করুন",
+            "categoryLabel": "বিভাগ",
+            "categoryPlaceholder": "যেমন, বীজ, সার, বিক্রয়",
+            "dateLabel": "তারিখ",
+            "datePlaceholder": "একটি তারিখ নির্বাচন করুন",
+            "descriptionLabel": "বিবরণ",
+            "descriptionPlaceholder": "ঐচ্ছিক: একটি সংক্ষিপ্ত নোট যোগ করুন",
+            "submit": "লেনদেন যোগ করুন",
+            "submitting": "যোগ করা হচ্ছে...",
+            "toastSuccessTitle": "লেনদেন যোগ করা হয়েছে",
+            "toastSuccessDescription": "আপনার {{amount}} {{currency}} এর {{type}} রেকর্ড করা হয়েছে।"
+        }
     }
 }

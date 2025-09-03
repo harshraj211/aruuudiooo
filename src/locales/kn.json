@@ -47,7 +47,7 @@
     "chatbotCard": {
         "title": "ಕೃಷಿ-ಚಾಟ್ ಸಹಾಯಕ",
         "description": "ನಿಮ್ಮ ಬೆಳೆಗಳು, ಮಣ್ಣು, ಅಥವಾ ಕೃಷಿ ಪದ್ಧತಿಗಳ ಬಗ್ಗೆ ನನ್ನನ್ನು ಏನು ಬೇಕಾದರೂ ಕೇಳಿ.",
-        "placeholder": "ನಿಮ್ಮ ಸಂದೇಶವನ್ನು ಟೈപ്പ് ಮಾಡಿ...",
+        "placeholder": "ನಿಮ್ಮ ಸಂದೇಶವನ್ನು ಟೈಪ್ ಮಾಡಿ...",
         "empty": "ಇನ್ನೂ ಯಾವುದೇ ಸಂದೇಶಗಳಿಲ್ಲ. ಸಂഭാಷಣೆ ಪ್ರಾರಂಭಿಸಿ!"
     },
     "diseaseDetectionPage": {
@@ -57,5 +57,77 @@
     "chatbotPage": {
         "title": "ಕೃಷಿ-ಚಾಟ್ ಸಹಾಯಕ",
         "description": "ನಿಮ್ಮ 24/7 AI-ಚಾಲಿತ ಕೃಷಿ ತಜ್ಞ. உங்களிடம் உள்ள எந்த கேள்வியையும் கேளுங்கள்."
+    },
+     "marketPricesPage": {
+        "title": "ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳು",
+        "description": "ವಿವಿಧ ಮಾರುಕಟ್ಟೆಗಳಿಂದ (ಮಂಡಿ) ಇತ್ತೀಚಿನ ಬೆಳೆ ಬೆಲೆಗಳನ್ನು ಪಡೆಯಿರಿ.",
+        "search": {
+            "title": "ಮಾರುಕಟ್ಟೆ ಬೆಲೆಗಳನ್ನು ಹುಡುಕಿ",
+            "description": "ಇತ್ತೀಚಿನ ಮಂಡಿ ಬೆಲೆಗಳನ್ನು ಹುಡುಕಲು ಒಂದು ಸ್ಥಳ ಮತ್ತು ಬೆಳೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ.",
+            "locationLabel": "ಸ್ಥಳ (ರಾಜ್ಯ)",
+            "locationPlaceholder": "ಉದಾ., ಕರ್ನಾಟಕ",
+            "cropLabel": "ಬೆಳೆ",
+            "cropPlaceholder": "ಬೆಳೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+            "button": "ಬೆಲೆಗಳನ್ನು ಹುಡುಕಿ"
+        },
+        "results": {
+            "title": "{{location}} ನಲ್ಲಿ {{crop}} ಗಾಗಿ ಬೆಲೆ ಫಲಿತಾಂಶಗಳು",
+            "description": "ಪ್ರತಿ ಕ್ವಿಂಟಾಲ್‌ಗೆ (100 ಕೆಜಿ) ಇತ್ತೀಚಿನ ಲಭ್ಯವಿರುವ ಬೆಲೆಗಳನ್ನು ಪ್ರದರ್ಶಿಸಲಾಗುತ್ತಿದೆ.",
+            "errorTitle": "ದೋಷ",
+            "noResults": "ಆಯ್ಕೆಮಾಡಿದ ಮಾನದಂಡಗಳಿಗಾಗಿ ಯಾವುದೇ ಬೆಲೆಗಳು ಕಂಡುಬಂದಿಲ್ಲ.",
+            "cropVariety": "ಬೆಳೆ / ವಿಧ",
+            "market": "ಮಾರುಕಟ್ಟೆ (ಮಂಡಿ)",
+            "arrivalDate": "ಆಗಮನ ದಿನಾಂಕ",
+            "minPrice": "ಕನಿಷ್ಠ ಬೆಲೆ (₹)",
+            "maxPrice": "ಗರಿಷ್ಠ ಬೆಲೆ (₹)",
+            "modalPrice": "ಮಾದರಿ ಬೆಲೆ (₹)"
+        }
+    },
+    "expenseTrackerPage": {
+        "title": "ವೆಚ್ಚ ಟ್ರ್ಯಾಕರ್",
+        "description": "ನಿಮ್ಮ ಹಣಕಾಸು ನಿರ್ವಹಿಸಲು ನಿಮ್ಮ ಫಾರ್ಮ್‌ನ ಆದಾಯ (ಆಯ) ಮತ್ತು ವೆಚ್ಚಗಳನ್ನು (ಖರ್ಚ) ಟ್ರ್ಯಾಕ್ ಮಾಡಿ.",
+        "exportPdf": "ಪಿಡಿಎಫ್ ರಫ್ತು ಮಾಡಿ",
+        "summary": {
+            "title": "ಈ ತಿಂಗಳ ಸಾರಾಂಶ (INR)",
+            "totalIncome": "ಒಟ್ಟು ಆದಾಯ (ಆಯ)",
+            "totalExpense": "ಒಟ್ಟು ವೆಚ್ಚ (ಖರ್ಚ)",
+            "profitLoss": "ಲಾಭ / ನಷ್ಟ"
+        },
+        "transactionList": {
+            "title": "ಇತ್ತೀಚಿನ ವಹಿವಾಟುಗಳು",
+            "description": "ನಿಮ್ಮ ಇತ್ತೀಚಿನ ಆದಾಯ ಮತ್ತು ವೆಚ್ಚಗಳ ಪಟ್ಟಿ.",
+            "type": "ಪ್ರಕಾರ",
+            "description": "ವಿವರಣೆ",
+            "date": "ದಿನಾಂಕ",
+            "amount": "ಮೊತ್ತ",
+            "noTransactions": "ಇನ್ನೂ ಯಾವುದೇ ವಹಿವಾಟುಗಳಿಲ್ಲ.",
+            "income": "ಆದಾಯ",
+            "expense": "ವೆಚ್ಚ",
+            "deleteTitle": "ನೀವು ಖಚಿತವೇ?",
+            "deleteDescription": "ಈ ಕ್ರಿಯೆಯನ್ನು ಹಿಂತಿರುಗಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ. ಇದು ಈ ವಹಿವಾಟನ್ನು ಶಾಶ್ವತವಾಗಿ ಅಳಿಸುತ್ತದೆ.",
+            "deleteCancel": "ರದ್ದುಮಾಡಿ",
+            "deleteConfirm": "ಅಳಿಸಿ"
+        },
+        "addTransaction": {
+            "title": "ವಹಿವಾಟು ಸೇರಿಸಿ",
+            "description": "ಹೊಸ ಆದಾಯ ಅಥವಾ ವೆಚ್ಚವನ್ನು ದಾಖಲಿಸಿ.",
+            "typeLabel": "ಪ್ರಕಾರ",
+            "expense": "ವೆಚ್ಚ",
+            "income": "ಆದಾಯ",
+            "amountLabel": "ಮೊತ್ತ",
+            "amountPlaceholder": "ಉದಾ., 5000",
+            "currencyLabel": "ಕರೆನ್ಸಿ",
+            "currencyPlaceholder": "ಕರೆನ್ಸಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+            "categoryLabel": "ವರ್ಗ",
+            "categoryPlaceholder": "ಉದಾ., ಬೀಜಗಳು, ರಸಗೊಬ್ಬರ, ಮಾರಾಟ",
+            "dateLabel": "ದಿನಾಂಕ",
+            "datePlaceholder": "ದಿನಾಂಕವನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+            "descriptionLabel": "ವಿವರಣೆ",
+            "descriptionPlaceholder": "ಐಚ್ಛಿಕ: ಸಣ್ಣ ಟಿಪ್ಪಣಿ ಸೇರಿಸಿ",
+            "submit": "ವಹಿವಾಟು ಸೇರಿಸಿ",
+            "submitting": "ಸೇರಿಸಲಾಗುತ್ತಿದೆ...",
+            "toastSuccessTitle": "ವಹಿವಾಟು ಸೇರಿಸಲಾಗಿದೆ",
+            "toastSuccessDescription": "ನಿಮ್ಮ {{amount}} {{currency}} ನ {{type}} ದಾಖಲಿಸಲಾಗಿದೆ."
+        }
     }
 }

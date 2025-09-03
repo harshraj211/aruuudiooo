@@ -7,6 +7,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+import { useTranslation } from '@/hooks/useTranslation';
 
 
 type TransactionListProps = {
@@ -21,12 +22,13 @@ const currencySymbols = {
 };
 
 export function TransactionList({ transactions, onDeleteTransaction }: TransactionListProps) {
+  const { t } = useTranslation();
   return (
     <Card className='h-[calc(70vh+110px)]'>
       <CardHeader>
-        <CardTitle>Recent Transactions</CardTitle>
+        <CardTitle>{t('expenseTrackerPage.transactionList.title')}</CardTitle>
         <CardDescription>
-          A list of your recent income and expenses.
+          {t('expenseTrackerPage.transactionList.description')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -34,10 +36,10 @@ export function TransactionList({ transactions, onDeleteTransaction }: Transacti
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Type</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
+              <TableHead>{t('expenseTrackerPage.transactionList.type')}</TableHead>
+              <TableHead>{t('expenseTrackerPage.transactionList.description')}</TableHead>
+              <TableHead>{t('expenseTrackerPage.transactionList.date')}</TableHead>
+              <TableHead className="text-right">{t('expenseTrackerPage.transactionList.amount')}</TableHead>
               <TableHead className="w-[50px]"> </TableHead>
             </TableRow>
           </TableHeader>
@@ -45,7 +47,7 @@ export function TransactionList({ transactions, onDeleteTransaction }: Transacti
             {transactions.length === 0 && (
                 <TableRow>
                     <TableCell colSpan={5} className="h-24 text-center">
-                        No transactions yet.
+                        {t('expenseTrackerPage.transactionList.noTransactions')}
                     </TableCell>
                 </TableRow>
             )}
@@ -56,7 +58,7 @@ export function TransactionList({ transactions, onDeleteTransaction }: Transacti
                     variant={transaction.type === 'income' ? 'default' : 'destructive'}
                     className={transaction.type === 'income' ? 'bg-green-600/80' : 'bg-red-600/80'}
                   >
-                    {transaction.type}
+                    {t(`expenseTrackerPage.transactionList.${transaction.type}`)}
                   </Badge>
                 </TableCell>
                 <TableCell>
@@ -76,14 +78,14 @@ export function TransactionList({ transactions, onDeleteTransaction }: Transacti
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
-                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                        <AlertDialogTitle>{t('expenseTrackerPage.transactionList.deleteTitle')}</AlertDialogTitle>
                         <AlertDialogDescription>
-                          This action cannot be undone. This will permanently delete this transaction.
+                          {t('expenseTrackerPage.transactionList.deleteDescription')}
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => onDeleteTransaction(transaction.id)}>Delete</AlertDialogAction>
+                        <AlertDialogCancel>{t('expenseTrackerPage.transactionList.deleteCancel')}</AlertDialogCancel>
+                        <AlertDialogAction onClick={() => onDeleteTransaction(transaction.id)}>{t('expenseTrackerPage.transactionList.deleteConfirm')}</AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>

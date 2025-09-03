@@ -131,5 +131,77 @@
             "addErrorTitle": "आवश्यक जानकारी नहीं है",
             "addErrorDescription": "कृपया एक कार्य दर्ज करें और अनुस्मारक के लिए एक तारीख चुनें।"
         }
+    },
+    "marketPricesPage": {
+        "title": "बाजार मूल्य",
+        "description": "विभिन्न बाजारों (मंडियों) से नवीनतम फसल मूल्य प्राप्त करें।",
+        "search": {
+            "title": "बाजार मूल्य खोजें",
+            "description": "नवीनतम मंडी मूल्य खोजने के लिए एक स्थान और फसल का चयन करें।",
+            "locationLabel": "स्थान (राज्य)",
+            "locationPlaceholder": "जैसे, पंजाब",
+            "cropLabel": "फसल",
+            "cropPlaceholder": "फसल चुनें",
+            "button": "मूल्य खोजें"
+        },
+        "results": {
+            "title": "{{location}} में {{crop}} के लिए मूल्य परिणाम",
+            "description": "प्रति क्विंटल (100 किग्रा) नवीनतम उपलब्ध मूल्य प्रदर्शित करना।",
+            "errorTitle": "त्रुटि",
+            "noResults": "चयनित मानदंडों के लिए कोई मूल्य नहीं मिला।",
+            "cropVariety": "फसल / किस्म",
+            "market": "बाजार (मंडी)",
+            "arrivalDate": "आगमन तिथि",
+            "minPrice": "न्यूनतम मूल्य (₹)",
+            "maxPrice": "अधिकतम मूल्य (₹)",
+            "modalPrice": "मॉडल मूल्य (₹)"
+        }
+    },
+    "expenseTrackerPage": {
+        "title": "व्यय ट्रैकर",
+        "description": "अपने वित्त का प्रबंधन करने के लिए अपने खेत की आय (आय) और व्यय (खर्च) को ट्रैक करें।",
+        "exportPdf": "पीडीएफ निर्यात करें",
+        "summary": {
+            "title": "इस महीने का सारांश (INR)",
+            "totalIncome": "कुल आय (आय)",
+            "totalExpense": "कुल खर्च (खर्च)",
+            "profitLoss": "लाभ / हानि"
+        },
+        "transactionList": {
+            "title": "हाल के लेनदेन",
+            "description": "आपकी हाल की आय और व्यय की एक सूची।",
+            "type": "प्रकार",
+            "description": "विवरण",
+            "date": "तिथि",
+            "amount": "राशि",
+            "noTransactions": "अभी तक कोई लेनदेन नहीं।",
+            "income": "आय",
+            "expense": "व्यय",
+            "deleteTitle": "क्या आप निश्चित हैं?",
+            "deleteDescription": "यह क्रिया पूर्ववत नहीं की जा सकती। यह इस लेनदेन को स्थायी रूप से हटा देगा।",
+            "deleteCancel": "रद्द करें",
+            "deleteConfirm": "हटाएं"
+        },
+        "addTransaction": {
+            "title": "लेनदेन जोड़ें",
+            "description": "एक नई आय या व्यय दर्ज करें।",
+            "typeLabel": "प्रकार",
+            "expense": "व्यय (खर्च)",
+            "income": "आय (आय)",
+            "amountLabel": "राशि",
+            "amountPlaceholder": "जैसे, 5000",
+            "currencyLabel": "मुद्रा",
+            "currencyPlaceholder": "मुद्रा चुनें",
+            "categoryLabel": "श्रेणी",
+            "categoryPlaceholder": "जैसे, बीज, उर्वरक, बिक्री",
+            "dateLabel": "तिथि",
+            "datePlaceholder": "एक तारीख चुनें",
+            "descriptionLabel": "विवरण",
+            "descriptionPlaceholder": "वैकल्पिक: एक छोटा नोट जोड़ें",
+            "submit": "लेनदेन जोड़ें",
+            "submitting": "जोड़ा जा रहा है...",
+            "toastSuccessTitle": "लेनदेन जोड़ा गया",
+            "toastSuccessDescription": "आपका {{amount}} {{currency}} का {{type}} दर्ज किया गया है।"
+        }
     }
 }
