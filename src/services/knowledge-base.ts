@@ -3,10 +3,10 @@
  */
 'use server';
 
-import { Document, index, retrieve as genkitRetrieve, fromText, defineIndexer } from 'genkit/ai';
-import { firebase } from 'genkit/plugins/firebase';
-import { googleCloud } from 'genkit/plugins/google-cloud';
-import { textEmbeddingGecko } from 'genkit/plugins/googleai';
+import { Document, index, retrieve as genkitRetrieve, fromText, defineIndexer } from 'genkit';
+import firebase from '@genkit-ai/firebase';
+import { googleCloud } from '@genkit-ai/google-cloud';
+import { googleAI } from '@genkit-ai/googleai';
 
 // Sample documents for the knowledge base.
 // In a real application, you would load these from files (PDF, TXT, etc.).
@@ -54,7 +54,7 @@ const cropIndexer = defineIndexer({
     indexer: firebase(googleCloud()).firestore(),
     config: {
         indexId: CROP_INDEX_ID,
-        embedder: textEmbeddingGecko,
+        embedder: googleAI.embedder('text-embedding-004'),
     }
 });
 
@@ -63,7 +63,7 @@ const fruitIndexer = defineIndexer({
     indexer: firebase(googleCloud()).firestore(),
     config: {
         indexId: FRUIT_INDEX_ID,
-        embedder: textEmbeddingGecko,
+        embedder: googleAI.embedder('text-embedding-004'),
     }
 });
 
