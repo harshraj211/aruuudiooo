@@ -4,6 +4,7 @@ import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { Header } from "@/components/dashboard/Header";
 import { SidebarNav } from "@/components/dashboard/SidebarNav";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function DashboardLayout({
   children,
@@ -11,7 +12,19 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const managementType = pathname.includes('/dashboard/crops') ? 'crops' : pathname.includes('/dashboard/fruits') ? 'fruits' : 'default';
+  const [managementType, setManagementType] = useState<'crops' | 'fruits' | 'default'>('default');
+
+  useEffect(() => {
+    if (pathname.includes('/dashboard/crops')) {
+      setManagementType('crops');
+    } else if (pathname.includes('/dashboard/fruits')) {
+      setManagementType('fruits');
+    } else if (pathname === '/dashboard') {
+      setManagementType('default');
+    }
+    // For generic pages, we let the SidebarNav handle the context.
+  }, [pathname]);
+
 
   return (
       <SidebarProvider>

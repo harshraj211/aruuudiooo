@@ -15,6 +15,7 @@ import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, Cale
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
+import { useEffect, useState } from 'react';
 
 type MenuItem = {
   href: string;
@@ -33,10 +34,26 @@ const baseMenuItems: Omit<MenuItem, 'href'>[] = [
   { labelKey: 'sidebar.khetiSamachar', icon: Newspaper },
 ];
 
-export function SidebarNav({ managementType }: { managementType: 'crops' | 'fruits' | 'default' }) {
+export function SidebarNav({ managementType: initialManagementType }: { managementType: 'crops' | 'fruits' | 'default' }) {
   const { setOpenMobile } = useSidebar();
   const pathname = usePathname();
   const { t } = useTranslation();
+  const [managementType, setManagementType] = useState(initialManagementType);
+
+  useEffect(() => {
+    // If the initial type is default (e.g. on a generic page like /chatbot),
+    // try to infer from the referrer to maintain context.
+    if (initialManagementType === 'default') {
+      if (document.referrer.includes('/dashboard/crops')) {
+        setManagementType('crops');
+      } else if (document.referrer.includes('/dashboard/fruits')) {
+        setManagementType('fruits');
+      }
+    } else {
+        setManagementType(initialManagementType);
+    }
+  }, [pathname, initialManagementType]);
+
 
   const handleLinkClick = () => {
     setOpenMobile(false);
