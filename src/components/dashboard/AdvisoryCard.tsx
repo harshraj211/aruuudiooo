@@ -30,8 +30,6 @@ import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { useToast } from '@/hooks/use-toast';
 import { getCityNameFromCoords } from '@/services/weather';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
-import { Combobox } from '../ui/command';
-import { Icon } from '../ui/icon';
 
 const formSchema = z.object({
   cropType: z.string().min(1, 'Please select a type.'),
@@ -55,103 +53,28 @@ type AdvisoryCardProps = {
 }
 
 const cropOptions = [
-    { value: 'rice', label: 'Rice', icon: 'Rice' },
-    { value: 'wheat', label: 'Wheat', icon: 'Wheat' },
-    { value: 'maize', label: 'Maize', icon: 'Corn' },
-    { value: 'barley', label: 'Barley', icon: 'Barley' },
-    { value: 'jowar', label: 'Jowar (Sorghum)', icon: 'Sorghum' },
-    { value: 'bajra', label: 'Bajra (Pearl Millet)', icon: 'Millet' },
-    { value: 'oats', label: 'Oats', icon: 'Oat' },
-    { value: 'ragi', label: 'Ragi (Finger Millet)', icon: 'Millet' },
-    { value: 'arhar', label: 'Arhar (Pigeon Pea)', icon: 'Pea' },
-    { value: 'moong', label: 'Moong (Green Gram)', icon: 'Bean' },
-    { value: 'urad', label: 'Urad (Black Gram)', icon: 'Bean' },
-    { value: 'masoor', label: 'Masoor (Lentil)', icon: 'Lentil' },
-    { value: 'chana', label: 'Chana (Bengal Gram)', icon: 'Chickpea' },
-    { value: 'rajma', label: 'Rajma (Kidney Beans)', icon: 'Bean' },
-    { value: 'moth bean', label: 'Moth Bean', icon: 'Bean' },
-    { value: 'horse gram', label: 'Horse Gram', icon: 'Bean' },
-    { value: 'cowpea', label: 'Cowpea', icon: 'Pea' },
-    { value: 'cotton', label: 'Cotton', icon: 'Cotton' },
-    { value: 'sugarcane', label: 'Sugarcane', icon: 'Sugarcane' },
-    { value: 'jute', label: 'Jute', icon: 'Jute' },
-    { value: 'tobacco', label: 'Tobacco', icon: 'Tobacco' },
-    { value: 'groundnut', label: 'Groundnut (Peanut)', icon: 'Peanut' },
-    { value: 'sunflower', label: 'Sunflower', icon: 'Sunflower' },
-    { value: 'soybean', label: 'Soybean', icon: 'Soybean' },
-    { value: 'mustard', label: 'Mustard', icon: 'Mustard' },
-    { value: 'sesame', label: 'Sesame (Til)', icon: 'Sesame' },
-    { value: 'linseed', label: 'Linseed (Flax)', icon: 'Flax' },
-    { value: 'castor', label: 'Castor', icon: 'Castor' },
-    { value: 'potato', label: 'Potato', icon: 'Potato' },
-    { value: 'onion', label: 'Onion', icon: 'Onion' },
-    { value: 'tomato', label: 'Tomato', icon: 'Tomato' },
-    { value: 'brinjal', label: 'Brinjal (Eggplant)', icon: 'Eggplant' },
-    { value: 'cauliflower', label: 'Cauliflower', icon: 'Cauliflower' },
-    { value: 'cabbage', label: 'Cabbage', icon: 'Cabbage' },
-    { value: 'carrot', label: 'Carrot', icon: 'Carrot' },
-    { value: 'radish', label: 'Radish', icon: 'Radish' },
-    { value: 'okra', label: 'Okra (Ladyfinger)', icon: 'Okra' },
-    { value: 'bottle gourd', label: 'Bottle Gourd', icon: 'Gourd' },
-    { value: 'bitter gourd', label: 'Bitter Gourd', icon: 'Gourd' },
-    { value: 'pumpkin', label: 'Pumpkin', icon: 'Pumpkin' },
-    { value: 'spinach', label: 'Spinach', icon: 'Spinach' },
-    { value: 'peas', label: 'Peas', icon: 'Pea' },
-    { value: 'beans', label: 'Beans', icon: 'Bean' },
-    { value: 'chillies', label: 'Chillies', icon: 'Chilli' },
-    { value: 'capsicum', label: 'Capsicum', icon: 'BellPepper' },
-    { value: 'garlic', label: 'Garlic', icon: 'Garlic' },
-    { value: 'ginger', label: 'Ginger', icon: 'Ginger' },
-    { value: 'turmeric', label: 'Turmeric', icon: 'Turmeric' },
-    { value: 'coriander', label: 'Coriander', icon: 'Coriander' },
-    { value: 'cumin', label: 'Cumin', icon: 'Cumin' },
-    { value: 'fennel', label: 'Fennel', icon: 'Fennel' },
-    { value: 'fenugreek', label: 'Fenugreek', icon: 'Fenugreek' },
-    { value: 'black pepper', label: 'Black Pepper', icon: 'Pepper' },
-    { value: 'cardamom', label: 'Cardamom', icon: 'Cardamom' },
-    { value: 'cloves', label: 'Cloves', icon: 'Clove' },
-    { value: 'cinnamon', label: 'Cinnamon', icon: 'Cinnamon' },
-    { value: 'mustard seeds', label: 'Mustard Seeds', icon: 'Mustard' },
-    { value: 'ajwain', label: 'Ajwain (Carom Seeds)', icon: 'Caraway' },
-    { value: 'dill', label: 'Dill', icon: 'Dill' },
-    { value: 'tea', label: 'Tea', icon: 'Tea' },
-    { value: 'coffee', label: 'Coffee', icon: 'Coffee' },
-    { value: 'rubber', label: 'Rubber', icon: 'Rubber' },
-    { value: 'coconut', label: 'Coconut', icon: 'Coconut' },
-    { value: 'areca nut', label: 'Areca Nut', icon: 'ArecaNut' },
-    { value: 'cocoa', label: 'Cocoa', icon: 'Cocoa' },
+    'Wheat', 'Rice', 'Maize', 'Cotton', 'Sugarcane', 'Soybean', 
+    'Groundnut', 'Mustard', 'Potato', 'Tomato', 'Onion', 'Pulses (Dal)'
 ];
 
 const fruitOptions = [
-    { value: 'mango', label: 'Mango', icon: 'Mango' },
-    { value: 'apple', label: 'Apple', icon: 'Apple' },
-    { value: 'banana', label: 'Banana', icon: 'Banana' },
-    { value: 'grapes', label: 'Grapes', icon: 'Grape' },
-    { value: 'orange', label: 'Orange', icon: 'Orange' },
-    { value: 'pomegranate', label: 'Pomegranate', icon: 'Pomegranate' },
-    { value: 'guava', label: 'Guava', icon: 'Guava' },
-    { value: 'papaya', label: 'Papaya', icon: 'Papaya' },
-    { value: 'lemon', label: 'Lemon', icon: 'Lemon' },
-    { value: 'fig', label: 'Fig', icon: 'Fig' },
-    { value: 'pineapple', label: 'Pineapple', icon: 'Pineapple' },
-    { value: 'litchi', label: 'Litchi', icon: 'Litchi' },
-    { value: 'jackfruit', label: 'Jackfruit', icon: 'Jackfruit' },
-    { value: 'amla', label: 'Amla', icon: 'Amla' },
+    'Mango', 'Banana', 'Apple', 'Grapes', 'Orange', 'Pomegranate', 'Guava', 'Papaya'
 ];
+
 
 const soilOptions = [
     'Alluvial', 'Black', 'Red', 'Laterite', 'Desert', 'Mountainous', 
-    'Loamy', 'Sandy', 'Clay', 'Saline', 'Peaty', 'Chalky', 'Silty'
+    'Loamy', 'Sandy', 'Clay', 'Saline', 'Peaty'
 ];
 
 const cropStageOptions = [
     'Land Preparation', 'Sowing', 'Germination', 'Seedling', 'Vegetative', 
-    'Tillering', 'Flowering', 'Milking', 'Ripening', 'Harvesting', 'Post-Harvest'
+    'Flowering', 'Fruiting', 'Ripening', 'Harvesting'
 ];
 
 const fruitStageOptions = [
     'Planting', 'Juvenile', 'Vegetative', 'Budding', 'Flowering', 'Fruit Set', 
-    'Fruit Development', 'Ripening', 'Harvesting', 'Dormancy', 'Pruning'
+    'Fruit Development', 'Ripening', 'Harvesting', 'Dormancy'
 ];
 
 
@@ -167,16 +90,16 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      cropType: itemType === 'Crop' ? 'wheat' : 'mango',
-      soilDetails: itemType === 'Crop' ? 'Alluvial' : 'Loamy',
-      currentStageOfCrop: itemType === 'Crop' ? 'Vegetative' : 'Flowering',
+      cropType: '',
+      soilDetails: '',
+      currentStageOfCrop: '',
       location: '',
     },
   });
   
   useEffect(() => {
     form.reset({
-      cropType: itemType === 'Crop' ? 'wheat' : 'mango',
+      cropType: itemType === 'Crop' ? 'Wheat' : 'Mango',
       soilDetails: itemType === 'Crop' ? 'Alluvial' : 'Loamy',
       currentStageOfCrop: itemType === 'Crop' ? 'Vegetative' : 'Flowering',
       location: localStorage.getItem('agriVision-location') || '',
@@ -257,13 +180,10 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
       setError(null);
       setResult(null);
 
-      const friendlyCropName = (itemType === 'Crop' ? cropOptions : fruitOptions).find(o => o.value === values.cropType)?.label || values.cropType;
-
       try {
         const response: IntegrateWeatherDataForAdvisoryOutput = await integrateWeatherDataForAdvisory({
             ...values,
-            cropType: friendlyCropName,
-            advisory: `Provide general farming advice for ${friendlyCropName}.`,
+            advisory: `Provide general farming advice for ${values.cropType}.`,
         });
 
         const apiResult: AdvisoryResult = {
@@ -308,15 +228,18 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
                 control={form.control}
                 name="cropType"
                 render={({ field }) => (
-                    <FormItem className="flex flex-col">
+                     <FormItem>
                         <FormLabel>{itemType} Type</FormLabel>
-                        <Combobox
-                            options={currentItemOptions}
-                            value={field.value}
-                            onChange={field.onChange}
-                            placeholder={`Select a ${itemType.toLowerCase()}...`}
-                            searchPlaceholder={`Search ${itemType.toLowerCase()}...`}
-                        />
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                                <SelectTrigger>
+                                <SelectValue placeholder={`Select a ${itemType.toLowerCase()}`} />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                {currentItemOptions.map(opt => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}
+                            </SelectContent>
+                        </Select>
                         <FormMessage />
                     </FormItem>
                 )}
