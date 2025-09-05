@@ -14,9 +14,15 @@ import { Button } from '@/components/ui/button';
 import { PanelLeft } from 'lucide-react';
 
 
-const CHAT_HISTORY_KEY = 'agriVision-chatHistory';
+const CHAT_HISTORY_KEY_PREFIX = 'agriVision-chatHistory';
 
-export function ChatContainer() {
+type ChatContainerProps = {
+    managementType: 'Crops' | 'Fruits' | 'General';
+}
+
+export function ChatContainer({ managementType }: ChatContainerProps) {
+    const CHAT_HISTORY_KEY = `${CHAT_HISTORY_KEY_PREFIX}-${managementType.toLowerCase()}`;
+    
     const [conversations, setConversations] = useState<Conversation[]>([]);
     const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
     const [isSending, startSending] = useTransition();
@@ -37,22 +43,26 @@ export function ChatContainer() {
     useEffect(() => {
         if (user) {
             const storedHistory = localStorage.getItem(`${CHAT_HISTORY_KEY}-${user.email}`);
-            if (storedHistory) {
-                const loadedConversations: Conversation[] = JSON.parse(storedHistory);
-                if(loadedConversations.length > 0) {
-                    setConversations(loadedConversations.map(c => ({...c, createdAt: new Date(c.createdAt)})));
-                    setActiveConversationId(loadedConversations[0].id);
-                }
+            const loadedConversations: Conversation[] = storedHistory ? JSON.parse(storedHistory) : [];
+            
+            if (loadedConversations.length > 0) {
+                setConversations(loadedConversations.map(c => ({...c, createdAt: new Date(c.createdAt)})));
+                setActiveConversationId(loadedConversations[0].id);
+            } else {
+                setConversations([]);
+                setActiveConversationId(null);
             }
         }
-    }, [user]);
+    }, [user, CHAT_HISTORY_KEY]);
 
     // Save chat history to localStorage whenever it changes
     useEffect(() => {
         if (user && conversations.length > 0) {
             localStorage.setItem(`${CHAT_HISTORY_KEY}-${user.email}`, JSON.stringify(conversations));
+        } else if (user && conversations.length === 0) {
+             localStorage.removeItem(`${CHAT_HISTORY_KEY}-${user.email}`);
         }
-    }, [conversations, user]);
+    }, [conversations, user, CHAT_HISTORY_KEY]);
 
 
     const handleNewChat = () => {
@@ -68,11 +78,13 @@ export function ChatContainer() {
     }
     
     const handleDeleteChat = (conversationId: string) => {
-        setConversations(prev => prev.filter(c => c.id !== conversationId));
-        if (activeConversationId === conversationId) {
-            const remainingConversations = conversations.filter(c => c.id !== conversationId);
-            setActiveConversationId(remainingConversations.length > 0 ? remainingConversations[0].id : null);
-        }
+        setConversations(prev => {
+            const updatedConversations = prev.filter(c => c.id !== conversationId);
+            if (activeConversationId === conversationId) {
+                setActiveConversationId(updatedConversations.length > 0 ? updatedConversations[0].id : null);
+            }
+            return updatedConversations;
+        });
     }
     
     const handleSelectConversation = (id: string) => {
@@ -135,7 +147,7 @@ export function ChatContainer() {
                 const updatedMessages = [...c.messages, userMessage];
                 return { 
                     ...c,
-                    title: c.messages.length === 0 ? userMessage.document?.name || userMessage.text.substring(0, 30) : c.title,
+                    title: c.messages.length === 0 ? userMessage.document?.name || userMessage.text.substring(0, 30) || 'New Chat' : c.title,
                     messages: updatedMessages
                 };
             }
@@ -145,14 +157,19 @@ export function ChatContainer() {
 
         startSending(async () => {
             try {
-                const currentConversation = conversations.find(c => c.id === currentConversationId);
-                const currentHistory = currentConversation?.messages.slice(-10) || [];
+                // Find the latest state of the conversation
+                let latestHistory: Message[] = [];
+                setConversations(currentConversations => {
+                    const conv = currentConversations.find(c => c.id === currentConversationId);
+                    latestHistory = conv?.messages.slice(-10) || [];
+                    return currentConversations;
+                });
 
                 const payload: ProvideChatbotAdvisoryInput = {
                     query: userMessage.text,
                     photoDataUri: attachments.image || undefined,
                     documentContent: attachments.document?.content || undefined,
-                    history: currentHistory.map(m => ({
+                    history: latestHistory.map(m => ({
                         role: m.role,
                         text: m.text,
                     })),
