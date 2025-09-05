@@ -185,7 +185,7 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -284,6 +284,7 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
         const response: IntegrateWeatherDataForAdvisoryOutput = await integrateWeatherDataForAdvisory({
             ...values,
             advisory: `Provide general farming advice for ${values.cropType}.`,
+            language: language,
         });
 
         const apiResult: AdvisoryResult = {
@@ -450,7 +451,7 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
             <div>
                 <h3 className="text-lg font-semibold mb-2">{t('advisoryCard.advisoryTitle')}</h3>
                 <div className="prose prose-sm max-w-none p-4 bg-primary/5 rounded-lg border border-primary/20 text-foreground">
-                    <p>{result.advisory}</p>
+                    <div className='whitespace-pre-wrap'>{result.advisory}</div>
                 </div>
             </div>
           </div>
@@ -459,7 +460,3 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
     </Card>
   );
 }
-
-    
-
-    

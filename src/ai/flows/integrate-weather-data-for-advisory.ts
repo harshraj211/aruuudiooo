@@ -19,6 +19,7 @@ const IntegrateWeatherDataForAdvisoryInputSchema = z.object({
   currentStageOfCrop: z.string().describe('The current stage of the crop.'),
   location: z.string().describe('The location of the farm.'),
   advisory: z.string().describe('The base advisory before weather integration.'),
+  language: z.string().optional().describe("The language for the response (e.g., 'en', 'hi')."),
 });
 export type IntegrateWeatherDataForAdvisoryInput = z.infer<typeof IntegrateWeatherDataForAdvisoryInputSchema>;
 
@@ -57,6 +58,10 @@ Soil Details: {{{soilDetails}}}
 Current Stage: {{{currentStageOfCrop}}}
 
 Location: {{{location}}}
+
+{{#if language}}
+IMPORTANT: Your entire response must be in the following language: {{{language}}}.
+{{/if}}
 
 {{#if weather}}
 Current Weather Conditions:
