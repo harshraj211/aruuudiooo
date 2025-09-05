@@ -2,7 +2,6 @@
 'use client';
 
 import { WeatherAlertsCard } from '@/components/dashboard/notifications/WeatherAlertsCard';
-import { MarketPriceAlerts } from '@/components/dashboard/notifications/MarketPriceAlerts';
 import { useTranslation } from '@/hooks/useTranslation';
 
 export default function NotificationsPage() {
@@ -17,13 +16,8 @@ export default function NotificationsPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-        <div className="lg:col-span-2 space-y-6">
-          <MarketPriceAlerts itemType="Fruit" />
-        </div>
-        <div className="lg:col-span-1 space-y-6">
+      <div className="max-w-md mx-auto">
           <WeatherAlertsCard />
-        </div>
       </div>
     </main>
   );
