@@ -4,7 +4,6 @@
 'use server';
 
 import { Document, index, retrieve as genkitRetrieve, fromText, defineIndexer } from 'genkit';
-import { firebase } from '@genkit-ai/firebase';
 import { googleCloud } from '@genkit-ai/google-cloud';
 import { googleAI } from '@genkit-ai/googleai';
 
@@ -51,7 +50,7 @@ const FRUIT_INDEX_ID = 'ekheti-fruits-kb';
 
 const cropIndexer = defineIndexer({
     name: 'cropKnowledgeIndexer',
-    indexer: firebase(googleCloud()).firestore(),
+    indexer: googleCloud().firestore(),
     config: {
         indexId: CROP_INDEX_ID,
         embedder: googleAI('text-embedding-004'),
@@ -60,7 +59,7 @@ const cropIndexer = defineIndexer({
 
 const fruitIndexer = defineIndexer({
     name: 'fruitKnowledgeIndexer',
-    indexer: firebase(googleCloud()).firestore(),
+    indexer: googleCloud().firestore(),
     config: {
         indexId: FRUIT_INDEX_ID,
         embedder: googleAI('text-embedding-004'),
