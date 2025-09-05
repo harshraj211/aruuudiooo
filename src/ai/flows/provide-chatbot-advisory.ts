@@ -9,7 +9,6 @@
  */
 
 import {ai} from '@/ai/genkit';
-// import { retrieve } from '@/services/knowledge-base';
 import {z} from 'genkit';
 
 const ChatHistorySchema = z.object({
@@ -43,14 +42,9 @@ export async function provideChatbotAdvisory(input: ProvideChatbotAdvisoryInput)
   return provideChatbotAdvisoryFlow(input);
 }
 
-const PromptInputSchema = ProvideChatbotAdvisoryInputSchema.extend({
-    // retrievedKnowledge: z.string().optional().describe('Retrieved knowledge from the vector database.'),
-});
-
-
 const prompt = ai.definePrompt({
   name: 'provideChatbotAdvisoryPrompt',
-  input: {schema: PromptInputSchema},
+  input: {schema: ProvideChatbotAdvisoryInputSchema},
   output: {schema: ProvideChatbotAdvisoryOutputSchema},
   prompt: `You are an expert AI agricultural advisor chatbot named eKheti. Your goal is to provide helpful, concise, and actionable advice to farmers. You are an expert in all aspects of farming, including soil health, crop management, pest and disease control, and market trends.
 
@@ -96,11 +90,7 @@ const provideChatbotAdvisoryFlow = ai.defineFlow(
     outputSchema: ProvideChatbotAdvisoryOutputSchema,
   },
   async input => {
-
-    // const retrievedDocs = await retrieve(input.query, input.managementType);
-    // const retrievedKnowledge = retrievedDocs.map(d => d.text()).join('\n\n');
-
-    const {output} = await prompt({ ...input });
+    const {output} = await prompt(input);
     return output!;
   }
 );
