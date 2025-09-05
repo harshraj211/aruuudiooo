@@ -6,7 +6,9 @@
         "expenseTracker": "ਖਰਚਾ ਟਰੈਕਰ",
         "diseaseDetection": "ਬਿਮਾਰੀ ਦੀ ਪਛਾਣ",
         "chatbot": "ਚੈਟਬੋਟ",
-        "khetiSamachar": "ਖੇਤੀ ਸਮਾਚਾਰ"
+        "khetiSamachar": "ਖੇਤੀ ਸਮਾਚਾਰ",
+        "home": "ਘਰ",
+        "backToSelection": "ਚੋਣ 'ਤੇ ਵਾਪਸ"
     },
     "dashboard": {
         "welcome": "ਜੀ ਆਇਆਂ ਨੂੰ, {{name}}!",

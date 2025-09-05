@@ -6,7 +6,9 @@
         "expenseTracker": "خرچ ٽريڪر",
         "diseaseDetection": "بيماري جي سڃاڻپ",
         "chatbot": "چيٽ بوٽ",
-        "khetiSamachar": "کيتي سماچار"
+        "khetiSamachar": "کيتي سماچار",
+        "home": "گهر",
+        "backToSelection": "چونڊ ڏانهن واپس"
     },
     "dashboard": {
         "welcome": "ٻيهر ڀليڪار, {{name}}!",
@@ -55,7 +57,7 @@
         "description": "هڪ تصوير مان فوري طور تي فصلن جي بيمارين کي سڃاڻڻ لاءِ اسان جو AI استعمال ڪريو."
     },
     "chatbotPage": {
-        "title": "ايگري-چيٽ اسسٽنٽ",
+        "title": "ايگري-چيٽ اسسٽنਟ",
         "description": "توهان جو 24/7 AI-طاقتور زراعت ماهر. توهان جو ڪوبه سوال پڇو."
     }
 }

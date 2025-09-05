@@ -6,7 +6,9 @@
         "expenseTracker": "ఖర్చు ట్రాకర్",
         "diseaseDetection": "వ్యాధి నిర్ధారణ",
         "chatbot": "చాట్‌బాట్",
-        "khetiSamachar": "వ్యవసాయ వార్తలు"
+        "khetiSamachar": "వ్యవసాయ వార్తలు",
+        "home": "హోమ్",
+        "backToSelection": "ఎంపికకు తిరిగి వెళ్లండి"
     },
     "dashboard": {
         "welcome": "తిరిగి స్వాగతం, {{name}}!",

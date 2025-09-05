@@ -6,7 +6,9 @@
         "expenseTracker": "செலவு டிராக்கர்",
         "diseaseDetection": "நோய் கண்டறிதல்",
         "chatbot": "சாட்போட்",
-        "khetiSamachar": "விவசாய செய்தி"
+        "khetiSamachar": "விவசாய செய்தி",
+        "home": "முகப்பு",
+        "backToSelection": "தேர்வுக்குத் திரும்பு"
     },
     "dashboard": {
         "welcome": "மீண்டும் வருக, {{name}}!",

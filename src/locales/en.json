@@ -8,7 +8,9 @@
         "chatbot": "Chatbot",
         "notifications": "Notifications",
         "cropCalendar": "Crop Calendar",
-        "khetiSamachar": "Agri News"
+        "khetiSamachar": "Agri News",
+        "home": "Home",
+        "backToSelection": "Back to Selection"
     },
     "dashboard": {
         "welcome": "Welcome back, {{name}}!",

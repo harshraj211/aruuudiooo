@@ -6,7 +6,9 @@
         "expenseTracker": "ವೆಚ್ಚ ಟ್ರ್ಯಾಕರ್",
         "diseaseDetection": "ರೋಗ ಪತ್ತೆ",
         "chatbot": "ಚಾಟ್‌ಬಾಟ್",
-        "khetiSamachar": "ಕೃಷಿ ಸಮಾಚಾರ್"
+        "khetiSamachar": "ಕೃಷಿ ಸಮಾಚಾರ್",
+        "home": "ಮನೆ",
+        "backToSelection": "ಆಯ್ಕೆಗೆ ಹಿಂತಿರುಗಿ"
     },
     "dashboard": {
         "welcome": "ಮರಳಿ ಸ್ವಾಗತ, {{name}}!",

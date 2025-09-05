@@ -6,18 +6,20 @@
         "expenseTracker": "ଖର୍ଚ୍ଚ ଟ୍ରାକର୍",
         "diseaseDetection": "ᱨᱳᱜ  पहचान",
         "chatbot": "ਚੈਟਬੋਟ",
-        "khetiSamachar": "खेती समाचार"
+        "khetiSamachar": "खेती समाचार",
+        "home": "হোম",
+        "backToSelection": "বাছাই করতে ফিরে যান"
     },
     "dashboard": {
-        "welcome": "ଫੇର୍ ᱥᱣᱟਗତ, {{name}}!",
-        "tagline": "ᱛᱮᱦᱮᱧ ᱞᱟᱹਗᱤᱫ ᱟᱢᱟᱜ  स्मार्ट  खेती ଡାᱥବୋର୍ଡ।"
+        "welcome": "ଫେର୍ ᱥᱣᱟਗତ, {{name}}!",
+        "tagline": "ᱛᱮᱦେᱧ ᱞᱟᱹਗִᱫ ᱟᱢᱟᱜ  स्मार्ट  खेती ଡାᱥବୋର୍ଡ।"
     },
     "advisoryCard": {
         "title": "ଫସଲ ᱟᱨ  मौसम ᱥᱟܠహా",
-        "description": "व्यक्तिगत, मौसम-एकीकृत ᱥᱟܠహా ᱧᱟᱢ ᱞᱟᱹଗִᱫ ᱟᱢᱟᱜ ᱠᱷੇਤ ᱨᱮᱭᱟᱜ ᱵᱤବରଣ ᱯୂରଣ ᱢᱮ།",
+        "description": "व्यक्तिगत, मौसम-एकीकृत ᱥᱟܠహా ᱧᱟᱢ ᱞᱟᱹଗִᱫ ᱟᱢᱟᱜ ᱠᱷᱮਤ ᱨᱮᱭᱟᱜ ᱵᱤବରଣ ᱯୂରଣ ᱢᱮ།",
         "cropType": "ଫସଲ ᱨᱮᱭᱟᱜ ପ୍ରକାର",
         "soilDetails": "माটির ᱵᱤବରଣ",
-        "currentCropStage": "ଫସଲ ᱨᱮᱭਾᱜ ବର୍ତ୍ତମਾਨ  अवस्था",
+        "currentCropStage": "ଫସଲ ᱨᱮᱭାᱜ ବର୍ତ୍ତମਾਨ  अवस्था",
         "location": "ସ୍ଥାନ",
         "getAdvisory": "ᱥᱟܠహా ᱧᱟᴍ ᱢᱮ",
         "generating": "ତିଆରି ᱦᱩᱭᱩᱜ ᱠᱟᱱᱟ...",

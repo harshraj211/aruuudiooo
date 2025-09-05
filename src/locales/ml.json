@@ -6,7 +6,9 @@
         "expenseTracker": "ചെലവ് ട്രാക്കർ",
         "diseaseDetection": "രോഗ നിർണ്ണയം",
         "chatbot": "ചാറ്റ്ബോട്ട്",
-        "khetiSamachar": "ഖേതി സമാചാർ"
+        "khetiSamachar": "ഖേതി സമാചാർ",
+        "home": "വീട്",
+        "backToSelection": "തിരഞ്ഞെടുപ്പിലേക്ക് മടങ്ങുക"
     },
     "dashboard": {
         "welcome": "വീണ്ടും സ്വാഗതം, {{name}}!",

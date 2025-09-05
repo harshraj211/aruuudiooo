@@ -6,7 +6,9 @@
         "expenseTracker": "खरसा ट्रेकार",
         "diseaseDetection": "बेमारि नायनाय",
         "chatbot": "चेटबट",
-        "khetiSamachar": "खेति समाचार"
+        "khetiSamachar": "खेति समाचार",
+        "home": "होम",
+        "backToSelection": "बासिनायनि थाखाय फिन"
     },
     "dashboard": {
         "welcome": "फिन खेबसेबाव बरायबाय, {{name}}!",

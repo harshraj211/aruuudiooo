@@ -8,7 +8,9 @@
         "chatbot": "चैटबॉट",
         "notifications": "सूचनाएं",
         "cropCalendar": "फसल कैलेंडर",
-        "khetiSamachar": "खेती समाचार"
+        "khetiSamachar": "खेती समाचार",
+        "home": "होम",
+        "backToSelection": "चयन पर वापस"
     },
     "dashboard": {
         "welcome": "वापसी पर स्वागत है, {{name}}!",

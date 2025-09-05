@@ -6,7 +6,9 @@
         "expenseTracker": "খরচ ট্র্যাকার",
         "diseaseDetection": "রোগ সনাক্তকরণ",
         "chatbot": "চ্যাটবট",
-        "khetiSamachar": "খেতি সমাচার"
+        "khetiSamachar": "খেতি সমাচার",
+        "home": "বাড়ি",
+        "backToSelection": "নির্বাচনে ফিরে যান"
     },
     "dashboard": {
         "welcome": "আবার স্বাগত, {{name}}!",

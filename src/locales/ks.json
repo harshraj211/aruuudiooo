@@ -6,7 +6,9 @@
         "expenseTracker": "خرچہٕ ٹریکر",
         "diseaseDetection": "بیمٲرؠ ژھانٛડُن",
         "chatbot": "چیٹ بوٹ",
-        "khetiSamachar": "کھیتی سماچار"
+        "khetiSamachar": "کھیتی سماچار",
+        "home": "گھر",
+        "backToSelection": "انتخابَس پؠٹھ واپس"
     },
     "dashboard": {
         "welcome": "واپس یِنَس پؠٹھ स्वागत, {{name}}!",

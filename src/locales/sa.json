@@ -6,7 +6,9 @@
         "expenseTracker": "व्यय ट्रैकर",
         "diseaseDetection": "रोगनिदानम्",
         "chatbot": "चैटबॉट",
-        "khetiSamachar": "कृषि समाचार"
+        "khetiSamachar": "कृषि समाचार",
+        "home": "गृहम्",
+        "backToSelection": "चयनं प्रति गच्छन्तु"
     },
     "dashboard": {
         "welcome": "पुनः स्वागतम्, {{name}}!",

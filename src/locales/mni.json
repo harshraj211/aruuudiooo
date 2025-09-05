@@ -6,7 +6,9 @@
         "expenseTracker": "খরচ ট্র্যাকার",
         "diseaseDetection": "লাইনা খঙদোকপা",
         "chatbot": "চ্যাটবট",
-        "khetiSamachar": "খেতি সমাচার"
+        "khetiSamachar": "খেতি সমাচার",
+        "home": "होम",
+        "backToSelection": "सिलेक्शनদা অমুক হন্না"
     },
     "dashboard": {
         "welcome": "অমুক হন্না অমুক୍କা ওকचরি, {{name}}!",
