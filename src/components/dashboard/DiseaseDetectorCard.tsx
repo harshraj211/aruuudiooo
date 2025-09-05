@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { analyzeCropImageForDisease } from '@/ai/flows/analyze-crop-image-for-disease';
+import { analyzeFruitImageForDisease } from '@/ai/flows/analyze-fruit-image-for-disease';
 import { Loader2, Upload, X, ShieldAlert, ShieldCheck } from 'lucide-react';
 import { Progress } from '../ui/progress';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -25,7 +26,11 @@ type AnalysisResult = {
   suggestedSolutions: string;
 };
 
-export function DiseaseDetectorCard() {
+type DiseaseDetectorCardProps = {
+    itemType: 'Crop' | 'Fruit';
+}
+
+export function DiseaseDetectorCard({ itemType }: DiseaseDetectorCardProps) {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageDataUri, setImageDataUri] = useState<string | null>(null);
   const [result, setResult] = useState<AnalysisResult | null>(null);
@@ -58,14 +63,15 @@ export function DiseaseDetectorCard() {
     setResult(null);
     startTransition(async () => {
       try {
-        const analysisResult = await analyzeCropImageForDisease({
+        const analysisFunction = itemType === 'Crop' ? analyzeCropImageForDisease : analyzeFruitImageForDisease;
+        const analysisResult = await analysisFunction({
           photoDataUri: imageDataUri,
           language: language,
         });
         setResult(analysisResult);
       } catch (e) {
         console.error(e);
-        setError('Failed to analyze image. Please try again.');
+        setError(`Failed to analyze ${itemType.toLowerCase()} image. Please try again.`);
       }
     });
   };
@@ -77,13 +83,18 @@ export function DiseaseDetectorCard() {
     setError(null);
     if(fileInputRef.current) fileInputRef.current.value = "";
   };
+  
+  const title = itemType === 'Crop' ? t('diseaseDetectorCard.titleCrop') : t('diseaseDetectorCard.titleFruit');
+  const description = itemType === 'Crop' ? t('diseaseDetectorCard.descriptionCrop') : t('diseaseDetectorCard.descriptionFruit');
+  const analyzeButtonText = itemType === 'Crop' ? t('diseaseDetectorCard.analyzeCrop') : t('diseaseDetectorCard.analyzeFruit');
+  const healthyText = itemType === 'Crop' ? t('diseaseDetectorCard.cropHealthy') : t('diseaseDetectorCard.fruitHealthy');
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('diseaseDetectorCard.title')}</CardTitle>
+        <CardTitle>{title}</CardTitle>
         <CardDescription>
-          {t('diseaseDetectorCard.description')}
+          {description}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -109,7 +120,7 @@ export function DiseaseDetectorCard() {
           <div className="relative w-full max-w-sm mx-auto">
             <Image
               src={imagePreview}
-              alt="Crop preview"
+              alt={`${itemType} preview`}
               width={400}
               height={300}
               className="rounded-lg object-cover aspect-video"
@@ -142,7 +153,7 @@ export function DiseaseDetectorCard() {
                   {t('diseaseDetectorCard.analyzing')}
                 </>
               ) : (
-                t('diseaseDetectorCard.analyze')
+                analyzeButtonText
               )}
             </Button>
           </div>
@@ -155,7 +166,7 @@ export function DiseaseDetectorCard() {
                 {result.diseaseDetected ? <ShieldAlert className="h-4 w-4" /> : <ShieldCheck className="h-4 w-4 text-primary" />}
                 <AlertTitle>{result.diseaseDetected ? t('diseaseDetectorCard.diseaseDetected') : t('diseaseDetectorCard.noDiseaseDetected')}</AlertTitle>
                 <AlertDescription>
-                    {result.diseaseDetected ? t('diseaseDetectorCard.issueIdentified') : t('diseaseDetectorCard.cropHealthy')}
+                    {result.diseaseDetected ? t('diseaseDetectorCard.issueIdentified') : healthyText}
                 </AlertDescription>
             </Alert>
 

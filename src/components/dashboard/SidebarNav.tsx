@@ -53,10 +53,10 @@ export function SidebarNav({ managementType }: { managementType: 'crops' | 'frui
     let page = item.labelKey.split('.')[1]; // e.g., 'dashboard' from 'sidebar.dashboard'
     
     // Pages that are specific to the managementType
-    const typeSpecificPages = ['dashboard', 'expenseTracker'];
+    const typeSpecificPages = ['dashboard', 'expenseTracker', 'diseaseDetection'];
     
     // Pages that are generic and live under /dashboard/
-    const genericPages = ['marketPrices', 'diseaseDetection', 'chatbot', 'cropCalendar', 'notifications', 'khetiSamachar'];
+    const genericPages = ['marketPrices', 'chatbot', 'cropCalendar', 'notifications', 'khetiSamachar'];
     
     let href = '';
 

@@ -10,13 +10,13 @@ export default function DiseaseDetectionPage() {
   return (
     <main>
       <div className="mb-8 space-y-2">
-        <h1 className="text-3xl font-bold">{t('diseaseDetectionPage.title')}</h1>
+        <h1 className="text-3xl font-bold">{t('diseaseDetectionPage.titleCrop')}</h1>
         <p className="text-muted-foreground">
-          {t('diseaseDetectionPage.description')}
+          {t('diseaseDetectionPage.descriptionCrop')}
         </p>
       </div>
       <div className="max-w-4xl mx-auto">
-        <DiseaseDetectorCard />
+        <DiseaseDetectorCard itemType="Crop" />
       </div>
     </main>
   );

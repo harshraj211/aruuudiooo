@@ -33,17 +33,21 @@
         "advisoryTitle": "AI-Powered Advisory"
     },
     "diseaseDetectorCard": {
-        "title": "AI Crop Disease Detector",
-        "description": "Upload an image of your crop to detect potential diseases and receive suggested solutions.",
+        "titleCrop": "AI Crop Disease Detector",
+        "titleFruit": "AI Fruit Disease Detector",
+        "descriptionCrop": "Upload an image of your crop to detect potential diseases and receive suggested solutions.",
+        "descriptionFruit": "Upload an image of your fruit to detect potential diseases and receive suggested solutions.",
         "uploadCTA": "Click to upload an image",
         "uploadHint": "PNG, JPG, WEBP up to 4MB",
-        "analyze": "Analyze Crop Image",
+        "analyzeCrop": "Analyze Crop Image",
+        "analyzeFruit": "Analyze Fruit Image",
         "analyzing": "Analyzing...",
         "analysisComplete": "Analysis Complete",
         "diseaseDetected": "Disease Detected!",
         "noDiseaseDetected": "No Disease Detected",
         "issueIdentified": "Our AI has identified a potential issue.",
         "cropHealthy": "Your crop appears to be healthy.",
+        "fruitHealthy": "Your fruit appears to be healthy.",
         "detectedDisease": "Detected Disease",
         "confidenceLevel": "Confidence Level",
         "suggestedSolutions": "Suggested Solutions"
@@ -55,8 +59,10 @@
         "empty": "No messages yet. Start a conversation!"
     },
     "diseaseDetectionPage": {
-        "title": "Crop Disease Detection",
-        "description": "Use our AI to instantly identify crop diseases from an image."
+        "titleCrop": "Crop Disease Detection",
+        "descriptionCrop": "Use our AI to instantly identify crop diseases from an image.",
+        "titleFruit": "Fruit Disease Detection",
+        "descriptionFruit": "Use our AI to instantly identify fruit diseases from an image."
     },
     "chatbotPage": {
         "title": "Agri-Chat Assistant",
