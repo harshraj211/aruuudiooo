@@ -217,6 +217,60 @@ const cropData = {
         },
         seedRateKgPerAcre: 0.1, // ~100g
     },
+    lemon: {
+        type: 'fruit',
+        fertilizer: { npk: '20-10-10', urea: 40, dap: 20, potash: 25 },
+        pesticides: { 
+            'citrus-canker': { name: 'Streptomycin Sulfate', dosageMlPerLitre: 0.5 }, 
+            'leaf-miner': { name: 'Imidacloprid', dosageMlPerLitre: 0.7 } 
+        },
+        seedRateKgPerAcre: 0,
+    },
+    fig: {
+        type: 'fruit',
+        fertilizer: { npk: '15-15-15', urea: 25, dap: 15, potash: 20 },
+        pesticides: { 
+            'rust': { name: 'Mancozeb', dosageMlPerLitre: 2 }, 
+            'stem-borer': { name: 'Chlorpyrifos', dosageMlPerLitre: 2 } 
+        },
+        seedRateKgPerAcre: 0,
+    },
+    pineapple: {
+        type: 'fruit',
+        fertilizer: { npk: '10-5-20', urea: 50, dap: 25, potash: 60 },
+        pesticides: { 
+            'mealybug-wilt': { name: 'Diazinon', dosageMlPerLitre: 1.5 }, 
+            'heart-rot': { name: 'Metalaxyl', dosageMlPerLitre: 2 } 
+        },
+        seedRateKgPerAcre: 0,
+    },
+    litchi: {
+        type: 'fruit',
+        fertilizer: { npk: '10-20-20', urea: 30, dap: 25, potash: 35 },
+        pesticides: { 
+            'fruit-borer': { name: 'Cypermethrin', dosageMlPerLitre: 1 }, 
+            'leaf-curl': { name: 'Dimethoate', dosageMlPerLitre: 1 } 
+        },
+        seedRateKgPerAcre: 0,
+    },
+    jackfruit: {
+        type: 'fruit',
+        fertilizer: { npk: '10-10-15', urea: 40, dap: 20, potash: 30 },
+        pesticides: { 
+            'shoot-borer': { name: 'Profenofos', dosageMlPerLitre: 1.5 }, 
+            'fruit-rot': { name: 'Mancozeb', dosageMlPerLitre: 2.5 } 
+        },
+        seedRateKgPerAcre: 0,
+    },
+    amla: {
+        type: 'fruit',
+        fertilizer: { npk: '10-10-10', urea: 20, dap: 10, potash: 15 },
+        pesticides: { 
+            'rust': { name: 'Wettable Sulphur', dosageMlPerLitre: 2 }, 
+            'bark-eating-caterpillar': { name: 'Dichlorvos', dosageMlPerLitre: 1 } 
+        },
+        seedRateKgPerAcre: 0,
+    }
 };
 
 type CropName = keyof typeof cropData;
