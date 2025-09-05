@@ -1,149 +1,162 @@
+
 'use client';
 
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  useSidebar,
-} from '@/components/ui/sidebar';
-import { Logo } from '@/components/Logo';
-import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator } from 'lucide-react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { CreatePostForm, Post, Comment } from '@/components/dashboard/community/CreatePostForm';
+import { PostCard } from '@/components/dashboard/community/PostCard';
+import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from '@/hooks/useTranslation';
-import { useEffect, useState } from 'react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { cropData, fruitData } from '@/lib/item-data';
+import { useMemo } from 'react';
 
-type MenuItem = {
-  href: string;
-  labelKey: string;
-  icon: React.ElementType;
-  isGeneric?: boolean; // Flag for pages that are not type-specific
-}
+const COMMUNITY_POSTS_KEY = 'agriVision-communityPosts';
 
-const baseMenuItems: Omit<MenuItem, 'href'>[] = [
-  { labelKey: 'sidebar.dashboard', icon: LayoutDashboard },
-  { labelKey: 'sidebar.marketPrices', icon: TrendingUp, isGeneric: true },
-  { labelKey: 'sidebar.khetiSamachar', icon: Newspaper, isGeneric: true },
-  { labelKey: 'sidebar.expenseTracker', icon: Wallet },
-  { labelKey: 'sidebar.diseaseDetection', icon: Leaf },
-  { labelKey: 'sidebar.chatbot', icon: BotMessageSquare },
-  { labelKey: 'sidebar.cropCalendar', icon: CalendarDays },
-  { labelKey: 'sidebar.calculators', icon: Calculator },
-  { labelKey: 'sidebar.notifications', icon: Bell },
-];
+export default function CommunityPage() {
+    const [posts, setPosts] = useState<Post[]>([]);
+    const { user } = useAuth();
+    const { t } = useTranslation();
+    const [filter, setFilter] = useState('all');
 
-export function SidebarNav({ managementType: initialManagementType }: { managementType: 'crops' | 'fruits' | 'default' }) {
-  const { setOpenMobile } = useSidebar();
-  const pathname = usePathname();
-  const { t } = useTranslation();
-  const [managementType, setManagementType] = useState(initialManagementType);
-
-  useEffect(() => {
-    let currentType = initialManagementType;
-    if (initialManagementType === 'default') {
-        if (pathname.includes('/crops')) {
-            currentType = 'crops';
-        } else if (pathname.includes('/fruits')) {
-            currentType = 'fruits';
-        }
-    }
-    setManagementType(currentType);
-  }, [pathname, initialManagementType]);
-
-
-  const handleLinkClick = () => {
-    setOpenMobile(false);
-  };
-  
-  const filteredMenuItems = baseMenuItems.filter(item => {
-    // On the default selection screen, only show generic items
-    if (managementType === 'default') {
-        return item.isGeneric;
-    }
-    // Hide market prices for fruits as it's not applicable
-    if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
-        return false;
-    }
-    return true;
-  });
-
-  const menuItems: MenuItem[] = filteredMenuItems.map(item => {
-    let page = item.labelKey.split('.')[1]; // e.g., 'dashboard' from 'sidebar.dashboard'
-    
-    let pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
-    
-    let href = '';
-    let resolvedManagementType = managementType;
-
-    if (item.isGeneric) {
-         href = `/dashboard/${pageSlug}`;
-    } else {
-        if (page === 'dashboard') {
-            href = `/dashboard/${resolvedManagementType}`;
-        } else if (page === 'crop-calendar') { // Special handling for calendar
-            const calendarSlug = resolvedManagementType === 'fruits' ? 'fruit-calendar' : 'crop-calendar';
-            href = `/dashboard/${resolvedManagementType}/${calendarSlug}`;
+    useEffect(() => {
+        const storedPosts = localStorage.getItem(COMMUNITY_POSTS_KEY);
+        if (storedPosts) {
+            setPosts(JSON.parse(storedPosts).map((p: Post) => ({...p, timestamp: new Date(p.timestamp)})));
         } else {
-            href = `/dashboard/${resolvedManagementType}/${pageSlug}`;
+            // Add some dummy posts if none exist
+            const dummyPosts: Post[] = [
+                {
+                    id: '1',
+                    userId: 'farmer-jane@example.com',
+                    userName: 'Jane Doe',
+                    type: 'crop',
+                    cropOrFruitName: 'Wheat',
+                    content: 'My wheat leaves are turning yellow. I have already applied fertilizer. What could be the issue?',
+                    imageUrl: 'https://picsum.photos/seed/wheat/600/400',
+                    timestamp: new Date(Date.now() - 86400000), // 1 day ago
+                    likes: 12,
+                    comments: [
+                        { id: 'c1', userId: 'expert-agri@example.com', userName: 'AgriExpert', comment: 'It could be a nitrogen deficiency or a fungal infection like rust. Can you share a closer image of the leaves?', timestamp: new Date(Date.now() - 72000000) }
+                    ]
+                },
+                 {
+                    id: '2',
+                    userId: 'farmer-john@example.com',
+                    userName: 'John Smith',
+                    type: 'fruit',
+                    cropOrFruitName: 'Mango',
+                    content: 'What is the best time to harvest mangoes for maximum sweetness? I am growing the "Alphonso" variety.',
+                    imageUrl: 'https://picsum.photos/seed/mango/600/400',
+                    timestamp: new Date(Date.now() - 172800000), // 2 days ago
+                    likes: 25,
+                    comments: []
+                }
+            ];
+            setPosts(dummyPosts);
+            localStorage.setItem(COMMUNITY_POSTS_KEY, JSON.stringify(dummyPosts));
         }
+    }, []);
+
+    const savePosts = (newPosts: Post[]) => {
+        setPosts(newPosts);
+        localStorage.setItem(COMMUNITY_POSTS_KEY, JSON.stringify(newPosts));
     }
 
-    // Adjust label for calendar
-    let labelKey = item.labelKey;
-    if (item.labelKey === 'sidebar.cropCalendar') {
-        labelKey = resolvedManagementType === 'fruits' ? 'sidebar.fruitCalendar' : 'sidebar.cropCalendar';
-    }
-
-
-    return {
-      ...item,
-      href,
-      labelKey,
+    const handleCreatePost = (content: string, cropOrFruitName: string, type: 'crop' | 'fruit', imageUrl?: string) => {
+        if (!user) return;
+        const newPost: Post = {
+            id: Date.now().toString(),
+            userId: user.email,
+            userName: user.displayName,
+            type: type,
+            cropOrFruitName: cropOrFruitName,
+            content,
+            imageUrl: imageUrl || `https://picsum.photos/seed/${cropOrFruitName}/600/400`,
+            timestamp: new Date(),
+            likes: 0,
+            comments: []
+        };
+        savePosts([newPost, ...posts]);
     };
-  }).filter(item => item.href);
+
+    const handleLike = (postId: string) => {
+        const newPosts = posts.map(p => p.id === postId ? { ...p, likes: p.likes + 1 } : p);
+        savePosts(newPosts);
+    }
+
+    const handleAddComment = (postId: string, commentText: string) => {
+        if (!user) return;
+        const newComment: Comment = {
+            id: Date.now().toString(),
+            userId: user.email,
+            userName: user.displayName,
+            comment: commentText,
+            timestamp: new Date(),
+        };
+        const newPosts = posts.map(p => 
+            p.id === postId 
+                ? { ...p, comments: [...p.comments, newComment] } 
+                : p
+        );
+        savePosts(newPosts);
+    }
+    
+    const allItems = useMemo(() => {
+        const crops = Object.values(cropData).map(crop => ({ value: crop.name, label: crop.name }));
+        const fruits = Object.values(fruitData).map(fruit => ({ value: fruit.name, label: fruit.name }));
+        return [{value: 'all', label: 'All Posts'}, {value: 'crops', label: 'All Crops'}, {value: 'fruits', label: 'All Fruits'}, ...crops, ...fruits].sort((a,b) => a.label.localeCompare(b.label));
+    }, []);
+
+    const filteredPosts = useMemo(() => {
+        if (filter === 'all') return posts;
+        if (filter === 'crops') return posts.filter(p => p.type === 'crop');
+        if (filter === 'fruits') return posts.filter(p => p.type === 'fruit');
+        return posts.filter(p => p.cropOrFruitName === filter);
+    }, [posts, filter]);
 
 
-  return (
-    <Sidebar>
-      <SidebarHeader>
-        <Logo />
-      </SidebarHeader>
-      <SidebarContent>
-        <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton
-                asChild
-                onClick={handleLinkClick}
-                tooltip={t('sidebar.backToSelection')}
-                isActive={pathname === '/dashboard'}
-              >
-                <Link href="/dashboard">
-                  <Home />
-                  <span>{t('sidebar.home')}</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
+    return (
+        <main>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 space-y-4 md:space-y-0">
+                <div className="space-y-2">
+                    <h1 className="text-3xl font-bold">Community Forum</h1>
+                    <p className="text-muted-foreground">
+                        Connect with other farmers, ask questions, and share your experiences.
+                    </p>
+                </div>
+                 <Select onValueChange={setFilter} value={filter}>
+                    <SelectTrigger className="w-full md:w-[280px]">
+                        <SelectValue placeholder="Filter posts..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {allItems.map(item => (
+                            <SelectItem key={item.value} value={item.value}>{item.label}</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+            </div>
 
-          {menuItems.map((item) => (
-            <SidebarMenuItem key={item.href}>
-              <SidebarMenuButton
-                asChild
-                onClick={handleLinkClick}
-                tooltip={t(item.labelKey)}
-                isActive={pathname.startsWith(item.href)}
-              >
-                <Link href={item.href}>
-                  <item.icon />
-                  <span>{t(item.labelKey)}</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          ))}
-        </SidebarMenu>
-      </SidebarContent>
-    </Sidebar>
-  );
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                <div className="lg:col-span-2 space-y-6">
+                    {filteredPosts.map(post => (
+                        <PostCard 
+                            key={post.id} 
+                            post={post}
+                            onLike={handleLike}
+                            onAddComment={handleAddComment}
+                        />
+                    ))}
+                     {filteredPosts.length === 0 && (
+                        <div className="text-center py-16 text-muted-foreground">
+                            <p>No posts found for this filter.</p>
+                        </div>
+                    )}
+                </div>
+                <div className="lg:col-span-1 sticky top-20">
+                    <CreatePostForm onSubmit={handleCreatePost} />
+                </div>
+            </div>
+        </main>
+    );
 }
+
