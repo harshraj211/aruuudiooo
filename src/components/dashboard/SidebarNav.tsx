@@ -60,9 +60,9 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   };
   
   const filteredMenuItems = baseMenuItems.filter(item => {
-    // On the default selection screen, only show generic items
+    // On the default selection screen, show no items.
     if (managementType === 'default') {
-        return item.isGeneric;
+        return false;
     }
     // Hide market prices for fruits as it's not applicable
     if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
