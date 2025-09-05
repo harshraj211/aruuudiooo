@@ -15,8 +15,15 @@ export default function DashboardLayout({
 }) {
   const pathname = usePathname();
   const [managementType, setManagementType] = useState<'crops' | 'fruits' | 'default'>('default');
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     let currentType: 'crops' | 'fruits' | 'default' = 'default';
 
     if (pathname.startsWith('/dashboard/crops')) {
@@ -27,16 +34,16 @@ export default function DashboardLayout({
       localStorage.setItem(MANAGEMENT_TYPE_KEY, 'fruits');
     } else if (pathname === '/dashboard') {
       currentType = 'default';
-      // Do not clear the key here, so we can return to the last context
+      // On the main dashboard, we don't need to read from localStorage, just show the default.
     } else {
-      // For generic pages, try to use the last known management type
+      // For generic pages, try to use the last known management type from localStorage
       const storedType = localStorage.getItem(MANAGEMENT_TYPE_KEY);
       if (storedType === 'crops' || storedType === 'fruits') {
         currentType = storedType;
       }
     }
     setManagementType(currentType);
-  }, [pathname]);
+  }, [pathname, isClient]);
 
 
   return (
