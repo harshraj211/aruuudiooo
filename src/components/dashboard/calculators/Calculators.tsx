@@ -15,262 +15,89 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 
 // --- Mock Data (In a real app, this would come from Firestore) ---
-const cropData = {
-    wheat: {
-        type: 'crop',
-        fertilizer: { npk: '20-20-20', urea: 50, dap: 25, potash: 20 },
-        pesticides: {
-            rust: { name: 'Propiconazole', dosageMlPerLitre: 1 },
-            aphids: { name: 'Imidacloprid', dosageMlPerLitre: 0.5 },
-            termites: { name: 'Chlorpyrifos', dosageMlPerLitre: 2 },
-        },
-        seedRateKgPerAcre: 40,
-    },
-    rice: {
-        type: 'crop',
-        fertilizer: { npk: '15-15-15', urea: 45, dap: 20, potash: 15 },
-        pesticides: {
-            'brown-planthopper': { name: 'Buprofezin', dosageMlPerLitre: 1.5 },
-            'leaf-blast': { name: 'Tricyclazole', dosageMlPerLitre: 0.6 },
-            'stem-borer': { name: 'Cartap Hydrochloride', dosageMlPerLitre: 1 },
-        },
-        seedRateKgPerAcre: 20,
-    },
-    maize: {
-        type: 'crop',
-        fertilizer: { npk: '25-10-15', urea: 55, dap: 30, potash: 20 },
-        pesticides: {
-            'fall-armyworm': { name: 'Emamectin Benzoate', dosageMlPerLitre: 0.4 },
-            'stalk-borer': { name: 'Thiamethoxam', dosageMlPerLitre: 0.5 },
-        },
-        seedRateKgPerAcre: 8,
-    },
-    cotton: {
-        type: 'crop',
-        fertilizer: { npk: '30-15-15', urea: 65, dap: 40, potash: 25 },
-        pesticides: {
-            bollworm: { name: 'Spinosad', dosageMlPerLitre: 0.3 },
-            'white-fly': { name: 'Diafenthiuron', dosageMlPerLitre: 1.2 },
-        },
-        seedRateKgPerAcre: 3,
-    },
-    sugarcane: {
-        type: 'crop',
-        fertilizer: { npk: '18-18-18', urea: 100, dap: 50, potash: 40 },
-        pesticides: {
-            'early-shoot-borer': { name: 'Fipronil', dosageMlPerLitre: 2 },
-            'mealy-bug': { name: 'Profenofos', dosageMlPerLitre: 1.5 },
-        },
-        seedRateKgPerAcre: 2000, // In terms of setts/acre
-    },
-    soybean: {
-        type: 'crop',
-        fertilizer: { npk: '20-60-20', urea: 20, dap: 40, potash: 20 },
-        pesticides: {
-            'girdle-beetle': { name: 'Thiamethoxam', dosageMlPerLitre: 0.5 },
-            'white-fly': { name: 'Imidacloprid', dosageMlPerLitre: 0.7 },
-        },
-        seedRateKgPerAcre: 30,
-    },
-    groundnut: {
-        type: 'crop',
-        fertilizer: { npk: '20-40-40', urea: 15, dap: 35, potash: 30 },
-        pesticides: {
-            'leaf-miner': { name: 'Dimethoate', dosageMlPerLitre: 1.5 },
-            'white-grub': { name: 'Chlorpyrifos', dosageMlPerLitre: 2.5 },
-        },
-        seedRateKgPerAcre: 40,
-    },
-    mustard: {
-        type: 'crop',
-        fertilizer: { npk: '60-30-30', urea: 50, dap: 25, potash: 25 },
-        pesticides: {
-            'mustard-aphid': { name: 'Oxydemeton-methyl', dosageMlPerLitre: 1 },
-            sawfly: { name: 'Quinalphos', dosageMlPerLitre: 1.5 },
-        },
-        seedRateKgPerAcre: 2,
-    },
-    potato: {
-        type: 'crop',
-        fertilizer: { npk: '120-60-60', urea: 100, dap: 50, potash: 50 },
-        pesticides: {
-            'late-blight': { name: 'Mancozeb', dosageMlPerLitre: 2.5 },
-            'potato-tuber-moth': { name: 'Cypermethrin', dosageMlPerLitre: 1 },
-        },
-        seedRateKgPerAcre: 800, // In terms of tubers/acre
-    },
-    onion: {
-        type: 'crop',
-        fertilizer: { npk: '100-50-50', urea: 80, dap: 40, potash: 40 },
-        pesticides: {
-            thrips: { name: 'Fipronil', dosageMlPerLitre: 1 },
-            'purple-blotch': { name: 'Mancozeb', dosageMlPerLitre: 2 },
-        },
-        seedRateKgPerAcre: 4,
-    },
-    tomato: {
-        type: 'crop', // Botanically a fruit, but managed like a crop
-        fertilizer: { npk: '100-60-60', urea: 80, dap: 50, potash: 50 },
-        pesticides: {
-            'fruit-borer': { name: 'Emamectin Benzoate', dosageMlPerLitre: 0.5 },
-            'early-blight': { name: 'Copper Oxychloride', dosageMlPerLitre: 2.5 },
-        },
-        seedRateKgPerAcre: 0.2, // ~200g
-    },
-    barley: {
-        type: 'crop',
-        fertilizer: { npk: '60-30-20', urea: 45, dap: 25, potash: 15 },
-        pesticides: {
-            'loose-smut': { name: 'Carboxin', dosageMlPerLitre: 2 },
-            aphids: { name: 'Imidacloprid', dosageMlPerLitre: 0.6 },
-        },
-        seedRateKgPerAcre: 40,
-    },
-    bajra: {
-        type: 'crop',
-        fertilizer: { npk: '40-20-0', urea: 35, dap: 18, potash: 0 },
-        pesticides: {
-            'shoot-fly': { name: 'Thiamethoxam', dosageMlPerLitre: 0.4 },
-            'downy-mildew': { name: 'Metalaxyl', dosageMlPerLitre: 2 },
-        },
-        seedRateKgPerAcre: 1.5,
-    },
-    jowar: {
-        type: 'crop',
-        fertilizer: { npk: '80-40-40', urea: 60, dap: 35, potash: 30 },
-        pesticides: {
-            'stem-borer': { name: 'Carbofuran', dosageMlPerLitre: 1.2 },
-            'grain-smut': { name: 'Thiram', dosageMlPerLitre: 2.5 },
-        },
-        seedRateKgPerAcre: 4,
-    },
-    sunflower: {
-        type: 'crop',
-        fertilizer: { npk: '60-90-60', urea: 40, dap: 70, potash: 50 },
-        pesticides: {
-            'head-borer': { name: 'Indoxacarb', dosageMlPerLitre: 0.5 },
-            'alternaria-blight': { name: 'Mancozeb', dosageMlPerLitre: 2.5 },
-        },
-        seedRateKgPerAcre: 2.5,
-    },
-    mango: {
-        type: 'fruit',
-         fertilizer: { npk: '10-10-10', urea: 30, dap: 15, potash: 30 },
-         pesticides: {
-            'powdery-mildew': { name: 'Hexaconazole', dosageMlPerLitre: 1 },
-            'fruit-fly': { name: 'Spinosad', dosageMlPerLitre: 0.3 },
-            'mealy-bug': { name: 'Buprofezin', dosageMlPerLitre: 1.5 },
-        },
-        seedRateKgPerAcre: 0, // Not applicable
-    },
-    apple: {
-        type: 'fruit',
-         fertilizer: { npk: '12-15-12', urea: 35, dap: 20, potash: 25 },
-         pesticides: {
-            scab: { name: 'Myclobutanil', dosageMlPerLitre: 0.5 },
-            'codling-moth': { name: 'Deltamethrin', dosageMlPerLitre: 0.7 },
-        },
-        seedRateKgPerAcre: 0, // Not applicable
-    },
-    banana: {
-        type: 'fruit',
-        fertilizer: { npk: '19-19-19', urea: 80, dap: 40, potash: 100 },
-        pesticides: {
-            'pseudostem-weevil': { name: 'Chlorpyrifos', dosageMlPerLitre: 2.5 },
-            'panama-wilt': { name: 'Carbendazim', dosageMlPerLitre: 1 },
-        },
-        seedRateKgPerAcre: 0, // Not applicable
-    },
-    grapes: {
-        type: 'fruit',
-        fertilizer: { npk: '15-15-20', urea: 20, dap: 30, potash: 40 },
-        pesticides: {
-            'downy-mildew': { name: 'Mancozeb + Metalaxyl', dosageMlPerLitre: 2 },
-            'flea-beetle': { name: 'Imidacloprid', dosageMlPerLitre: 0.4 },
-        },
-        seedRateKgPerAcre: 0, // Not applicable
-    },
-    pomegranate: {
-        type: 'fruit',
-        fertilizer: { npk: '10-10-10', urea: 25, dap: 15, potash: 20 },
-        pesticides: {
-            'bacterial-blight': { name: 'Streptocycline', dosageMlPerLitre: 0.5 },
-            'fruit-borer': { name: 'Lambda-Cyhalothrin', dosageMlPerLitre: 0.7 },
-        },
-        seedRateKgPerAcre: 0,
-    },
-    guava: {
-        type: 'fruit',
-        fertilizer: { npk: '15-10-15', urea: 20, dap: 10, potash: 15 },
-        pesticides: {
-            'fruit-fly': { name: 'Methyl Eugenol Trap', dosageMlPerLitre: 0 },
-            'wilt-disease': { name: 'Trichoderma viride', dosageMlPerLitre: 5 },
-        },
-        seedRateKgPerAcre: 0,
-    },
-    papaya: {
-        type: 'fruit',
-        fertilizer: { npk: '20-20-25', urea: 30, dap: 25, potash: 30 },
-        pesticides: {
-            'ringspot-virus': { name: 'Vector control (aphids)', dosageMlPerLitre: 0 },
-            'mealy-bug': { name: 'Lecanicillium lecanii', dosageMlPerLitre: 2 },
-        },
-        seedRateKgPerAcre: 0.1, // ~100g
-    },
-    lemon: {
-        type: 'fruit',
-        fertilizer: { npk: '20-10-10', urea: 40, dap: 20, potash: 25 },
-        pesticides: { 
-            'citrus-canker': { name: 'Streptomycin Sulfate', dosageMlPerLitre: 0.5 }, 
-            'leaf-miner': { name: 'Imidacloprid', dosageMlPerLitre: 0.7 } 
-        },
-        seedRateKgPerAcre: 0,
-    },
-    fig: {
-        type: 'fruit',
-        fertilizer: { npk: '15-15-15', urea: 25, dap: 15, potash: 20 },
-        pesticides: { 
-            'rust': { name: 'Mancozeb', dosageMlPerLitre: 2 }, 
-            'stem-borer': { name: 'Chlorpyrifos', dosageMlPerLitre: 2 } 
-        },
-        seedRateKgPerAcre: 0,
-    },
-    pineapple: {
-        type: 'fruit',
-        fertilizer: { npk: '10-5-20', urea: 50, dap: 25, potash: 60 },
-        pesticides: { 
-            'mealybug-wilt': { name: 'Diazinon', dosageMlPerLitre: 1.5 }, 
-            'heart-rot': { name: 'Metalaxyl', dosageMlPerLitre: 2 } 
-        },
-        seedRateKgPerAcre: 0,
-    },
-    litchi: {
-        type: 'fruit',
-        fertilizer: { npk: '10-20-20', urea: 30, dap: 25, potash: 35 },
-        pesticides: { 
-            'fruit-borer': { name: 'Cypermethrin', dosageMlPerLitre: 1 }, 
-            'leaf-curl': { name: 'Dimethoate', dosageMlPerLitre: 1 } 
-        },
-        seedRateKgPerAcre: 0,
-    },
-    jackfruit: {
-        type: 'fruit',
-        fertilizer: { npk: '10-10-15', urea: 40, dap: 20, potash: 30 },
-        pesticides: { 
-            'shoot-borer': { name: 'Profenofos', dosageMlPerLitre: 1.5 }, 
-            'fruit-rot': { name: 'Mancozeb', dosageMlPerLitre: 2.5 } 
-        },
-        seedRateKgPerAcre: 0,
-    },
-    amla: {
-        type: 'fruit',
-        fertilizer: { npk: '10-10-10', urea: 20, dap: 10, potash: 15 },
-        pesticides: { 
-            'rust': { name: 'Wettable Sulphur', dosageMlPerLitre: 2 }, 
-            'bark-eating-caterpillar': { name: 'Dichlorvos', dosageMlPerLitre: 1 } 
-        },
-        seedRateKgPerAcre: 0,
-    }
+const cropData: Record<string, any> = {
+    // Existing Crops
+    rice: { type: 'crop', fertilizer: { npk: '15-15-15', urea: 45, dap: 20, potash: 15 }, pesticides: { 'brown-planthopper': { name: 'Buprofezin', dosageMlPerLitre: 1.5 }, 'leaf-blast': { name: 'Tricyclazole', dosageMlPerLitre: 0.6 }, 'stem-borer': { name: 'Cartap Hydrochloride', dosageMlPerLitre: 1 }, }, seedRateKgPerAcre: 20, },
+    wheat: { type: 'crop', fertilizer: { npk: '20-20-20', urea: 50, dap: 25, potash: 20 }, pesticides: { rust: { name: 'Propiconazole', dosageMlPerLitre: 1 }, aphids: { name: 'Imidacloprid', dosageMlPerLitre: 0.5 }, termites: { name: 'Chlorpyrifos', dosageMlPerLitre: 2 }, }, seedRateKgPerAcre: 40, },
+    maize: { type: 'crop', fertilizer: { npk: '25-10-15', urea: 55, dap: 30, potash: 20 }, pesticides: { 'fall-armyworm': { name: 'Emamectin Benzoate', dosageMlPerLitre: 0.4 }, 'stalk-borer': { name: 'Thiamethoxam', dosageMlPerLitre: 0.5 }, }, seedRateKgPerAcre: 8, },
+    barley: { type: 'crop', fertilizer: { npk: '60-30-20', urea: 45, dap: 25, potash: 15 }, pesticides: { 'loose-smut': { name: 'Carboxin', dosageMlPerLitre: 2 }, 'aphids': { name: 'Imidacloprid', dosageMlPerLitre: 0.6 }, }, seedRateKgPerAcre: 40, },
+    'jowar (sorghum)': { type: 'crop', fertilizer: { npk: '80-40-40', urea: 60, dap: 35, potash: 30 }, pesticides: { 'stem-borer': { name: 'Carbofuran', dosageMlPerLitre: 1.2 }, 'grain-smut': { name: 'Thiram', dosageMlPerLitre: 2.5 }, }, seedRateKgPerAcre: 4, },
+    'bajra (pearl millet)': { type: 'crop', fertilizer: { npk: '40-20-0', urea: 35, dap: 18, potash: 0 }, pesticides: { 'shoot-fly': { name: 'Thiamethoxam', dosageMlPerLitre: 0.4 }, 'downy-mildew': { name: 'Metalaxyl', dosageMlPerLitre: 2 }, }, seedRateKgPerAcre: 1.5, },
+    oats: { type: 'crop', fertilizer: { npk: '60-30-30', urea: 50, dap: 25, potash: 25 }, pesticides: { 'leaf-blight': { name: 'Mancozeb', dosageMlPerLitre: 2 }, 'aphids': { name: 'Imidacloprid', dosageMlPerLitre: 0.5 } }, seedRateKgPerAcre: 30, },
+    'ragi (finger millet)': { type: 'crop', fertilizer: { npk: '40-20-20', urea: 30, dap: 20, potash: 20 }, pesticides: { 'blast': { name: 'Carbendazim', dosageMlPerLitre: 1 }, 'shoot-fly': { name: 'Dimethoate', dosageMlPerLitre: 1 } }, seedRateKgPerAcre: 4, },
+    'arhar (pigeon pea)': { type: 'crop', fertilizer: { npk: '20-40-20', urea: 15, dap: 35, potash: 20 }, pesticides: { 'pod-borer': { name: 'Emamectin Benzoate', dosageMlPerLitre: 0.4 }, 'wilt': { name: 'Trichoderma viride', dosageMlPerLitre: 5 } }, seedRateKgPerAcre: 5, },
+    'moong (green gram)': { type: 'crop', fertilizer: { npk: '20-40-0', urea: 15, dap: 35, potash: 0 }, pesticides: { 'yellow-mosaic-virus': { name: 'Thiamethoxam', dosageMlPerLitre: 0.3 }, 'pod-borer': { name: 'Indoxacarb', dosageMlPerLitre: 0.5 } }, seedRateKgPerAcre: 8, },
+    'urad (black gram)': { type: 'crop', fertilizer: { npk: '20-40-0', urea: 15, dap: 35, potash: 0 }, pesticides: { 'yellow-mosaic-virus': { name: 'Imidacloprid', dosageMlPerLitre: 0.5 }, 'powdery-mildew': { name: 'Wettable Sulphur', dosageMlPerLitre: 2 } }, seedRateKgPerAcre: 8, },
+    'masoor (lentil)': { type: 'crop', fertilizer: { npk: '20-60-20', urea: 15, dap: 45, potash: 20 }, pesticides: { 'rust': { name: 'Mancozeb', dosageMlPerLitre: 2 }, 'aphids': { name: 'Dimethoate', dosageMlPerLitre: 1 } }, seedRateKgPerAcre: 25, },
+    'chana (bengal gram)': { type: 'crop', fertilizer: { npk: '20-60-20', urea: 20, dap: 40, potash: 20 }, pesticides: { 'pod-borer': { name: 'Spinosad', dosageMlPerLitre: 0.3 }, 'wilt': { name: 'Benomyl', dosageMlPerLitre: 1 } }, seedRateKgPerAcre: 30, },
+    'rajma (kidney beans)': { type: 'crop', fertilizer: { npk: '30-60-30', urea: 25, dap: 50, potash: 25 }, pesticides: { 'bean-rust': { name: 'Hexaconazole', dosageMlPerLitre: 1 }, 'aphids': { name: 'Imidacloprid', dosageMlPerLitre: 0.7 } }, seedRateKgPerAcre: 40, },
+    'moth bean': { type: 'crop', fertilizer: { npk: '10-20-0', urea: 10, dap: 15, potash: 0 }, pesticides: { 'whitefly': { name: 'Acetamiprid', dosageMlPerLitre: 0.5 } }, seedRateKgPerAcre: 6, },
+    'horse gram': { type: 'crop', fertilizer: { npk: '10-25-10', urea: 10, dap: 20, potash: 10 }, pesticides: { 'powdery-mildew': { name: 'Carbendazim', dosageMlPerLitre: 1 } }, seedRateKgPerAcre: 12, },
+    cowpea: { type: 'crop', fertilizer: { npk: '20-60-20', urea: 18, dap: 50, potash: 18 }, pesticides: { 'aphids': { name: 'Dimethoate', dosageMlPerLitre: 1.5 }, 'pod-borer': { name: 'Chlorpyrifos', dosageMlPerLitre: 2 } }, seedRateKgPerAcre: 10, },
+    cotton: { type: 'crop', fertilizer: { npk: '30-15-15', urea: 65, dap: 40, potash: 25 }, pesticides: { bollworm: { name: 'Spinosad', dosageMlPerLitre: 0.3 }, 'white-fly': { name: 'Diafenthiuron', dosageMlPerLitre: 1.2 }, }, seedRateKgPerAcre: 3, },
+    sugarcane: { type: 'crop', fertilizer: { npk: '18-18-18', urea: 100, dap: 50, potash: 40 }, pesticides: { 'early-shoot-borer': { name: 'Fipronil', dosageMlPerLitre: 2 }, 'mealy-bug': { name: 'Profenofos', dosageMlPerLitre: 1.5 }, }, seedRateKgPerAcre: 2000, },
+    jute: { type: 'crop', fertilizer: { npk: '40-20-20', urea: 35, dap: 18, potash: 18 }, pesticides: { 'stem-weevil': { name: 'Endosulfan', dosageMlPerLitre: 2 }, 'yellow-mite': { name: 'Propargite', dosageMlPerLitre: 1 } }, seedRateKgPerAcre: 3, },
+    tobacco: { type: 'crop', fertilizer: { npk: '100-50-50', urea: 80, dap: 40, potash: 40 }, pesticides: { 'budworm': { name: 'Spinosad', dosageMlPerLitre: 0.4 }, 'mosaic-virus': { name: 'Vector control (aphids)', dosageMlPerLitre: 0 } }, seedRateKgPerAcre: 0.1, },
+    'groundnut (peanut)': { type: 'crop', fertilizer: { npk: '20-40-40', urea: 15, dap: 35, potash: 30 }, pesticides: { 'leaf-miner': { name: 'Dimethoate', dosageMlPerLitre: 1.5 }, 'white-grub': { name: 'Chlorpyrifos', dosageMlPerLitre: 2.5 }, }, seedRateKgPerAcre: 40, },
+    sunflower: { type: 'crop', fertilizer: { npk: '60-90-60', urea: 40, dap: 70, potash: 50 }, pesticides: { 'head-borer': { name: 'Indoxacarb', dosageMlPerLitre: 0.5 }, 'alternaria-blight': { name: 'Mancozeb', dosageMlPerLitre: 2.5 }, }, seedRateKgPerAcre: 2.5, },
+    soybean: { type: 'crop', fertilizer: { npk: '20-60-20', urea: 20, dap: 40, potash: 20 }, pesticides: { 'girdle-beetle': { name: 'Thiamethoxam', dosageMlPerLitre: 0.5 }, 'white-fly': { name: 'Imidacloprid', dosageMlPerLitre: 0.7 }, }, seedRateKgPerAcre: 30, },
+    mustard: { type: 'crop', fertilizer: { npk: '60-30-30', urea: 50, dap: 25, potash: 25 }, pesticides: { 'mustard-aphid': { name: 'Oxydemeton-methyl', dosageMlPerLitre: 1 }, sawfly: { name: 'Quinalphos', dosageMlPerLitre: 1.5 }, }, seedRateKgPerAcre: 2, },
+    'sesame (til)': { type: 'crop', fertilizer: { npk: '30-15-0', urea: 25, dap: 12, potash: 0 }, pesticides: { 'leaf-roller': { name: 'Quinalphos', dosageMlPerLitre: 1.5 } }, seedRateKgPerAcre: 2, },
+    'linseed (flax)': { type: 'crop', fertilizer: { npk: '40-20-0', urea: 35, dap: 18, potash: 0 }, pesticides: { 'rust': { name: 'Mancozeb', dosageMlPerLitre: 2 } }, seedRateKgPerAcre: 10, },
+    castor: { type: 'crop', fertilizer: { npk: '40-40-20', urea: 30, dap: 35, potash: 18 }, pesticides: { 'capsule-borer': { name: 'Quinalphos', dosageMlPerLitre: 2 } }, seedRateKgPerAcre: 4, },
+    potato: { type: 'crop', fertilizer: { npk: '120-60-60', urea: 100, dap: 50, potash: 50 }, pesticides: { 'late-blight': { name: 'Mancozeb', dosageMlPerLitre: 2.5 }, 'potato-tuber-moth': { name: 'Cypermethrin', dosageMlPerLitre: 1 }, }, seedRateKgPerAcre: 800, },
+    onion: { type: 'crop', fertilizer: { npk: '100-50-50', urea: 80, dap: 40, potash: 40 }, pesticides: { thrips: { name: 'Fipronil', dosageMlPerLitre: 1 }, 'purple-blotch': { name: 'Mancozeb', dosageMlPerLitre: 2 }, }, seedRateKgPerAcre: 4, },
+    tomato: { type: 'crop', fertilizer: { npk: '100-60-60', urea: 80, dap: 50, potash: 50 }, pesticides: { 'fruit-borer': { name: 'Emamectin Benzoate', dosageMlPerLitre: 0.5 }, 'early-blight': { name: 'Copper Oxychloride', dosageMlPerLitre: 2.5 }, }, seedRateKgPerAcre: 0.2, },
+    'brinjal (eggplant)': { type: 'crop', fertilizer: { npk: '100-50-50', urea: 80, dap: 40, potash: 40 }, pesticides: { 'shoot-and-fruit-borer': { name: 'Cypermethrin', dosageMlPerLitre: 1 } }, seedRateKgPerAcre: 0.2, },
+    cauliflower: { type: 'crop', fertilizer: { npk: '120-60-60', urea: 100, dap: 50, potash: 50 }, pesticides: { 'diamondback-moth': { name: 'Spinosad', dosageMlPerLitre: 0.3 } }, seedRateKgPerAcre: 0.25, },
+    cabbage: { type: 'crop', fertilizer: { npk: '150-80-80', urea: 120, dap: 60, potash: 60 }, pesticides: { 'cabbage-borer': { name: 'Emamectin Benzoate', dosageMlPerLitre: 0.4 } }, seedRateKgPerAcre: 0.2, },
+    carrot: { type: 'crop', fertilizer: { npk: '60-40-40', urea: 50, dap: 35, potash: 35 }, pesticides: { 'carrot-rust-fly': { name: 'Chlorpyrifos', dosageMlPerLitre: 2 } }, seedRateKgPerAcre: 3, },
+    radish: { type: 'crop', fertilizer: { npk: '50-50-50', urea: 40, dap: 40, potash: 40 }, pesticides: { 'aphids': { name: 'Imidacloprid', dosageMlPerLitre: 0.5 } }, seedRateKgPerAcre: 4, },
+    'okra (ladyfinger)': { type: 'crop', fertilizer: { npk: '80-40-40', urea: 60, dap: 35, potash: 35 }, pesticides: { 'yellow-vein-mosaic': { name: 'Vector control (whitefly)', dosageMlPerLitre: 0 } } },
+    'bottle gourd': { type: 'crop', fertilizer: { npk: '70-50-50', urea: 60, dap: 40, potash: 40 }, pesticides: { 'fruit-fly': { name: 'Malathion', dosageMlPerLitre: 1.5 } } },
+    'bitter gourd': { type: 'crop', fertilizer: { npk: '70-50-50', urea: 60, dap: 40, potash: 40 }, pesticides: { 'downy-mildew': { name: 'Mancozeb', dosageMlPerLitre: 2.5 } } },
+    pumpkin: { type: 'crop', fertilizer: { npk: '80-60-60', urea: 70, dap: 50, potash: 50 }, pesticides: { 'pumpkin-beetle': { name: 'Carbaryl', dosageMlPerLitre: 2 } } },
+    spinach: { type: 'crop', fertilizer: { npk: '80-40-40', urea: 60, dap: 35, potash: 35 }, pesticides: { 'leaf-miner': { name: 'Dimethoate', dosageMlPerLitre: 1 } } },
+    peas: { type: 'crop', fertilizer: { npk: '20-60-40', urea: 15, dap: 50, potash: 35 }, pesticides: { 'powdery-mildew': { name: 'Wettable Sulphur', dosageMlPerLitre: 2 } } },
+    beans: { type: 'crop', fertilizer: { npk: '30-60-30', urea: 25, dap: 50, potash: 25 }, pesticides: { 'anthracnose': { name: 'Carbendazim', dosageMlPerLitre: 1.5 } } },
+    chillies: { type: 'crop', fertilizer: { npk: '120-60-60', urea: 100, dap: 50, potash: 50 }, pesticides: { 'thrips': { name: 'Fipronil', dosageMlPerLitre: 1 } } },
+    capsicum: { type: 'crop', fertilizer: { npk: '150-80-80', urea: 120, dap: 60, potash: 60 }, pesticides: { 'anthracnose': { name: 'Copper Oxychloride', dosageMlPerLitre: 2.5 } } },
+    garlic: { type: 'crop', fertilizer: { npk: '100-50-50', urea: 80, dap: 40, potash: 40 }, pesticides: { 'thrips': { name: 'Profenofos', dosageMlPerLitre: 1.5 } } },
+    ginger: { type: 'crop', fertilizer: { npk: '75-50-50', urea: 60, dap: 40, potash: 40 }, pesticides: { 'rhizome-rot': { name: 'Metalaxyl + Mancozeb', dosageMlPerLitre: 2 } } },
+    turmeric: { type: 'crop', fertilizer: { npk: '60-30-90', urea: 50, dap: 25, potash: 80 }, pesticides: { 'leaf-spot': { name: 'Mancozeb', dosageMlPerLitre: 2 } } },
+    coriander: { type: 'crop', fertilizer: { npk: '40-20-20', urea: 35, dap: 18, potash: 18 }, pesticides: { 'powdery-mildew': { name: 'Carbendazim', dosageMlPerLitre: 1 } } },
+    cumin: { type: 'crop', fertilizer: { npk: '30-20-0', urea: 25, dap: 18, potash: 0 }, pesticides: { 'blight': { name: 'Mancozeb', dosageMlPerLitre: 2.5 } } },
+    fennel: { type: 'crop', fertilizer: { npk: '40-40-0', urea: 35, dap: 35, potash: 0 }, pesticides: { 'aphids': { name: 'Imidacloprid', dosageMlPerLitre: 0.5 } } },
+    fenugreek: { type: 'crop', fertilizer: { npk: '20-40-20', urea: 15, dap: 35, potash: 18 }, pesticides: { 'powdery-mildew': { name: 'Dinocap', dosageMlPerLitre: 1 } } },
+    'black pepper': { type: 'crop', fertilizer: { npk: '10-10-10', urea: 10, dap: 10, potash: 10 }, pesticides: { 'quick-wilt': { name: 'Metalaxyl', dosageMlPerLitre: 2 } } },
+    cardamom: { type: 'crop', fertilizer: { npk: '75-75-150', urea: 60, dap: 60, potash: 120 }, pesticides: { 'thrips': { name: 'Fipronil', dosageMlPerLitre: 1 } } },
+    cloves: { type: 'crop', fertilizer: { npk: '20-20-25', urea: 18, dap: 18, potash: 20 }, pesticides: { 'leaf-spot': { name: 'Carbendazim', dosageMlPerLitre: 1.5 } } },
+    cinnamon: { type: 'crop', fertilizer: { npk: '20-20-25', urea: 18, dap: 18, potash: 20 }, pesticides: { 'leaf-blight': { name: 'Mancozeb', dosageMlPerLitre: 2 } } },
+    'mustard seeds': { type: 'crop', fertilizer: { npk: '60-30-30', urea: 50, dap: 25, potash: 25 }, pesticides: { 'aphid': { name: 'Imidacloprid', dosageMlPerLitre: 0.5 } } },
+    'ajwain (carom seeds)': { type: 'crop', fertilizer: { npk: '20-20-0', urea: 18, dap: 18, potash: 0 }, pesticides: { 'powdery-mildew': { name: 'Wettable Sulphur', dosageMlPerLitre: 2 } } },
+    dill: { type: 'crop', fertilizer: { npk: '30-15-15', urea: 25, dap: 12, potash: 12 }, pesticides: { 'aphids': { name: 'Dimethoate', dosageMlPerLitre: 1 } } },
+    tea: { type: 'crop', fertilizer: { npk: '20-10-20', urea: 15, dap: 8, potash: 18 }, pesticides: { 'tea-mosquito-bug': { name: 'Lambda-Cyhalothrin', dosageMlPerLitre: 0.5 } } },
+    coffee: { type: 'crop', fertilizer: { npk: '15-10-15', urea: 12, dap: 8, potash: 12 }, pesticides: { 'white-stem-borer': { name: 'Chlorpyrifos', dosageMlPerLitre: 2 } } },
+    rubber: { type: 'crop', fertilizer: { npk: '12-12-12', urea: 10, dap: 10, potash: 10 }, pesticides: { 'abnormal-leaf-fall': { name: 'Copper Oxychloride', dosageMlPerLitre: 2.5 } } },
+
+    // Existing Fruits
+    mango: { type: 'fruit', fertilizer: { npk: '10-10-10', urea: 30, dap: 15, potash: 30 }, pesticides: { 'powdery-mildew': { name: 'Hexaconazole', dosageMlPerLitre: 1 }, 'fruit-fly': { name: 'Spinosad', dosageMlPerLitre: 0.3 }, 'mealy-bug': { name: 'Buprofezin', dosageMlPerLitre: 1.5 }, }, seedRateKgPerAcre: 0, },
+    apple: { type: 'fruit', fertilizer: { npk: '12-15-12', urea: 35, dap: 20, potash: 25 }, pesticides: { scab: { name: 'Myclobutanil', dosageMlPerLitre: 0.5 }, 'codling-moth': { name: 'Deltamethrin', dosageMlPerLitre: 0.7 }, }, seedRateKgPerAcre: 0, },
+    banana: { type: 'fruit', fertilizer: { npk: '19-19-19', urea: 80, dap: 40, potash: 100 }, pesticides: { 'pseudostem-weevil': { name: 'Chlorpyrifos', dosageMlPerLitre: 2.5 }, 'panama-wilt': { name: 'Carbendazim', dosageMlPerLitre: 1 }, }, seedRateKgPerAcre: 0, },
+    grapes: { type: 'fruit', fertilizer: { npk: '15-15-20', urea: 20, dap: 30, potash: 40 }, pesticides: { 'downy-mildew': { name: 'Mancozeb + Metalaxyl', dosageMlPerLitre: 2 }, 'flea-beetle': { name: 'Imidacloprid', dosageMlPerLitre: 0.4 }, }, seedRateKgPerAcre: 0, },
+    pomegranate: { type: 'fruit', fertilizer: { npk: '10-10-10', urea: 25, dap: 15, potash: 20 }, pesticides: { 'bacterial-blight': { name: 'Streptocycline', dosageMlPerLitre: 0.5 }, 'fruit-borer': { name: 'Lambda-Cyhalothrin', dosageMlPerLitre: 0.7 }, }, seedRateKgPerAcre: 0, },
+    guava: { type: 'fruit', fertilizer: { npk: '15-10-15', urea: 20, dap: 10, potash: 15 }, pesticides: { 'fruit-fly': { name: 'Methyl Eugenol Trap', dosageMlPerLitre: 0 }, 'wilt-disease': { name: 'Trichoderma viride', dosageMlPerLitre: 5 }, }, seedRateKgPerAcre: 0, },
+    papaya: { type: 'fruit', fertilizer: { npk: '20-20-25', urea: 30, dap: 25, potash: 30 }, pesticides: { 'ringspot-virus': { name: 'Vector control (aphids)', dosageMlPerLitre: 0 }, 'mealy-bug': { name: 'Lecanicillium lecanii', dosageMlPerLitre: 2 }, }, seedRateKgPerAcre: 0.1, },
+    lemon: { type: 'fruit', fertilizer: { npk: '20-10-10', urea: 40, dap: 20, potash: 25 }, pesticides: { 'citrus-canker': { name: 'Streptomycin Sulfate', dosageMlPerLitre: 0.5 }, 'leaf-miner': { name: 'Imidacloprid', dosageMlPerLitre: 0.7 } }, seedRateKgPerAcre: 0, },
+    fig: { type: 'fruit', fertilizer: { npk: '15-15-15', urea: 25, dap: 15, potash: 20 }, pesticides: { 'rust': { name: 'Mancozeb', dosageMlPerLitre: 2 }, 'stem-borer': { name: 'Chlorpyrifos', dosageMlPerLitre: 2 } }, seedRateKgPerAcre: 0, },
+    pineapple: { type: 'fruit', fertilizer: { npk: '10-5-20', urea: 50, dap: 25, potash: 60 }, pesticides: { 'mealybug-wilt': { name: 'Diazinon', dosageMlPerLitre: 1.5 }, 'heart-rot': { name: 'Metalaxyl', dosageMlPerLitre: 2 } }, seedRateKgPerAcre: 0, },
+    litchi: { type: 'fruit', fertilizer: { npk: '10-20-20', urea: 30, dap: 25, potash: 35 }, pesticides: { 'fruit-borer': { name: 'Cypermethrin', dosageMlPerLitre: 1 }, 'leaf-curl': { name: 'Dimethoate', dosageMlPerLitre: 1 } }, seedRateKgPerAcre: 0, },
+    jackfruit: { type: 'fruit', fertilizer: { npk: '10-10-15', urea: 40, dap: 20, potash: 30 }, pesticides: { 'shoot-borer': { name: 'Profenofos', dosageMlPerLitre: 1.5 }, 'fruit-rot': { name: 'Mancozeb', dosageMlPerLitre: 2.5 } }, seedRateKgPerAcre: 0, },
+    amla: { type: 'fruit', fertilizer: { npk: '10-10-10', urea: 20, dap: 10, potash: 15 }, pesticides: { 'rust': { name: 'Wettable Sulphur', dosageMlPerLitre: 2 }, 'bark-eating-caterpillar': { name: 'Dichlorvos', dosageMlPerLitre: 1 } }, seedRateKgPerAcre: 0, },
+    coconut: { type: 'fruit', fertilizer: { npk: '5-5-15', urea: 20, dap: 15, potash: 40 }, pesticides: { 'rhizome-weevil': { name: 'Chlorpyrifos', dosageMlPerLitre: 2.5 } }, seedRateKgPerAcre: 0, },
+    'areca nut': { type: 'fruit', fertilizer: { npk: '10-10-14', urea: 25, dap: 20, potash: 30 }, pesticides: { 'foot-rot': { name: 'Bordeaux mixture', dosageMlPerLitre: 10 } }, seedRateKgPerAcre: 0, },
+    cocoa: { type: 'fruit', fertilizer: { npk: '15-15-15', urea: 30, dap: 25, potash: 30 }, pesticides: { 'tea-mosquito-bug': { name: 'Imidacloprid', dosageMlPerLitre: 0.5 } }, seedRateKgPerAcre: 0, },
+    orange: { type: 'fruit', fertilizer: { npk: '15-10-15', urea: 20, dap: 10, potash: 15 }, pesticides: { 'citrus-psylla': { name: 'Dimethoate', dosageMlPerLitre: 1.5 } } },
 };
 
 type CropName = keyof typeof cropData;
@@ -318,7 +145,7 @@ function FertilizerCalculator({ itemType }: { itemType: ItemType }) {
 
     function onSubmit(values: z.infer<typeof fertilizerSchema>) {
         const landInAcres = values.landSize * unitConversionFactors[values.unit as Unit];
-        const item = values.item as CropName;
+        const item = values.item.toLowerCase() as CropName;
         const fert = cropData[item]?.fertilizer;
 
         if (!fert) {
@@ -358,7 +185,7 @@ function FertilizerCalculator({ itemType }: { itemType: ItemType }) {
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                    {relevantItems.map(c => <SelectItem key={c} value={c} className="capitalize">{c.replace('-', ' ')}</SelectItem>)}
+                                    {relevantItems.map(c => <SelectItem key={c} value={c} className="capitalize">{c.replace(/-/g, ' ').replace(/\(.*\)/g, '')}</SelectItem>)}
                                 </SelectContent>
                             </Select>
                             <FormMessage />
@@ -419,12 +246,12 @@ function PesticideCalculator({ itemType }: { itemType: ItemType }) {
         defaultValues: { item: '', pest: '', landSize: 1, unit: 'acre' },
     });
     
-    const selectedItem = form.watch('item') as CropName;
+    const selectedItem = form.watch('item').toLowerCase() as CropName;
     const itemPesticides = selectedItem ? cropData[selectedItem]?.pesticides : null;
 
     function onSubmit(values: z.infer<typeof pesticideSchema>) {
         const landInAcres = values.landSize * unitConversionFactors[values.unit as Unit];
-        const pest = cropData[values.item as CropName]?.pesticides[values.pest as keyof typeof cropData[CropName]['pesticides']];
+        const pest = cropData[values.item.toLowerCase() as CropName]?.pesticides[values.pest as keyof typeof cropData[CropName]['pesticides']];
 
         if (!pest) {
             setResult(t('calculatorsPage.error.noData'));
@@ -464,7 +291,7 @@ function PesticideCalculator({ itemType }: { itemType: ItemType }) {
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                    {relevantItems.map(c => <SelectItem key={c} value={c} className="capitalize">{c.replace('-', ' ')}</SelectItem>)}
+                                    {relevantItems.map(c => <SelectItem key={c} value={c} className="capitalize">{c.replace(/-/g, ' ').replace(/\(.*\)/g, '')}</SelectItem>)}
                                 </SelectContent>
                             </Select>
                             <FormMessage />
@@ -485,7 +312,7 @@ function PesticideCalculator({ itemType }: { itemType: ItemType }) {
                                 </FormControl>
                                 <SelectContent>
                                     {itemPesticides && Object.keys(itemPesticides).map(p => (
-                                        <SelectItem key={p} value={p} className="capitalize">{p.replace('-', ' ')}</SelectItem>
+                                        <SelectItem key={p} value={p} className="capitalize">{p.replace(/-/g, ' ')}</SelectItem>
                                     ))}
                                 </SelectContent>
                             </Select>
@@ -544,7 +371,7 @@ function SeedCalculator({ itemType }: { itemType: ItemType }) {
 
     function onSubmit(values: z.infer<typeof seedSchema>) {
         const landInAcres = values.landSize * unitConversionFactors[values.unit as Unit];
-        const seedRate = cropData[values.item as CropName]?.seedRateKgPerAcre;
+        const seedRate = cropData[values.item.toLowerCase() as CropName]?.seedRateKgPerAcre;
 
         if (seedRate === undefined || seedRate === 0) {
             setResult(t('calculatorsPage.error.noSeedData'));
@@ -558,7 +385,7 @@ function SeedCalculator({ itemType }: { itemType: ItemType }) {
     }
     
     const cropItems = Object.keys(cropData).filter(key => {
-        return cropData[key as CropName].type === 'crop' && cropData[key as CropName].seedRateKgPerAcre > 0;
+        return cropData[key as CropName].type === 'crop' && (cropData[key as CropName].seedRateKgPerAcre || 0) > 0;
     });
 
 
@@ -578,7 +405,7 @@ function SeedCalculator({ itemType }: { itemType: ItemType }) {
                                     </SelectTrigger>
                                 </FormControl>
                                 <SelectContent>
-                                    {cropItems.map(c => <SelectItem key={c} value={c} className="capitalize">{c.replace('-', ' ')}</SelectItem>)}
+                                    {cropItems.map(c => <SelectItem key={c} value={c} className="capitalize">{c.replace(/-/g, ' ').replace(/\(.*\)/g, '')}</SelectItem>)}
                                 </SelectContent>
                             </Select>
                             <FormMessage />
@@ -693,5 +520,8 @@ export function Calculators({ itemType }: { itemType: ItemType }) {
 }
 
     
+
+    
+
 
     

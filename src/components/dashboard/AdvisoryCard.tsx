@@ -53,12 +53,88 @@ type AdvisoryCardProps = {
 }
 
 const cropOptions = [
-    { value: 'Wheat', label: 'Wheat' }, { value: 'Rice', label: 'Rice' }, { value: 'Maize', label: 'Maize' }, { value: 'Cotton', label: 'Cotton' }, { value: 'Sugarcane', label: 'Sugarcane' }, { value: 'Soybean', label: 'Soybean' }, 
-    { value: 'Groundnut', label: 'Groundnut' }, { value: 'Mustard', label: 'Mustard' }, { value: 'Potato', label: 'Potato' }, { value: 'Tomato', label: 'Tomato' }, { value: 'Onion', label: 'Onion' }, { value: 'Pulses (Dal)', label: 'Pulses (Dal)' }
+    { value: 'Rice', label: 'Rice' },
+    { value: 'Wheat', label: 'Wheat' },
+    { value: 'Maize', label: 'Maize' },
+    { value: 'Barley', label: 'Barley' },
+    { value: 'Jowar (Sorghum)', label: 'Jowar (Sorghum)' },
+    { value: 'Bajra (Pearl Millet)', label: 'Bajra (Pearl Millet)' },
+    { value: 'Oats', label: 'Oats' },
+    { value: 'Ragi (Finger Millet)', label: 'Ragi (Finger Millet)' },
+    { value: 'Arhar (Pigeon Pea)', label: 'Arhar (Pigeon Pea)' },
+    { value: 'Moong (Green Gram)', label: 'Moong (Green Gram)' },
+    { value: 'Urad (Black Gram)', label: 'Urad (Black Gram)' },
+    { value: 'Masoor (Lentil)', label: 'Masoor (Lentil)' },
+    { value: 'Chana (Bengal Gram)', label: 'Chana (Bengal Gram)' },
+    { value: 'Rajma (Kidney Beans)', label: 'Rajma (Kidney Beans)' },
+    { value: 'Moth Bean', label: 'Moth Bean' },
+    { value: 'Horse Gram', label: 'Horse Gram' },
+    { value: 'Cowpea', label: 'Cowpea' },
+    { value: 'Cotton', label: 'Cotton' },
+    { value: 'Sugarcane', label: 'Sugarcane' },
+    { value: 'Jute', label: 'Jute' },
+    { value: 'Tobacco', label: 'Tobacco' },
+    { value: 'Groundnut (Peanut)', label: 'Groundnut (Peanut)' },
+    { value: 'Sunflower', label: 'Sunflower' },
+    { value: 'Soybean', label: 'Soybean' },
+    { value: 'Mustard', label: 'Mustard' },
+    { value: 'Sesame (Til)', label: 'Sesame (Til)' },
+    { value: 'Linseed (Flax)', label: 'Linseed (Flax)' },
+    { value: 'Castor', label: 'Castor' },
+    { value: 'Potato', label: 'Potato' },
+    { value: 'Onion', label: 'Onion' },
+    { value: 'Tomato', label: 'Tomato' },
+    { value: 'Brinjal (Eggplant)', label: 'Brinjal (Eggplant)' },
+    { value: 'Cauliflower', label: 'Cauliflower' },
+    { value: 'Cabbage', label: 'Cabbage' },
+    { value: 'Carrot', label: 'Carrot' },
+    { value: 'Radish', label: 'Radish' },
+    { value: 'Okra (Ladyfinger)', label: 'Okra (Ladyfinger)' },
+    { value: 'Bottle Gourd', label: 'Bottle Gourd' },
+    { value: 'Bitter Gourd', label: 'Bitter Gourd' },
+    { value: 'Pumpkin', label: 'Pumpkin' },
+    { value: 'Spinach', label: 'Spinach' },
+    { value: 'Peas', label: 'Peas' },
+    { value: 'Beans', label: 'Beans' },
+    { value: 'Chillies', label: 'Chillies' },
+    { value: 'Capsicum', label: 'Capsicum' },
+    { value: 'Garlic', label: 'Garlic' },
+    { value: 'Ginger', label: 'Ginger' },
+    { value: 'Turmeric', label: 'Turmeric' },
+    { value: 'Coriander', label: 'Coriander' },
+    { value: 'Cumin', label: 'Cumin' },
+    { value: 'Fennel', label: 'Fennel' },
+    { value: 'Fenugreek', label: 'Fenugreek' },
+    { value: 'Black Pepper', label: 'Black Pepper' },
+    { value: 'Cardamom', label: 'Cardamom' },
+    { value: 'Cloves', label: 'Cloves' },
+    { value: 'Cinnamon', label: 'Cinnamon' },
+    { value: 'Mustard Seeds', label: 'Mustard Seeds' },
+    { value: 'Ajwain (Carom Seeds)', label: 'Ajwain (Carom Seeds)' },
+    { value: 'Dill', label: 'Dill' },
+    { value: 'Tea', label: 'Tea' },
+    { value: 'Coffee', label: 'Coffee' },
+    { value: 'Rubber', label: 'Rubber' },
 ];
 
 const fruitOptions = [
-    { value: 'Mango', label: 'Mango' }, { value: 'Banana', label: 'Banana' }, { value: 'Apple', label: 'Apple' }, { value: 'Grapes', label: 'Grapes' }, { value: 'Orange', label: 'Orange' }, { value: 'Pomegranate', label: 'Pomegranate' }, { value: 'Guava', label: 'Guava' }, { value: 'Papaya', label: 'Papaya' }
+    { value: 'Mango', label: 'Mango' },
+    { value: 'Apple', label: 'Apple' },
+    { value: 'Banana', label: 'Banana' },
+    { value: 'Grapes', label: 'Grapes' },
+    { value: 'Orange', label: 'Orange' },
+    { value: 'Pomegranate', label: 'Pomegranate' },
+    { value: 'Guava', label: 'Guava' },
+    { value: 'Papaya', label: 'Papaya' },
+    { value: 'Lemon', label: 'Lemon' },
+    { value: 'Fig', label: 'Fig' },
+    { value: 'Pineapple', label: 'Pineapple' },
+    { value: 'Litchi', label: 'Litchi' },
+    { value: 'Jackfruit', label: 'Jackfruit' },
+    { value: 'Amla', label: 'Amla' },
+    { value: 'Coconut', label: 'Coconut' },
+    { value: 'Areca Nut', label: 'Areca Nut' },
+    { value: 'Cocoa', label: 'Cocoa' },
 ];
 
 
@@ -359,5 +435,7 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
     </Card>
   );
 }
+
+    
 
     
