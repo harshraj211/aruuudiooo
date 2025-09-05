@@ -76,7 +76,7 @@ export default function ExpenseTrackerPage() {
             setTransactions(JSON.parse(storedTransactions).map((t: Transaction) => ({...t, date: new Date(t.date)})));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [activeItemId]);
+    }, []);
 
     const saveItems = (newItems: TrackedItem[]) => {
         setItems(newItems);
