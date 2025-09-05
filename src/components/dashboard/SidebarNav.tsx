@@ -43,28 +43,27 @@ export function SidebarNav({ managementType }: { managementType: 'crops' | 'frui
   };
   
   const menuItems: MenuItem[] = managementType === 'default' ? [] : baseMenuItems.map(item => {
-    let page = item.labelKey.split('.')[1]; // e.g., 'dashboard'
-    if (page === 'dashboard') page = managementType;
-    else if (page === 'khetiSamachar') page = 'kheti-samachar';
-    else if (page === 'marketPrices') page = 'market-prices';
-    else if (page === 'expenseTracker') page = 'expense-tracker';
-    else if (page === 'diseaseDetection') page = 'disease-detection';
-    else if (page === 'cropCalendar') page = 'crop-calendar';
-
-    const href = `/dashboard/${managementType}/${page.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
+    let page = item.labelKey.split('.')[1]; // e.g., 'dashboard' from 'sidebar.dashboard'
     
-    // A quick hack to ensure the main dashboard link is correct
-    if (item.labelKey === 'sidebar.dashboard') {
-        return {
-            ...item,
-            href: `/dashboard/${managementType}`
-        }
-    }
+    // Pages that are specific to the managementType
+    const typeSpecificPages = ['dashboard', 'expenseTracker'];
+    
+    // Pages that are generic and live under /dashboard/
+    const genericPages = ['marketPrices', 'diseaseDetection', 'chatbot', 'cropCalendar', 'notifications', 'khetiSamachar'];
+    
+    let href = '';
 
-    if (['sidebar.chatbot', 'sidebar.khetiSamachar', 'sidebar.marketPrices', 'sidebar.diseaseDetection', 'sidebar.cropCalendar', 'sidebar.notifications'].includes(item.labelKey)) {
-        return { ...item, href: `/dashboard/${page.replace(/([A-Z])/g, '-$1').toLowerCase()}`};
+    if (typeSpecificPages.includes(page)) {
+      if (page === 'dashboard') {
+        href = `/dashboard/${managementType}`;
+      } else {
+        const pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
+        href = `/dashboard/${managementType}/${pageSlug}`;
+      }
+    } else if (genericPages.includes(page)) {
+        const pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
+        href = `/dashboard/${pageSlug}`;
     }
-
 
     return {
       ...item,

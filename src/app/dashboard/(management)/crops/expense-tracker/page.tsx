@@ -29,7 +29,7 @@ import {
 
 export type Transaction = {
   id: string;
-  itemId: string; // was cropId
+  itemId: string;
   type: 'income' | 'expense';
   category: string;
   amount: number;
@@ -38,7 +38,7 @@ export type Transaction = {
   currency: 'INR' | 'USD' | 'EUR';
 };
 
-export type TrackedItem = { // was Crop
+export type TrackedItem = {
     id: string;
     name: string;
 }

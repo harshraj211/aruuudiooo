@@ -58,7 +58,10 @@ export function TransactionList({ transactions, onDeleteTransaction, itemName }:
                 <TableCell>
                   <Badge
                     variant={transaction.type === 'income' ? 'default' : 'destructive'}
-                    className={transaction.type === 'income' ? 'bg-green-600/80' : 'bg-red-600/80'}
+                    className={cn(
+                        'capitalize',
+                        transaction.type === 'income' ? 'bg-green-600/80' : 'bg-red-600/80'
+                    )}
                   >
                     {t(`expenseTrackerPage.transactionList.${transaction.type}`)}
                   </Badge>
