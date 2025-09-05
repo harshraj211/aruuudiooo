@@ -42,7 +42,14 @@ export function SidebarNav({ managementType }: { managementType: 'crops' | 'frui
     setOpenMobile(false);
   };
   
-  const menuItems: MenuItem[] = managementType === 'default' ? [] : baseMenuItems.map(item => {
+  const filteredMenuItems = baseMenuItems.filter(item => {
+    if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
+        return false;
+    }
+    return true;
+  });
+
+  const menuItems: MenuItem[] = managementType === 'default' ? [] : filteredMenuItems.map(item => {
     let page = item.labelKey.split('.')[1]; // e.g., 'dashboard' from 'sidebar.dashboard'
     
     // Pages that are specific to the managementType
