@@ -19,7 +19,7 @@ export default function NotificationsPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         <div className="lg:col-span-2 space-y-6">
-          <MarketPriceAlerts />
+          <MarketPriceAlerts itemType="Fruit" />
         </div>
         <div className="lg:col-span-1 space-y-6">
           <WeatherAlertsCard />

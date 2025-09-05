@@ -8,6 +8,7 @@
         "chatbot": "Chatbot",
         "notifications": "Notifications",
         "cropCalendar": "Crop Calendar",
+        "fruitCalendar": "Fruit Calendar",
         "khetiSamachar": "Agri News",
         "home": "Home",
         "backToSelection": "Back to Selection"
@@ -74,11 +75,18 @@
         "cardTitle": "My Farming Calendar",
         "cardDescription": "Add important tasks and deadlines for your crops."
     },
+    "fruitCalendarPage": {
+        "title": "Fruit Calendar & Reminders",
+        "description": "Manage your orchard schedule, from planting to harvest.",
+        "cardTitle": "My Fruit Calendar",
+        "cardDescription": "Add important tasks and deadlines for your fruits."
+    },
     "reminders": {
         "title": "Farming Reminders",
         "description": "Schedule custom reminders for your farming activities.",
         "newTask": "New Reminder Task",
-        "taskPlaceholder": "e.g., Irrigate the wheat field",
+        "taskPlaceholderCrop": "e.g., Irrigate the wheat field",
+        "taskPlaceholderFruit": "e.g., Prune apple trees",
         "date": "Date",
         "pickDate": "Pick a date",
         "addReminder": "Add Reminder",
@@ -106,9 +114,10 @@
         },
         "priceAlerts": {
             "title": "Market Price Alerts",
-            "description": "Set thresholds to get notified when crop prices change.",
+            "description": "Set thresholds to get notified when prices change.",
             "newAlert": "Create New Alert",
             "cropName": "Crop Name (e.g., Wheat)",
+            "fruitName": "Fruit Name (e.g., Apple)",
             "pricePlaceholder": "Price (e.g., 2200)",
             "notifyAbove": "Notify Above",
             "notifyBelow": "Notify Below",
@@ -120,7 +129,7 @@
             "goesAbove": "goes above",
             "goesBelow": "goes below",
             "addErrorTitle": "Missing Information",
-            "addErrorDescription": "Please provide both a crop name and a price threshold."
+            "addErrorDescription": "Please provide both a name and a price threshold."
         },
         "reminders": {
             "title": "Farming Reminders",

@@ -67,6 +67,9 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
     if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
         return false;
     }
+     if (managementType === 'crops' && item.labelKey === 'sidebar.cropCalendar') {
+        // In crops section, "Crop Calendar" should just be "Calendar"
+    }
     return true;
   });
 
@@ -74,30 +77,43 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
     let page = item.labelKey.split('.')[1]; // e.g., 'dashboard' from 'sidebar.dashboard'
     
     // Pages that are specific to the managementType
-    const typeSpecificPages = ['dashboard', 'expenseTracker', 'diseaseDetection', 'chatbot'];
+    const typeSpecificPages = ['dashboard', 'expenseTracker', 'diseaseDetection', 'chatbot', 'cropCalendar', 'notifications'];
     
     // Pages that are generic and live under /dashboard/
-    const genericPages = ['marketPrices', 'cropCalendar', 'notifications', 'khetiSamachar'];
+    const genericPages = ['marketPrices', 'khetiSamachar'];
     
     let href = '';
 
     if (typeSpecificPages.includes(page)) {
-      if (page === 'dashboard') {
-        href = `/dashboard/${managementType}`;
-      } else {
-        const pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
-        href = `/dashboard/${managementType}/${pageSlug}`;
-      }
+        let pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
+        
+        if (page === 'dashboard') {
+            href = `/dashboard/${managementType}`;
+        } else if (page === 'cropCalendar') {
+            const calendarSlug = managementType === 'fruits' ? 'fruit-calendar' : 'crop-calendar';
+            href = `/dashboard/${managementType}/${calendarSlug}`;
+        } else {
+            href = `/dashboard/${managementType}/${pageSlug}`;
+        }
+
     } else if (genericPages.includes(page)) {
         const pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
         href = `/dashboard/${pageSlug}`;
     }
 
+    // Adjust label for calendar
+    let labelKey = item.labelKey;
+    if (item.labelKey === 'sidebar.cropCalendar') {
+        labelKey = managementType === 'fruits' ? 'sidebar.fruitCalendar' : 'sidebar.cropCalendar';
+    }
+
+
     return {
       ...item,
       href,
+      labelKey,
     };
-  });
+  }).filter(item => item.href);
 
 
   return (

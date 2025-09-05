@@ -1,3 +1,4 @@
+
 'use client';
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,7 +8,7 @@ import { X, Bell, PlusCircle, ArrowDown, ArrowUp } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/hooks/useTranslation';
 
-const PRICE_ALERTS_KEY = 'agriVision-priceAlerts';
+const PRICE_ALERTS_KEY_PREFIX = 'agriVision-priceAlerts';
 
 export type PriceAlert = {
   id: string;
@@ -16,9 +17,16 @@ export type PriceAlert = {
   condition: 'above' | 'below';
 };
 
-export function MarketPriceAlerts() {
+type MarketPriceAlertsProps = {
+    itemType: 'Crop' | 'Fruit';
+}
+
+
+export function MarketPriceAlerts({ itemType }: MarketPriceAlertsProps) {
+  const PRICE_ALERTS_KEY = `${PRICE_ALERTS_KEY_PREFIX}-${itemType.toLowerCase()}`;
+
   const [alerts, setAlerts] = useState<PriceAlert[]>([]);
-  const [newCrop, setNewCrop] = useState('');
+  const [newItem, setNewItem] = useState('');
   const [newThreshold, setNewThreshold] = useState('');
   const { toast } = useToast();
   const { t } = useTranslation();
@@ -28,6 +36,7 @@ export function MarketPriceAlerts() {
     if (storedAlerts) {
       setAlerts(JSON.parse(storedAlerts));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const saveAlerts = (newAlerts: PriceAlert[]) => {
@@ -36,7 +45,7 @@ export function MarketPriceAlerts() {
   }
 
   const handleAddAlert = (condition: 'above' | 'below') => {
-    if (!newCrop || !newThreshold) {
+    if (!newItem || !newThreshold) {
       toast({
         variant: 'destructive',
         title: t('notificationsPage.priceAlerts.addErrorTitle'),
@@ -46,12 +55,12 @@ export function MarketPriceAlerts() {
     }
     const newAlert: PriceAlert = {
       id: Date.now().toString(),
-      crop: newCrop,
+      crop: newItem,
       threshold: parseFloat(newThreshold),
       condition,
     };
     saveAlerts([...alerts, newAlert]);
-    setNewCrop('');
+    setNewItem('');
     setNewThreshold('');
     toast({
       title: t('notificationsPage.priceAlerts.alertSet'),
@@ -66,6 +75,10 @@ export function MarketPriceAlerts() {
       title: t('notificationsPage.priceAlerts.alertRemoved'),
     });
   };
+  
+  const placeholder = itemType === 'Crop' 
+    ? t('notificationsPage.priceAlerts.cropName') 
+    : t('notificationsPage.priceAlerts.fruitName');
 
   return (
     <Card>
@@ -79,9 +92,9 @@ export function MarketPriceAlerts() {
             <Label className="text-sm font-medium">{t('notificationsPage.priceAlerts.newAlert')}</Label>
             <div className="flex gap-2">
                 <Input
-                placeholder={t('notificationsPage.priceAlerts.cropName')}
-                value={newCrop}
-                onChange={(e) => setNewCrop(e.target.value)}
+                placeholder={placeholder}
+                value={newItem}
+                onChange={(e) => setNewItem(e.target.value)}
                 />
                 <Input
                 type="number"
