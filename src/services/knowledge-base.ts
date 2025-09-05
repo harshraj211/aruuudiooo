@@ -50,7 +50,7 @@ const FRUIT_INDEX_ID = 'ekheti-fruits-kb';
 
 const cropIndexer = defineIndexer({
     name: 'cropKnowledgeIndexer',
-    indexer: googleCloud().firestore(),
+    indexer: googleCloud.firestore(),
     config: {
         indexId: CROP_INDEX_ID,
         embedder: googleAI('text-embedding-004'),
@@ -59,7 +59,7 @@ const cropIndexer = defineIndexer({
 
 const fruitIndexer = defineIndexer({
     name: 'fruitKnowledgeIndexer',
-    indexer: googleCloud().firestore(),
+    indexer: googleCloud.firestore(),
     config: {
         indexId: FRUIT_INDEX_ID,
         embedder: googleAI('text-embedding-004'),
