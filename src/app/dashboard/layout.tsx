@@ -6,6 +6,8 @@ import { SidebarNav } from "@/components/dashboard/SidebarNav";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+const MANAGEMENT_TYPE_KEY = 'agriVision-managementType';
+
 export default function DashboardLayout({
   children,
 }: {
@@ -15,18 +17,25 @@ export default function DashboardLayout({
   const [managementType, setManagementType] = useState<'crops' | 'fruits' | 'default'>('default');
 
   useEffect(() => {
+    let currentType: 'crops' | 'fruits' | 'default' = 'default';
+
     if (pathname.startsWith('/dashboard/crops')) {
-      setManagementType('crops');
+      currentType = 'crops';
+      localStorage.setItem(MANAGEMENT_TYPE_KEY, 'crops');
     } else if (pathname.startsWith('/dashboard/fruits')) {
-      setManagementType('fruits');
+      currentType = 'fruits';
+      localStorage.setItem(MANAGEMENT_TYPE_KEY, 'fruits');
     } else if (pathname === '/dashboard') {
-      setManagementType('default');
+      currentType = 'default';
+      // Do not clear the key here, so we can return to the last context
     } else {
-      // For generic pages that are not crops/fruits specific but are not the main dashboard page
-      // e.g. /community, /market-prices. We can check localStorage or keep it default.
-      // For now, let's have SidebarNav handle this.
-      setManagementType('default');
+      // For generic pages, try to use the last known management type
+      const storedType = localStorage.getItem(MANAGEMENT_TYPE_KEY);
+      if (storedType === 'crops' || storedType === 'fruits') {
+        currentType = storedType;
+      }
     }
+    setManagementType(currentType);
   }, [pathname]);
 
 
