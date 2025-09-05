@@ -34,6 +34,10 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'newsdata.io',
+      },
+      {
+        protocol: 'https',
         hostname: '**',
       },
     ],
