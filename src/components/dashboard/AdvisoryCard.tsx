@@ -29,12 +29,12 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { useToast } from '@/hooks/use-toast';
 import { getCityNameFromCoords } from '@/services/weather';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { Combobox } from '../ui/combobox';
 
 const formSchema = z.object({
-  cropType: z.string().min(1, 'Please select a type.'),
-  soilDetails: z.string().min(1, 'Please select a soil type.'),
-  currentStageOfCrop: z.string().min(1, 'Please select a stage.'),
+  cropType: z.string().min(1, 'Please enter or select a type.'),
+  soilDetails: z.string().min(1, 'Please enter or select a soil type.'),
+  currentStageOfCrop: z.string().min(1, 'Please enter or select a stage.'),
   location: z.string().min(2, 'Please enter your location.'),
 });
 
@@ -53,28 +53,28 @@ type AdvisoryCardProps = {
 }
 
 const cropOptions = [
-    'Wheat', 'Rice', 'Maize', 'Cotton', 'Sugarcane', 'Soybean', 
-    'Groundnut', 'Mustard', 'Potato', 'Tomato', 'Onion', 'Pulses (Dal)'
+    { value: 'Wheat', label: 'Wheat' }, { value: 'Rice', label: 'Rice' }, { value: 'Maize', label: 'Maize' }, { value: 'Cotton', label: 'Cotton' }, { value: 'Sugarcane', label: 'Sugarcane' }, { value: 'Soybean', label: 'Soybean' }, 
+    { value: 'Groundnut', label: 'Groundnut' }, { value: 'Mustard', label: 'Mustard' }, { value: 'Potato', label: 'Potato' }, { value: 'Tomato', label: 'Tomato' }, { value: 'Onion', label: 'Onion' }, { value: 'Pulses (Dal)', label: 'Pulses (Dal)' }
 ];
 
 const fruitOptions = [
-    'Mango', 'Banana', 'Apple', 'Grapes', 'Orange', 'Pomegranate', 'Guava', 'Papaya'
+    { value: 'Mango', label: 'Mango' }, { value: 'Banana', label: 'Banana' }, { value: 'Apple', label: 'Apple' }, { value: 'Grapes', label: 'Grapes' }, { value: 'Orange', label: 'Orange' }, { value: 'Pomegranate', label: 'Pomegranate' }, { value: 'Guava', label: 'Guava' }, { value: 'Papaya', label: 'Papaya' }
 ];
 
 
 const soilOptions = [
-    'Alluvial', 'Black', 'Red', 'Laterite', 'Desert', 'Mountainous', 
-    'Loamy', 'Sandy', 'Clay', 'Saline', 'Peaty'
+    { value: 'Alluvial', label: 'Alluvial' }, { value: 'Black', label: 'Black' }, { value: 'Red', label: 'Red' }, { value: 'Laterite', label: 'Laterite' }, { value: 'Desert', label: 'Desert' }, { value: 'Mountainous', label: 'Mountainous' }, 
+    { value: 'Loamy', label: 'Loamy' }, { value: 'Sandy', label: 'Sandy' }, { value: 'Clay', label: 'Clay' }, { value: 'Saline', label: 'Saline' }, { value: 'Peaty', label: 'Peaty' }
 ];
 
 const cropStageOptions = [
-    'Land Preparation', 'Sowing', 'Germination', 'Seedling', 'Vegetative', 
-    'Flowering', 'Fruiting', 'Ripening', 'Harvesting'
+    { value: 'Land Preparation', label: 'Land Preparation' }, { value: 'Sowing', label: 'Sowing' }, { value: 'Germination', label: 'Germination' }, { value: 'Seedling', label: 'Seedling' }, { value: 'Vegetative', label: 'Vegetative' }, 
+    { value: 'Flowering', label: 'Flowering' }, { value: 'Fruiting', label: 'Fruiting' }, { value: 'Ripening', label: 'Ripening' }, { value: 'Harvesting', label: 'Harvesting' }
 ];
 
 const fruitStageOptions = [
-    'Planting', 'Juvenile', 'Vegetative', 'Budding', 'Flowering', 'Fruit Set', 
-    'Fruit Development', 'Ripening', 'Harvesting', 'Dormancy'
+    { value: 'Planting', label: 'Planting' }, { value: 'Juvenile', label: 'Juvenile' }, { value: 'Vegetative', label: 'Vegetative' }, { value: 'Budding', label: 'Budding' }, { value: 'Flowering', label: 'Flowering' }, { value: 'Fruit Set', label: 'Fruit Set' }, 
+    { value: 'Fruit Development', label: 'Fruit Development' }, { value: 'Ripening', label: 'Ripening' }, { value: 'Harvesting', label: 'Harvesting' }, { value: 'Dormancy', label: 'Dormancy' }
 ];
 
 
@@ -225,64 +225,49 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <FormField
-                control={form.control}
-                name="cropType"
-                render={({ field }) => (
-                     <FormItem>
-                        <FormLabel>{itemType} Type</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                                <SelectTrigger>
-                                <SelectValue placeholder={`Select a ${itemType.toLowerCase()}`} />
-                                </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                                {currentItemOptions.map(opt => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}
-                            </SelectContent>
-                        </Select>
-                        <FormMessage />
-                    </FormItem>
-                )}
+                    control={form.control}
+                    name="cropType"
+                    render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                            <FormLabel>{itemType} Type</FormLabel>
+                            <Combobox 
+                                options={currentItemOptions}
+                                {...field}
+                                placeholder={`Select or type a ${itemType.toLowerCase()}...`}
+                            />
+                            <FormMessage />
+                        </FormItem>
+                    )}
                 />
                 <FormField
-                control={form.control}
-                name="soilDetails"
-                render={({ field }) => (
-                     <FormItem>
-                        <FormLabel>Soil Details</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                                <SelectTrigger>
-                                <SelectValue placeholder="Select a soil type" />
-                                </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                                {soilOptions.map(opt => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}
-                            </SelectContent>
-                        </Select>
-                        <FormMessage />
-                    </FormItem>
-                )}
+                    control={form.control}
+                    name="soilDetails"
+                    render={({ field }) => (
+                         <FormItem className="flex flex-col">
+                            <FormLabel>Soil Details</FormLabel>
+                             <Combobox 
+                                options={soilOptions}
+                                {...field}
+                                placeholder="Select or type a soil type..."
+                            />
+                            <FormMessage />
+                        </FormItem>
+                    )}
                 />
                 <FormField
-                control={form.control}
-                name="currentStageOfCrop"
-                render={({ field }) => (
-                    <FormItem>
-                        <FormLabel>Current {itemType} Stage</FormLabel>
-                         <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                                <SelectTrigger>
-                                <SelectValue placeholder={`Select a stage`} />
-                                </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                                {currentStageOptions.map(opt => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}
-                            </SelectContent>
-                        </Select>
-                        <FormMessage />
-                    </FormItem>
-                )}
+                    control={form.control}
+                    name="currentStageOfCrop"
+                    render={({ field }) => (
+                        <FormItem className="flex flex-col">
+                            <FormLabel>Current {itemType} Stage</FormLabel>
+                            <Combobox 
+                                options={currentStageOptions}
+                                {...field}
+                                placeholder="Select or type a stage..."
+                            />
+                            <FormMessage />
+                        </FormItem>
+                    )}
                 />
                 <FormField
                 control={form.control}

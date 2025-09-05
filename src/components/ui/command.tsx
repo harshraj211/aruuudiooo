@@ -8,10 +8,6 @@ import { Search } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
-import { Popover, PopoverContent, PopoverTrigger } from "./popover"
-import { Button } from "./button"
-import { Check, ChevronsUpDown } from 'lucide-react';
-import { Icon, IconName } from "./icon"
 
 
 const Command = React.forwardRef<
@@ -149,78 +145,6 @@ const CommandShortcut = ({
 CommandShortcut.displayName = "CommandShortcut"
 
 
-// Combobox component
-type ComboboxOption = {
-    value: string;
-    label: string;
-    icon?: IconName;
-};
-
-type ComboboxProps = {
-    options: ComboboxOption[];
-    value?: string;
-    onChange: (value: string) => void;
-    placeholder?: string;
-    searchPlaceholder?: string;
-};
-
-const Combobox = ({ options, value, onChange, placeholder, searchPlaceholder }: ComboboxProps) => {
-    const [open, setOpen] = React.useState(false)
-
-    const selectedOption = options.find((option) => option.value === value)
-
-    return (
-        <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-            <Button
-            variant="outline"
-            role="combobox"
-            aria-expanded={open}
-            className="w-full justify-between"
-            >
-             <div className="flex items-center gap-2">
-                {selectedOption?.icon && <Icon name={selectedOption.icon} className="h-4 w-4" />}
-                {selectedOption ? selectedOption.label : placeholder || "Select option..."}
-            </div>
-            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-            </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-full p-0" style={{ minWidth: "var(--radix-popover-trigger-width)"}}>
-            <Command>
-            <CommandInput placeholder={searchPlaceholder || "Search..."} />
-            <CommandEmpty>No option found.</CommandEmpty>
-            <CommandList>
-                <CommandGroup>
-                    {options.map((option) => (
-                        <CommandItem
-                        key={option.value}
-                        value={option.value}
-                        onSelect={(currentValue) => {
-                            onChange(currentValue === value ? "" : currentValue)
-                            setOpen(false)
-                        }}
-                        >
-                        <Check
-                            className={cn(
-                            "mr-2 h-4 w-4",
-                            value === option.value ? "opacity-100" : "opacity-0"
-                            )}
-                        />
-                         <div className="flex items-center gap-2">
-                             {option.icon && <Icon name={option.icon} className="h-4 w-4" />}
-                            {option.label}
-                         </div>
-                        </CommandItem>
-                    ))}
-                </CommandGroup>
-            </CommandList>
-            </Command>
-        </PopoverContent>
-        </Popover>
-    )
-}
-
-
 export {
   Command,
   CommandDialog,
@@ -231,5 +155,4 @@ export {
   CommandItem,
   CommandShortcut,
   CommandSeparator,
-  Combobox
 }
