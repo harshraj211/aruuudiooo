@@ -53,11 +53,27 @@ type AdvisoryCardProps = {
     itemType?: 'Crop' | 'Fruit';
 }
 
-const cropOptions = ['Wheat', 'Rice', 'Maize', 'Cotton', 'Sugarcane', 'Soybean', 'Potato', 'Tomato', 'Onion'];
-const fruitOptions = ['Mango', 'Apple', 'Banana', 'Grapes', 'Orange', 'Pomegranate'];
-const soilOptions = ['Alluvial', 'Black', 'Red', 'Laterite', 'Desert', 'Mountainous', 'Loamy', 'Sandy', 'Clay'];
-const cropStageOptions = ['Sowing', 'Germination', 'Vegetative', 'Flowering', 'Harvesting'];
-const fruitStageOptions = ['Planting', 'Vegetative', 'Flowering', 'Fruiting', 'Harvesting'];
+const cropOptions = [
+    'Wheat', 'Rice', 'Maize', 'Cotton', 'Sugarcane', 'Soybean', 
+    'Groundnut', 'Mustard', 'Barley', 'Bajra', 'Jowar', 'Sunflower', 
+    'Potato', 'Tomato', 'Onion', 'Lentils', 'Chickpea', 'Peas', 'Millet', 'Sorghum'
+];
+const fruitOptions = [
+    'Mango', 'Apple', 'Banana', 'Grapes', 'Orange', 'Pomegranate', 
+    'Guava', 'Papaya', 'Lemon', 'Fig', 'Pineapple', 'Litchi', 'Jackfruit', 'Amla'
+];
+const soilOptions = [
+    'Alluvial', 'Black', 'Red', 'Laterite', 'Desert', 'Mountainous', 
+    'Loamy', 'Sandy', 'Clay', 'Saline', 'Peaty', 'Chalky', 'Silty'
+];
+const cropStageOptions = [
+    'Land Preparation', 'Sowing', 'Germination', 'Seedling', 'Vegetative', 
+    'Tillering', 'Flowering', 'Milking', 'Ripening', 'Harvesting', 'Post-Harvest'
+];
+const fruitStageOptions = [
+    'Planting', 'Juvenile', 'Vegetative', 'Budding', 'Flowering', 'Fruit Set', 
+    'Fruit Development', 'Ripening', 'Harvesting', 'Dormancy', 'Pruning'
+];
 
 
 export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
