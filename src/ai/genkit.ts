@@ -6,8 +6,8 @@ import {googleCloud} from '@genkit-ai/google-cloud';
 export const ai = genkit({
   plugins: [
     googleAI(),
-    googleCloud,
+    googleCloud(),
   ],
-  model: 'googleai/gemini-2.5-flash',
+  model: 'gemini-1.5-flash',
   embedder: 'googleai/text-embedding-004',
 });
