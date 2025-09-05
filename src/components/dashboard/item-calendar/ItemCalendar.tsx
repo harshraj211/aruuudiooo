@@ -79,18 +79,11 @@ export function ItemCalendar({ itemType }: ItemCalendarProps) {
     });
   };
   
-  const pageTitle = itemType === 'Crop' ? t('cropCalendarPage.title') : t('fruitCalendarPage.title');
-  const pageDescription = itemType === 'Crop' ? t('cropCalendarPage.description') : t('fruitCalendarPage.description');
   const cardTitle = itemType === 'Crop' ? t('cropCalendarPage.cardTitle') : t('fruitCalendarPage.cardTitle');
   const cardDescription = itemType === 'Crop' ? t('cropCalendarPage.cardDescription') : t('fruitCalendarPage.cardDescription');
   const taskPlaceholder = itemType === 'Crop' ? t('reminders.taskPlaceholderCrop') : t('reminders.taskPlaceholderFruit');
 
   return (
-    <main>
-        <div className="mb-8 space-y-2">
-            <h1 className="text-3xl font-bold">{pageTitle}</h1>
-            <p className="text-muted-foreground">{pageDescription}</p>
-        </div>
         <Card>
           <CardHeader>
             <CardTitle>{cardTitle}</CardTitle>
@@ -157,6 +150,6 @@ export function ItemCalendar({ itemType }: ItemCalendarProps) {
             </div>
           </CardContent>
         </Card>
-    </main>
   );
 }
+
