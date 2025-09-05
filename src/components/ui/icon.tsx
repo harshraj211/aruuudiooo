@@ -1,4 +1,5 @@
 
+
 import {
   Leaf,
   Wheat,
@@ -300,6 +301,7 @@ const iconMap = {
   Litchi: Apple,
   Jackfruit: TreeDeciduous,
   Amla: Apple,
+  Users,
 };
 
 

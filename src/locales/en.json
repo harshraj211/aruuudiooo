@@ -12,7 +12,8 @@
         "khetiSamachar": "Agri News",
         "home": "Home",
         "backToSelection": "Back to Selection",
-        "calculators": "Calculators"
+        "calculators": "Calculators",
+        "communityForum": "Community Forum"
     },
     "dashboard": {
         "welcome": "Welcome back, {{name}}!",

@@ -11,7 +11,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/Logo';
-import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator } from 'lucide-react';
+import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator, Users } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -21,18 +21,20 @@ type MenuItem = {
   href: string;
   labelKey: string;
   icon: React.ElementType;
+  isGeneric?: boolean; // Flag for pages that are not type-specific
 }
 
 const baseMenuItems: Omit<MenuItem, 'href'>[] = [
   { labelKey: 'sidebar.dashboard', icon: LayoutDashboard },
-  { labelKey: 'sidebar.marketPrices', icon: TrendingUp },
+  { labelKey: 'sidebar.communityForum', icon: Users, isGeneric: true },
+  { labelKey: 'sidebar.marketPrices', icon: TrendingUp, isGeneric: true },
+  { labelKey: 'sidebar.khetiSamachar', icon: Newspaper, isGeneric: true },
   { labelKey: 'sidebar.expenseTracker', icon: Wallet },
   { labelKey: 'sidebar.diseaseDetection', icon: Leaf },
   { labelKey: 'sidebar.chatbot', icon: BotMessageSquare },
   { labelKey: 'sidebar.cropCalendar', icon: CalendarDays },
   { labelKey: 'sidebar.calculators', icon: Calculator },
   { labelKey: 'sidebar.notifications', icon: Bell },
-  { labelKey: 'sidebar.khetiSamachar', icon: Newspaper },
 ];
 
 export function SidebarNav({ managementType: initialManagementType }: { managementType: 'crops' | 'fruits' | 'default' }) {
@@ -42,8 +44,6 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   const [managementType, setManagementType] = useState(initialManagementType);
 
   useEffect(() => {
-    // If the initial type is default (e.g. on a generic page like /kheti-samachar),
-    // try to infer from the URL path or referrer to maintain context.
     if (initialManagementType === 'default') {
         if (pathname.includes('/crops/')) {
             setManagementType('crops');
@@ -53,6 +53,9 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
             setManagementType('crops');
         } else if (document.referrer.includes('/dashboard/fruits')) {
             setManagementType('fruits');
+        } else {
+            // Fallback to a sensible default if no context can be found
+            setManagementType('crops');
         }
     } else {
         setManagementType(initialManagementType);
@@ -65,38 +68,34 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   };
   
   const filteredMenuItems = baseMenuItems.filter(item => {
+    // Hide market prices for fruits
     if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
         return false;
     }
-    return true;
+    // Always show generic items
+    if(item.isGeneric) return true;
+    
+    // Only show dashboard link if a type is selected
+    return managementType !== 'default';
   });
 
-  const menuItems: MenuItem[] = managementType === 'default' ? [] : filteredMenuItems.map(item => {
+  const menuItems: MenuItem[] = filteredMenuItems.map(item => {
     let page = item.labelKey.split('.')[1]; // e.g., 'dashboard' from 'sidebar.dashboard'
-    
-    // Pages that are specific to the managementType
-    const typeSpecificPages = ['dashboard', 'expenseTracker', 'diseaseDetection', 'chatbot', 'cropCalendar', 'notifications', 'calculators'];
-    
-    // Pages that are generic and live under /dashboard/
-    const genericPages = ['marketPrices', 'khetiSamachar'];
+    let pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
     
     let href = '';
 
-    if (typeSpecificPages.includes(page)) {
-        let pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
-        
+    if (item.isGeneric) {
+         href = `/dashboard/${pageSlug}`;
+    } else {
         if (page === 'dashboard') {
             href = `/dashboard/${managementType}`;
-        } else if (page === 'cropCalendar') {
+        } else if (page === 'cropCalendar') { // Special handling for calendar
             const calendarSlug = managementType === 'fruits' ? 'fruit-calendar' : 'crop-calendar';
             href = `/dashboard/${managementType}/${calendarSlug}`;
         } else {
             href = `/dashboard/${managementType}/${pageSlug}`;
         }
-
-    } else if (genericPages.includes(page)) {
-        const pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
-        href = `/dashboard/${pageSlug}`;
     }
 
     // Adjust label for calendar
