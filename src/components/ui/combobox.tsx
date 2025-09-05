@@ -81,7 +81,7 @@ export const Combobox = React.forwardRef<HTMLButtonElement, ComboboxProps>(
                 </Button>
             </PopoverTrigger>
         </div>
-        <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
+        <PopoverContent className="min-w-[var(--radix-popover-trigger-width)] w-auto p-0">
             <Command>
             <CommandInput placeholder={searchPlaceholder || "Search..."} />
             <CommandEmpty>{emptyText || "No results found."}</CommandEmpty>
@@ -111,4 +111,3 @@ export const Combobox = React.forwardRef<HTMLButtonElement, ComboboxProps>(
   }
 )
 Combobox.displayName = "Combobox";
-
