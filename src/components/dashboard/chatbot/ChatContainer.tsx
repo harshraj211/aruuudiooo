@@ -130,6 +130,7 @@ export function ChatContainer({ managementType }: ChatContainerProps) {
 
     const handleSendMessage = (userMessage: Message, attachments: { image?: string | null, document?: DocumentAttachment | null }) => {
         let conversationId = activeConversationId;
+        let conversationForHistory = activeConversation;
         
         if (!conversationId) {
             const newConversation: Conversation = {
@@ -141,6 +142,7 @@ export function ChatContainer({ managementType }: ChatContainerProps) {
             setConversations(prev => [newConversation, ...prev]);
             conversationId = newConversation.id;
             setActiveConversationId(conversationId);
+            conversationForHistory = newConversation;
         }
         
         const currentConversationId = conversationId;
@@ -160,23 +162,18 @@ export function ChatContainer({ managementType }: ChatContainerProps) {
 
         startSending(async () => {
             try {
-                // Find the latest state of the conversation
-                let latestHistory: Message[] = [];
-                setConversations(currentConversations => {
-                    const conv = currentConversations.find(c => c.id === currentConversationId);
-                    latestHistory = conv?.messages.slice(-10) || [];
-                    return currentConversations;
-                });
+                // Pass the full conversation history to the AI.
+                const history = conversationForHistory?.messages.map(m => ({
+                    role: m.role,
+                    text: m.text,
+                })) || [];
 
                 const payload: ProvideChatbotAdvisoryInput = {
                     query: userMessage.text,
                     managementType: managementType,
                     photoDataUri: attachments.image || undefined,
                     documentContent: attachments.document?.content || undefined,
-                    history: latestHistory.map(m => ({
-                        role: m.role,
-                        text: m.text,
-                    })),
+                    history: history,
                     language: language,
                 };
 
@@ -197,6 +194,7 @@ export function ChatContainer({ managementType }: ChatContainerProps) {
                     title: "Error",
                     description: "Could not get a response from the assistant. Please try again."
                 });
+                // Rollback the user's message on error
                 setConversations(prev => prev.map(c => {
                      if (c.id === currentConversationId) {
                         return { ...c, messages: c.messages.filter(m => m.id !== userMessage.id) };
