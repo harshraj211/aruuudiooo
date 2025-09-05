@@ -82,7 +82,13 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
     // If managementType is default, but we are on a generic page, we need a context.
     // Let's default to 'crops' for building the URL, but the item will only show if it's generic.
     if (resolvedManagementType === 'default' && item.isGeneric) {
-        resolvedManagementType = 'crops'; // or 'fruits', it doesn't matter for generic URLs
+        // Since marketPrices is now crop-specific, handle its generic URL differently.
+        if (item.labelKey === 'sidebar.marketPrices') {
+            resolvedManagementType = 'crops';
+        } else {
+            // For other generic items, it doesn't matter as much.
+            resolvedManagementType = 'crops'; 
+        }
     }
 
 
