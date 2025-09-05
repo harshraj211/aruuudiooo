@@ -5,6 +5,6 @@ export const ai = genkit({
   plugins: [
     googleAI({ apiKey: process.env.GEMINI_API_KEY }),
   ],
-  model: 'gemini-1.5-flash',
+  model: 'googleai/gemini-1.5-flash',
   embedder: 'googleai/text-embedding-004',
 });
