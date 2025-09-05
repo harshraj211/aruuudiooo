@@ -1,7 +1,7 @@
 
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { Transaction } from '@/app/dashboard/expense-tracker/page';
+import { Transaction } from '@/components/dashboard/expense-tracker/AddTransactionForm';
 
 // Extend the jsPDF type to include autoTable
 declare module 'jspdf' {
@@ -122,4 +122,3 @@ export const generateExpenseReportPDF = (transactions: Transaction[], farmerName
   // 5. Save the PDF
   doc.save(`eKheti_Expense_Report_${reportDate.getFullYear()}_${reportDate.getMonth()+1}.pdf`);
 };
-

@@ -31,9 +31,20 @@ import { cn } from '@/lib/utils';
 import { Calendar } from '@/components/ui/calendar';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import type { Transaction } from '@/app/dashboard/expense-tracker/page';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useTranslation } from '@/hooks/useTranslation';
+
+// This becomes generic, not tied to the page component
+export type Transaction = {
+  id: string;
+  itemId: string;
+  type: 'income' | 'expense';
+  category: string;
+  amount: number;
+  date: Date;
+  description: string;
+  currency: 'INR' | 'USD' | 'EUR';
+};
 
 const formSchema = z.object({
   type: z.enum(['income', 'expense'], { required_error: "You need to select a transaction type."}),
@@ -47,7 +58,7 @@ const formSchema = z.object({
 });
 
 type AddTransactionFormProps = {
-    onSubmit: (data: Omit<Transaction, 'id' | 'cropId'>) => void;
+    onSubmit: (data: Omit<Transaction, 'id' | 'itemId'>) => void;
     disabled?: boolean;
 }
 
@@ -236,4 +247,3 @@ export function AddTransactionForm({ onSubmit, disabled = false }: AddTransactio
     </Card>
   );
 }
-

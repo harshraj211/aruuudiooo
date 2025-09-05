@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import type { Transaction } from '@/app/dashboard/expense-tracker/page';
+import type { Transaction } from './AddTransactionForm';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
@@ -14,7 +14,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 type TransactionListProps = {
   transactions: Transaction[];
   onDeleteTransaction: (id: string) => void;
-  cropName: string;
+  itemName: string;
 };
 
 const currencySymbols = {
@@ -23,12 +23,12 @@ const currencySymbols = {
     EUR: '€',
 };
 
-export function TransactionList({ transactions, onDeleteTransaction, cropName }: TransactionListProps) {
+export function TransactionList({ transactions, onDeleteTransaction, itemName }: TransactionListProps) {
   const { t } = useTranslation();
   return (
     <Card className='h-[calc(100vh-12rem)]'>
       <CardHeader>
-        <CardTitle>{t('expenseTrackerPage.transactionList.title')} for {cropName}</CardTitle>
+        <CardTitle>{t('expenseTrackerPage.transactionList.title')} for {itemName}</CardTitle>
         <CardDescription>
           {t('expenseTrackerPage.transactionList.description')}
         </CardDescription>
@@ -101,4 +101,3 @@ export function TransactionList({ transactions, onDeleteTransaction, cropName }:
     </Card>
   );
 }
-

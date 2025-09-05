@@ -1,7 +1,8 @@
+
 'use client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { DollarSign, TrendingDown, TrendingUp } from 'lucide-react';
-import type { Transaction } from '@/app/dashboard/expense-tracker/page';
+import type { Transaction } from './AddTransactionForm';
 import { useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/hooks/useTranslation';
