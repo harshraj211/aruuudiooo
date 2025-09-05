@@ -41,6 +41,7 @@ const nextConfig: NextConfig = {
   env: {
     // This makes the variable available to server-side code
     OPENWEATHERMAP_API_KEY: process.env.OPENWEATHERMAP_API_KEY,
+    GEMINI_API_KEY: process.env.GEMINI_API_KEY,
     // For client-side code, Next.js requires the NEXT_PUBLIC_ prefix
     NEXT_PUBLIC_OPENWEATHERMAP_API_KEY: process.env.OPENWEATHERMAP_API_KEY,
   }
