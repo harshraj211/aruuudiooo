@@ -30,11 +30,12 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { useToast } from '@/hooks/use-toast';
 import { getCityNameFromCoords } from '@/services/weather';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 
 const formSchema = z.object({
-  cropType: z.string().min(2, 'Please enter a crop type.'),
-  soilDetails: z.string().min(2, 'Please enter soil details.'),
-  currentStageOfCrop: z.string().min(2, 'Please enter the crop stage.'),
+  cropType: z.string().min(1, 'Please select a type.'),
+  soilDetails: z.string().min(1, 'Please select a soil type.'),
+  currentStageOfCrop: z.string().min(1, 'Please select a stage.'),
   location: z.string().min(2, 'Please enter your location.'),
 });
 
@@ -52,6 +53,13 @@ type AdvisoryCardProps = {
     itemType?: 'Crop' | 'Fruit';
 }
 
+const cropOptions = ['Wheat', 'Rice', 'Maize', 'Cotton', 'Sugarcane', 'Soybean', 'Potato', 'Tomato', 'Onion'];
+const fruitOptions = ['Mango', 'Apple', 'Banana', 'Grapes', 'Orange', 'Pomegranate'];
+const soilOptions = ['Alluvial', 'Black', 'Red', 'Laterite', 'Desert', 'Mountainous', 'Loamy', 'Sandy', 'Clay'];
+const cropStageOptions = ['Sowing', 'Germination', 'Vegetative', 'Flowering', 'Harvesting'];
+const fruitStageOptions = ['Planting', 'Vegetative', 'Flowering', 'Fruiting', 'Harvesting'];
+
+
 export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
   const [isPending, startTransition] = useTransition();
   const [isLocating, setIsLocating] = useState(false);
@@ -67,9 +75,24 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
       cropType: itemType === 'Crop' ? 'Wheat' : 'Mango',
       soilDetails: itemType === 'Crop' ? 'Alluvial' : 'Loamy',
       currentStageOfCrop: itemType === 'Crop' ? 'Vegetative' : 'Flowering',
-      location: 'Punjab, India',
+      location: '',
     },
   });
+  
+  useEffect(() => {
+    form.reset({
+      cropType: itemType === 'Crop' ? 'Wheat' : 'Mango',
+      soilDetails: itemType === 'Crop' ? 'Alluvial' : 'Loamy',
+      currentStageOfCrop: itemType === 'Crop' ? 'Vegetative' : 'Flowering',
+      location: localStorage.getItem('agriVision-location') || '',
+    });
+    const cachedAdvisory = localStorage.getItem(`agriVision-advisory-${itemType}`);
+    if (cachedAdvisory) {
+      setResult(JSON.parse(cachedAdvisory));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [itemType]);
+
 
   useEffect(() => {
     const cachedAdvisory = localStorage.getItem(`agriVision-advisory-${itemType}`);
@@ -167,6 +190,9 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
       }
     });
   }
+  
+  const currentItemOptions = itemType === 'Crop' ? cropOptions : fruitOptions;
+  const currentStageOptions = itemType === 'Crop' ? cropStageOptions : fruitStageOptions;
 
   return (
     <Card>
@@ -185,11 +211,18 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
                 name="cropType"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>{itemType} Type</FormLabel>
-                    <FormControl>
-                        <Input placeholder={itemType === 'Crop' ? "e.g., Wheat" : "e.g., Mango"} {...field} />
-                    </FormControl>
-                    <FormMessage />
+                        <FormLabel>{itemType} Type</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                                <SelectTrigger>
+                                <SelectValue placeholder={`Select a ${itemType.toLowerCase()}`} />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                {currentItemOptions.map(opt => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
                     </FormItem>
                 )}
                 />
@@ -197,12 +230,19 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
                 control={form.control}
                 name="soilDetails"
                 render={({ field }) => (
-                    <FormItem>
-                    <FormLabel>Soil Details</FormLabel>
-                    <FormControl>
-                        <Input placeholder={itemType === 'Crop' ? "e.g., Alluvial" : "e.g., Loamy"} {...field} />
-                    </FormControl>
-                    <FormMessage />
+                     <FormItem>
+                        <FormLabel>Soil Details</FormLabel>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                                <SelectTrigger>
+                                <SelectValue placeholder="Select a soil type" />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                {soilOptions.map(opt => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
                     </FormItem>
                 )}
                 />
@@ -211,11 +251,18 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
                 name="currentStageOfCrop"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>Current {itemType} Stage</FormLabel>
-                    <FormControl>
-                        <Input placeholder={itemType === 'Crop' ? "e.g., Vegetative" : "e.g., Flowering"} {...field} />
-                    </FormControl>
-                    <FormMessage />
+                        <FormLabel>Current {itemType} Stage</FormLabel>
+                         <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                                <SelectTrigger>
+                                <SelectValue placeholder={`Select a stage`} />
+                                </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                                {currentStageOptions.map(opt => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}
+                            </SelectContent>
+                        </Select>
+                        <FormMessage />
                     </FormItem>
                 )}
                 />
@@ -309,5 +356,3 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
     </Card>
   );
 }
-
-    
