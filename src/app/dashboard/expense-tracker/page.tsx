@@ -1,4 +1,3 @@
-
 'use client';
 
 import { AddTransactionForm } from '@/components/dashboard/expense-tracker/AddTransactionForm';
@@ -7,13 +6,25 @@ import { TransactionList } from '@/components/dashboard/expense-tracker/Transact
 import { generateExpenseReportPDF } from '@/lib/pdf-generator';
 import { useState, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
-import { FileDown, PlusCircle } from 'lucide-react';
+import { FileDown, PlusCircle, Trash2 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+
 
 export type Transaction = {
   id: string;
@@ -50,7 +61,7 @@ export default function ExpenseTrackerPage() {
         if (storedCrops) {
             const loadedCrops: Crop[] = JSON.parse(storedCrops);
             setCrops(loadedCrops);
-            if(loadedCrops.length > 0) {
+            if(loadedCrops.length > 0 && !activeCropId) {
                 setActiveCropId(loadedCrops[0].id);
             }
         }
@@ -59,7 +70,7 @@ export default function ExpenseTrackerPage() {
         if(storedTransactions) {
             setTransactions(JSON.parse(storedTransactions).map((t: Transaction) => ({...t, date: new Date(t.date)})));
         }
-    }, []);
+    }, [activeCropId]);
 
     const saveCrops = (newCrops: Crop[]) => {
         setCrops(newCrops);
@@ -82,6 +93,25 @@ export default function ExpenseTrackerPage() {
         setActiveCropId(newCrop.id);
         setNewCropName('');
         toast({ title: `Crop tracker "${newCrop.name}" created.` });
+    }
+
+    const handleDeleteCrop = (cropIdToDelete: string) => {
+        const cropToDelete = crops.find(c => c.id === cropIdToDelete);
+        if (!cropToDelete) return;
+
+        // Filter out the crop and its transactions
+        const updatedCrops = crops.filter(c => c.id !== cropIdToDelete);
+        const updatedTransactions = transactions.filter(t => t.cropId !== cropIdToDelete);
+
+        saveCrops(updatedCrops);
+        saveTransactions(updatedTransactions);
+
+        // If the deleted crop was the active one, switch to another or to null
+        if (activeCropId === cropIdToDelete) {
+            setActiveCropId(updatedCrops.length > 0 ? updatedCrops[0].id : null);
+        }
+
+        toast({ title: `Crop tracker "${cropToDelete.name}" deleted.`});
     }
 
     const handleAddTransaction = (transaction: Omit<Transaction, 'id' | 'cropId'>) => {
@@ -192,6 +222,25 @@ export default function ExpenseTrackerPage() {
                                 {crops.map(crop => (
                                     <div key={crop.id} className="text-sm p-2 rounded-md bg-secondary flex justify-between items-center">
                                         <span>{crop.name}</span>
+                                        <AlertDialog>
+                                            <AlertDialogTrigger asChild>
+                                                <Button variant="ghost" size="icon" className="h-7 w-7">
+                                                    <Trash2 className="h-4 w-4 text-destructive" />
+                                                </Button>
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                                                    <AlertDialogDescription>
+                                                        This will permanently delete the crop tracker for "{crop.name}" and all its associated income and expense records. This action cannot be undone.
+                                                    </AlertDialogDescription>
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                    <AlertDialogAction onClick={() => handleDeleteCrop(crop.id)}>Delete</AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
                                     </div>
                                 ))}
                             </div>
@@ -203,4 +252,3 @@ export default function ExpenseTrackerPage() {
     </main>
   );
 }
-
