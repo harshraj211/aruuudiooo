@@ -32,11 +32,12 @@ interface ComboboxProps {
     placeholder?: string;
     searchPlaceholder?: string;
     emptyText?: string;
+    icon?: React.ReactNode;
 }
 
 
 export const Combobox = React.forwardRef<HTMLButtonElement, ComboboxProps>(
-  ({ options, value, onChange, placeholder, searchPlaceholder, emptyText }, ref) => {
+  ({ options, value, onChange, placeholder, searchPlaceholder, emptyText, icon }, ref) => {
     const [open, setOpen] = React.useState(false);
     const [inputValue, setInputValue] = React.useState(value || '');
 
@@ -59,14 +60,16 @@ export const Combobox = React.forwardRef<HTMLButtonElement, ComboboxProps>(
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
-        <div className="flex w-full items-center gap-1">
+        <div className="flex w-full items-center gap-2">
+             {icon && <div className="pl-1">{icon}</div>}
              <input
                 type="text"
                 value={inputValue}
                 onChange={handleInputChange}
                 placeholder={placeholder}
                 className={cn(
-                    "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+                    icon ? "pl-2" : "pl-3"
                 )}
             />
             <PopoverTrigger asChild>
