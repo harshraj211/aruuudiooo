@@ -48,7 +48,11 @@ type AdvisoryResult = {
     }
 }
 
-export function AdvisoryCard() {
+type AdvisoryCardProps = {
+    itemType?: 'Crop' | 'Fruit';
+}
+
+export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
   const [isPending, startTransition] = useTransition();
   const [isLocating, setIsLocating] = useState(false);
   const [result, setResult] = useState<AdvisoryResult | null>(null);
@@ -60,15 +64,15 @@ export function AdvisoryCard() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      cropType: 'Wheat',
-      soilDetails: 'Alluvial',
-      currentStageOfCrop: 'Vegetative',
+      cropType: itemType === 'Crop' ? 'Wheat' : 'Mango',
+      soilDetails: itemType === 'Crop' ? 'Alluvial' : 'Loamy',
+      currentStageOfCrop: itemType === 'Crop' ? 'Vegetative' : 'Flowering',
       location: 'Punjab, India',
     },
   });
 
   useEffect(() => {
-    const cachedAdvisory = localStorage.getItem('agriVision-advisory');
+    const cachedAdvisory = localStorage.getItem(`agriVision-advisory-${itemType}`);
     if (cachedAdvisory) {
       setResult(JSON.parse(cachedAdvisory));
     }
@@ -76,7 +80,7 @@ export function AdvisoryCard() {
     if(cachedLocation) {
         form.setValue('location', cachedLocation);
     }
-  }, [form]);
+  }, [form, itemType]);
 
   const handleUseLocation = async () => {
     if (!navigator.geolocation) {
@@ -155,7 +159,7 @@ export function AdvisoryCard() {
         }
 
         setResult(apiResult);
-        localStorage.setItem('agriVision-advisory', JSON.stringify(apiResult));
+        localStorage.setItem(`agriVision-advisory-${itemType}`, JSON.stringify(apiResult));
       } catch (e: any) {
         console.error(e);
         let errorMessage = `Failed to get advisory. ${e.message}`;
@@ -167,9 +171,9 @@ export function AdvisoryCard() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{t('advisoryCard.title')}</CardTitle>
+        <CardTitle>{itemType} & Weather Advisory</CardTitle>
         <CardDescription>
-          {t('advisoryCard.description')}
+          Fill in your farm details to receive a personalized, weather-integrated advisory.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -181,9 +185,9 @@ export function AdvisoryCard() {
                 name="cropType"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>{t('advisoryCard.cropType')}</FormLabel>
+                    <FormLabel>{itemType} Type</FormLabel>
                     <FormControl>
-                        <Input placeholder="e.g., Wheat" {...field} />
+                        <Input placeholder={itemType === 'Crop' ? "e.g., Wheat" : "e.g., Mango"} {...field} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -194,9 +198,9 @@ export function AdvisoryCard() {
                 name="soilDetails"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>{t('advisoryCard.soilDetails')}</FormLabel>
+                    <FormLabel>Soil Details</FormLabel>
                     <FormControl>
-                        <Input placeholder="e.g., Alluvial" {...field} />
+                        <Input placeholder={itemType === 'Crop' ? "e.g., Alluvial" : "e.g., Loamy"} {...field} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -207,9 +211,9 @@ export function AdvisoryCard() {
                 name="currentStageOfCrop"
                 render={({ field }) => (
                     <FormItem>
-                    <FormLabel>{t('advisoryCard.currentCropStage')}</FormLabel>
+                    <FormLabel>Current {itemType} Stage</FormLabel>
                     <FormControl>
-                        <Input placeholder="e.g., Vegetative" {...field} />
+                        <Input placeholder={itemType === 'Crop' ? "e.g., Vegetative" : "e.g., Flowering"} {...field} />
                     </FormControl>
                     <FormMessage />
                     </FormItem>
@@ -220,7 +224,7 @@ export function AdvisoryCard() {
                 name="location"
                 render={({ field }) => (
                     <FormItem>
-                        <FormLabel>{t('advisoryCard.location')}</FormLabel>
+                        <FormLabel>Location</FormLabel>
                         <div className="flex gap-2">
                         <FormControl>
                             <Input placeholder="e.g., Punjab, India" {...field} />

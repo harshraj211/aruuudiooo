@@ -21,7 +21,7 @@ export default function DashboardPage() {
 
             <div className="grid grid-cols-1 gap-6">
                 <section id="advisory">
-                    <AdvisoryCard />
+                    <AdvisoryCard itemType="Crop" />
                 </section>
             </div>
         </main>

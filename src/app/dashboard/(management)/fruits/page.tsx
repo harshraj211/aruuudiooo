@@ -21,8 +21,7 @@ export default function DashboardPage() {
 
             <div className="grid grid-cols-1 gap-6">
                 <section id="advisory">
-                    {/* Advisory card might need to be adapted for fruits */}
-                    <AdvisoryCard />
+                    <AdvisoryCard itemType="Fruit" />
                 </section>
             </div>
         </main>
