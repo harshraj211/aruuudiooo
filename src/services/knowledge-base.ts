@@ -4,7 +4,7 @@
 'use server';
 
 import { Document, index, retrieve as genkitRetrieve, fromText, defineIndexer } from 'genkit';
-import firebase from '@genkit-ai/firebase';
+import { firebase } from '@genkit-ai/firebase';
 import { googleCloud } from '@genkit-ai/google-cloud';
 import { googleAI } from '@genkit-ai/googleai';
 
