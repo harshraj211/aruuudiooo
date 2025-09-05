@@ -48,12 +48,12 @@ const FRUIT_DOCUMENTS = {
 const CROP_INDEX_ID = 'ekheti-crops-kb';
 const FRUIT_INDEX_ID = 'ekheti-fruits-kb';
 
-const cropIndexer = googleCloud.firestore({
+const cropIndexer = googleCloud().firestore({
     indexId: CROP_INDEX_ID,
     embedder: googleAI('text-embedding-004'),
 });
 
-const fruitIndexer = googleCloud.firestore({
+const fruitIndexer = googleCloud().firestore({
     indexId: FRUIT_INDEX_ID,
     embedder: googleAI('text-embedding-004'),
 });
