@@ -74,30 +74,23 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
 
   const menuItems: MenuItem[] = filteredMenuItems.map(item => {
     let page = item.labelKey.split('.')[1]; // e.g., 'dashboard' from 'sidebar.dashboard'
+    
+    // Special case for community forum to avoid hyphenation
+    if (page === 'communityForum') {
+        page = 'community';
+    }
+
     let pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
     
     let href = '';
     let resolvedManagementType = managementType;
-
-    // If managementType is default, but we are on a generic page, we need a context.
-    // Let's default to 'crops' for building the URL, but the item will only show if it's generic.
-    if (resolvedManagementType === 'default' && item.isGeneric) {
-        // Since marketPrices is now crop-specific, handle its generic URL differently.
-        if (item.labelKey === 'sidebar.marketPrices') {
-            resolvedManagementType = 'crops';
-        } else {
-            // For other generic items, it doesn't matter as much.
-            resolvedManagementType = 'crops'; 
-        }
-    }
-
 
     if (item.isGeneric) {
          href = `/dashboard/${pageSlug}`;
     } else {
         if (page === 'dashboard') {
             href = `/dashboard/${resolvedManagementType}`;
-        } else if (page === 'cropCalendar') { // Special handling for calendar
+        } else if (page === 'crop-calendar') { // Special handling for calendar
             const calendarSlug = resolvedManagementType === 'fruits' ? 'fruit-calendar' : 'crop-calendar';
             href = `/dashboard/${resolvedManagementType}/${calendarSlug}`;
         } else {
