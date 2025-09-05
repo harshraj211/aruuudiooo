@@ -15,14 +15,18 @@ export default function DashboardLayout({
   const [managementType, setManagementType] = useState<'crops' | 'fruits' | 'default'>('default');
 
   useEffect(() => {
-    if (pathname.includes('/dashboard/crops')) {
+    if (pathname.startsWith('/dashboard/crops')) {
       setManagementType('crops');
-    } else if (pathname.includes('/dashboard/fruits')) {
+    } else if (pathname.startsWith('/dashboard/fruits')) {
       setManagementType('fruits');
     } else if (pathname === '/dashboard') {
       setManagementType('default');
+    } else {
+      // For generic pages that are not crops/fruits specific but are not the main dashboard page
+      // e.g. /community, /market-prices. We can check localStorage or keep it default.
+      // For now, let's have SidebarNav handle this.
+      setManagementType('default');
     }
-    // For generic pages, we let the SidebarNav handle the context.
   }, [pathname]);
 
 

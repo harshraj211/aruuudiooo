@@ -44,22 +44,15 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   const [managementType, setManagementType] = useState(initialManagementType);
 
   useEffect(() => {
+    let currentType = initialManagementType;
     if (initialManagementType === 'default') {
-        if (pathname.includes('/crops/')) {
-            setManagementType('crops');
-        } else if (pathname.includes('/fruits/')) {
-            setManagementType('fruits');
-        } else if (document.referrer.includes('/dashboard/crops')) {
-            setManagementType('crops');
-        } else if (document.referrer.includes('/dashboard/fruits')) {
-            setManagementType('fruits');
-        } else {
-            // Fallback to a sensible default if no context can be found
-            setManagementType('crops');
+        if (pathname.includes('/crops')) {
+            currentType = 'crops';
+        } else if (pathname.includes('/fruits')) {
+            currentType = 'fruits';
         }
-    } else {
-        setManagementType(initialManagementType);
     }
+    setManagementType(currentType);
   }, [pathname, initialManagementType]);
 
 
@@ -68,15 +61,15 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   };
   
   const filteredMenuItems = baseMenuItems.filter(item => {
-    // Hide market prices for fruits
+    // On the default selection screen, only show generic items
+    if (managementType === 'default') {
+        return item.isGeneric;
+    }
+    // Hide market prices for fruits as it's not applicable
     if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
         return false;
     }
-    // Always show generic items
-    if(item.isGeneric) return true;
-    
-    // Only show dashboard link if a type is selected
-    return managementType !== 'default';
+    return true;
   });
 
   const menuItems: MenuItem[] = filteredMenuItems.map(item => {
@@ -84,24 +77,32 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
     let pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
     
     let href = '';
+    let resolvedManagementType = managementType;
+
+    // If managementType is default, but we are on a generic page, we need a context.
+    // Let's default to 'crops' for building the URL, but the item will only show if it's generic.
+    if (resolvedManagementType === 'default' && item.isGeneric) {
+        resolvedManagementType = 'crops'; // or 'fruits', it doesn't matter for generic URLs
+    }
+
 
     if (item.isGeneric) {
          href = `/dashboard/${pageSlug}`;
     } else {
         if (page === 'dashboard') {
-            href = `/dashboard/${managementType}`;
+            href = `/dashboard/${resolvedManagementType}`;
         } else if (page === 'cropCalendar') { // Special handling for calendar
-            const calendarSlug = managementType === 'fruits' ? 'fruit-calendar' : 'crop-calendar';
-            href = `/dashboard/${managementType}/${calendarSlug}`;
+            const calendarSlug = resolvedManagementType === 'fruits' ? 'fruit-calendar' : 'crop-calendar';
+            href = `/dashboard/${resolvedManagementType}/${calendarSlug}`;
         } else {
-            href = `/dashboard/${managementType}/${pageSlug}`;
+            href = `/dashboard/${resolvedManagementType}/${pageSlug}`;
         }
     }
 
     // Adjust label for calendar
     let labelKey = item.labelKey;
     if (item.labelKey === 'sidebar.cropCalendar') {
-        labelKey = managementType === 'fruits' ? 'sidebar.fruitCalendar' : 'sidebar.cropCalendar';
+        labelKey = resolvedManagementType === 'fruits' ? 'sidebar.fruitCalendar' : 'sidebar.cropCalendar';
     }
 
 
