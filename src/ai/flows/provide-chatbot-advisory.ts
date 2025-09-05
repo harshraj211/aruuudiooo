@@ -1,7 +1,7 @@
 
 'use server';
 /**
- * @fileOverview A chatbot advisory AI agent for farmers.
+ * @fileOverview A RAG-enabled chatbot advisory AI agent for farmers.
  *
  * - provideChatbotAdvisory - A function that handles the chatbot advisory process.
  * - ProvideChatbotAdvisoryInput - The input type for the provideChatbotAdvisory function.
@@ -9,6 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
+import { retrieve } from '@/services/knowledge-base';
 import {z} from 'genkit';
 
 const ChatHistorySchema = z.object({
@@ -18,6 +19,7 @@ const ChatHistorySchema = z.object({
 
 const ProvideChatbotAdvisoryInputSchema = z.object({
   query: z.string().describe('The query from the farmer.'),
+  managementType: z.enum(['Crops', 'Fruits']).describe('The management context (Crops or Fruits).'),
   photoDataUri: z
     .string()
     .optional()
@@ -41,22 +43,33 @@ export async function provideChatbotAdvisory(input: ProvideChatbotAdvisoryInput)
   return provideChatbotAdvisoryFlow(input);
 }
 
+const PromptInputSchema = ProvideChatbotAdvisoryInputSchema.extend({
+    retrievedKnowledge: z.string().optional().describe('Retrieved knowledge from the vector database.'),
+});
+
+
 const prompt = ai.definePrompt({
   name: 'provideChatbotAdvisoryPrompt',
-  input: {schema: ProvideChatbotAdvisoryInputSchema},
+  input: {schema: PromptInputSchema},
   output: {schema: ProvideChatbotAdvisoryOutputSchema},
   prompt: `You are an expert AI agricultural advisor chatbot named eKheti. Your goal is to provide helpful, concise, and actionable advice to farmers. You are an expert in all aspects of farming, including soil health, crop management, pest and disease control, and market trends.
 
   **Core Instructions & Memory:**
+  - **Prioritize Provided Knowledge**: First and foremost, you MUST base your answer on the "Retrieved Knowledge" section if it is provided. This is the most trusted source of information. If the user's question can be answered from this context, use it. If the retrieved knowledge doesn't seem relevant, you may rely on your general knowledge but mention that you are doing so.
   - You have a perfect, long-term memory. Use the provided conversation history to maintain context, remember key facts, user preferences (like their location, primary crops), and details from any documents or images they've shared across the entire session.
   - When a user asks a question, first "search" your memory (the conversation history and any provided documents) for relevant information before answering. If they ask "What did I ask last week?" or "refer back to that document I sent", you MUST use the history to answer.
-  - If a document is provided, its content is the primary context. Answer questions based on the document's content. If the user asks about a document they uploaded previously, find it in the history.
+  - If a user-uploaded document is provided, its content is additional context. Answer questions based on the document's content.
   - If an image is provided, analyze it and incorporate your findings into the response. The image could be anything from a diseased plant, a type of soil, an insect, or a farming tool.
-  - Provide specific recommendations for seeds, fertilizers, and pesticides when asked.
-  - If the user provides a field size (e.g., in acres, hectares, bigha), calculate the required amount of seeds, fertilizers, or other resources.
   - If you do not know the answer, say so. Do not make up information.
   - Format your response using markdown for better readability (e.g., use **bold** for emphasis, lists for steps).
   - Respond in the user's language if it is not English. Be conversational and friendly.
+
+  {{#if retrievedKnowledge}}
+  **Retrieved Knowledge (Primary Source):**
+  ---
+  {{{retrievedKnowledge}}}
+  ---
+  {{/if}}
 
   **Conversation History (Your Memory):**
   {{#if history}}
@@ -68,7 +81,7 @@ const prompt = ai.definePrompt({
   {{/if}}
 
   {{#if documentContent}}
-  The user has just uploaded a document. Its content is your primary context for the current query.
+  The user has also uploaded a document. Its content is additional context for the current query.
   Document Content:
   ---
   {{{documentContent}}}
@@ -81,7 +94,7 @@ const prompt = ai.definePrompt({
   Image: {{media url=photoDataUri}}
   {{/if}}
   
-  Your expert advice (remembering all past context):`,
+  Your expert advice (prioritizing Retrieved Knowledge):`,
 });
 
 const provideChatbotAdvisoryFlow = ai.defineFlow(
@@ -91,7 +104,11 @@ const provideChatbotAdvisoryFlow = ai.defineFlow(
     outputSchema: ProvideChatbotAdvisoryOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+
+    const retrievedDocs = await retrieve(input.query, input.managementType);
+    const retrievedKnowledge = retrievedDocs.map(d => d.text()).join('\n\n');
+
+    const {output} = await prompt({ ...input, retrievedKnowledge });
     return output!;
   }
 );

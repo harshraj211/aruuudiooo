@@ -17,7 +17,7 @@ import { PanelLeft } from 'lucide-react';
 const CHAT_HISTORY_KEY_PREFIX = 'agriVision-chatHistory';
 
 type ChatContainerProps = {
-    managementType: 'Crops' | 'Fruits' | 'General';
+    managementType: 'Crops' | 'Fruits';
 }
 
 export function ChatContainer({ managementType }: ChatContainerProps) {
@@ -168,6 +168,7 @@ export function ChatContainer({ managementType }: ChatContainerProps) {
 
                 const payload: ProvideChatbotAdvisoryInput = {
                     query: userMessage.text,
+                    managementType: managementType,
                     photoDataUri: attachments.image || undefined,
                     documentContent: attachments.document?.content || undefined,
                     history: latestHistory.map(m => ({
