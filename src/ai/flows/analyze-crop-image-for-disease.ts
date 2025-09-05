@@ -51,14 +51,7 @@ const prompt = ai.definePrompt({
   {{/if}}
 
   Image: {{media url=photoDataUri}}
-
-  Respond in the following JSON format:
-  {
-    "diseaseDetected": boolean,
-    "diseaseName": string,
-    "confidenceLevel": number,
-    "suggestedSolutions": string
-  }`,
+  `,
 });
 
 const analyzeCropImageForDiseaseFlow = ai.defineFlow(

@@ -358,5 +358,3 @@ export function ChatbotCard({ conversation, onMessage, isSending, onTextToSpeech
     </Card>
   );
 }
-
-    

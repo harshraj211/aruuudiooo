@@ -12,6 +12,7 @@ import type { Message, Conversation, DocumentAttachment } from '@/lib/chat-types
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { PanelLeft } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 
 const CHAT_HISTORY_KEY_PREFIX = 'agriVision-chatHistory';
@@ -29,6 +30,7 @@ export function ChatContainer({ managementType }: ChatContainerProps) {
     const [isSheetOpen, setIsSheetOpen] = useState(false);
     const { user } = useAuth();
     const { toast } = useToast();
+    const { language } = useTranslation();
 
     const [audioState, setAudioState] = useState({
         isPlaying: false,
@@ -175,6 +177,7 @@ export function ChatContainer({ managementType }: ChatContainerProps) {
                         role: m.role,
                         text: m.text,
                     })),
+                    language: language,
                 };
 
                 const { advice } = await provideChatbotAdvisory(payload);

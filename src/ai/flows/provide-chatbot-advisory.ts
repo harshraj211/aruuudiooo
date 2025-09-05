@@ -30,6 +30,7 @@ const ProvideChatbotAdvisoryInputSchema = z.object({
     .optional()
     .describe("Optional text content from a user-uploaded document."),
   history: z.array(ChatHistorySchema).optional().describe('The entire previous conversation history for context.'),
+  language: z.string().optional().describe("The user's preferred language (e.g., 'en', 'hi')."),
 });
 export type ProvideChatbotAdvisoryInput = z.infer<typeof ProvideChatbotAdvisoryInputSchema>;
 
@@ -55,7 +56,7 @@ const prompt = ai.definePrompt({
   - If an image is provided, analyze it and incorporate your findings into the response. The image could be anything from a diseased plant, a type of soil, an insect, or a farming tool.
   - If you do not know the answer, say so. Do not make up information.
   - Format your response using markdown for better readability (e.g., use **bold** for emphasis, lists for steps).
-  - Respond in the user's language if it is not English. Be conversational and friendly.
+  - {{#if language}}IMPORTANT: You MUST respond in the user's specified language: {{{language}}}. Detect the language of the query and respond in that language.{{else}}Respond in the user's language. Be conversational and friendly.{{/if}}
   
   **Conversation History (Your Memory):**
   {{#if history}}
