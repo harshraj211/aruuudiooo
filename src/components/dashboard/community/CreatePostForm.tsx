@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
@@ -43,10 +43,11 @@ export function CreatePostForm({ onSubmit }: CreatePostFormProps) {
     const { toast } = useToast();
     const imageInputRef = useRef<HTMLInputElement>(null);
 
-    const allItems = [
-        ...Object.keys(cropData).map(key => ({ value: cropData[key as keyof typeof cropData].name, label: cropData[key as keyof typeof cropData].name, type: 'crop' as const })),
-        ...Object.keys(fruitData).map(key => ({ value: fruitData[key as keyof typeof fruitData].name, label: fruitData[key as keyof typeof fruitData].name, type: 'fruit' as const }))
-    ].sort((a,b) => a.label.localeCompare(b.label));
+    const allItems = useMemo(() => {
+        const crops = Object.values(cropData).map(crop => ({ value: crop.name, label: crop.name, type: 'crop' as const }));
+        const fruits = Object.values(fruitData).map(fruit => ({ value: fruit.name, label: fruit.name, type: 'fruit' as const }));
+        return [...crops, ...fruits].sort((a,b) => a.label.localeCompare(b.label));
+    }, []);
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -153,4 +154,3 @@ export function CreatePostForm({ onSubmit }: CreatePostFormProps) {
         </Card>
     );
 }
-

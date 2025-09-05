@@ -35,8 +35,8 @@ export default function CommunityPage() {
         if (!user) return;
         const newPost: Post = {
             id: Date.now().toString(),
-            userId: user.email,
-            userName: user.displayName,
+            userId: user.email ?? 'anonymous',
+            userName: user.displayName ?? 'Anonymous Farmer',
             type,
             cropOrFruitName,
             content,
@@ -65,8 +65,8 @@ export default function CommunityPage() {
             if (p.id === postId) {
                 const newComment = {
                     id: Date.now().toString(),
-                    userId: user.email,
-                    userName: user.displayName,
+                    userId: user.email ?? 'anonymous',
+                    userName: user.displayName ?? 'Anonymous',
                     comment: commentText,
                     timestamp: new Date(),
                 };
@@ -91,8 +91,8 @@ export default function CommunityPage() {
     }, [posts, filterType, searchTerm]);
     
     const allItems = useMemo(() => {
-        const crops = Object.keys(cropData).map(key => ({ value: cropData[key as keyof typeof cropData].name, label: cropData[key as keyof typeof cropData].name }));
-        const fruits = Object.keys(fruitData).map(key => ({ value: fruitData[key as keyof typeof fruitData].name, label: fruitData[key as keyof typeof fruitData].name }));
+        const crops = Object.values(cropData).map(crop => ({ value: crop.name, label: crop.name }));
+        const fruits = Object.values(fruitData).map(fruit => ({ value: fruit.name, label: fruit.name }));
         return [...crops, ...fruits].sort((a,b) => a.label.localeCompare(b.label));
     }, []);
 
@@ -155,4 +155,3 @@ export default function CommunityPage() {
         </main>
     );
 }
-
