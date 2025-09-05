@@ -54,7 +54,7 @@ const cropIndexer = defineIndexer({
     indexer: firebase(googleCloud()).firestore(),
     config: {
         indexId: CROP_INDEX_ID,
-        embedder: googleAI.embedder('text-embedding-004'),
+        embedder: googleAI('text-embedding-004'),
     }
 });
 
@@ -63,7 +63,7 @@ const fruitIndexer = defineIndexer({
     indexer: firebase(googleCloud()).firestore(),
     config: {
         indexId: FRUIT_INDEX_ID,
-        embedder: googleAI.embedder('text-embedding-004'),
+        embedder: googleAI('text-embedding-004'),
     }
 });
 
