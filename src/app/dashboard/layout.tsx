@@ -22,33 +22,31 @@ export default function DashboardLayout({
   }, []);
 
   useEffect(() => {
-    if (!isClient) return;
+    if (isClient) {
+        let currentType: 'crops' | 'fruits' | 'default' = 'default';
 
-    let currentType: 'crops' | 'fruits' | 'default' = 'default';
-
-    if (pathname.startsWith('/dashboard/crops')) {
-      currentType = 'crops';
-      localStorage.setItem(MANAGEMENT_TYPE_KEY, 'crops');
-    } else if (pathname.startsWith('/dashboard/fruits')) {
-      currentType = 'fruits';
-      localStorage.setItem(MANAGEMENT_TYPE_KEY, 'fruits');
-    } else if (pathname === '/dashboard') {
-      currentType = 'default';
-      // On the main dashboard, we don't need to read from localStorage, just show the default.
-    } else {
-      // For generic pages, try to use the last known management type from localStorage
-      const storedType = localStorage.getItem(MANAGEMENT_TYPE_KEY);
-      if (storedType === 'crops' || storedType === 'fruits') {
-        currentType = storedType;
-      }
+        if (pathname.startsWith('/dashboard/crops')) {
+          currentType = 'crops';
+          localStorage.setItem(MANAGEMENT_TYPE_KEY, 'crops');
+        } else if (pathname.startsWith('/dashboard/fruits')) {
+          currentType = 'fruits';
+          localStorage.setItem(MANAGEMENT_TYPE_KEY, 'fruits');
+        } else if (pathname === '/dashboard') {
+          currentType = 'default';
+        } else {
+          const storedType = localStorage.getItem(MANAGEMENT_TYPE_KEY);
+          if (storedType === 'crops' || storedType === 'fruits') {
+            currentType = storedType;
+          }
+        }
+        setManagementType(currentType);
     }
-    setManagementType(currentType);
   }, [pathname, isClient]);
 
 
   return (
       <SidebarProvider>
-        <SidebarNav managementType={managementType} />
+        {isClient ? <SidebarNav managementType={managementType} /> : <SidebarNav managementType="default" /> }
         <SidebarInset>
           <Header />
           <div className="flex-1 p-4 sm:p-6 lg:p-8">
