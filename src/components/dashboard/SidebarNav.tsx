@@ -62,7 +62,7 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   const filteredMenuItems = baseMenuItems.filter(item => {
     // On the default selection screen, only show home and generic items.
     if (managementType === 'default') {
-        return item.isGeneric;
+        return false; // Hide all but home
     }
     // Hide market prices for fruits as it's not applicable
     if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
@@ -81,17 +81,14 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
     }
 
     // Get page from the (potentially updated) labelKey
-    let page = labelKey.split('.')[1]; // e.g., 'dashboard', 'fruitCalendar', 'khetiSamachar'
-    
-    // Convert camelCase to kebab-case for the URL slug
-    let pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
+    let pageSlug = labelKey.split('.')[1].replace(/([A-Z])/g, '-$1').toLowerCase();
 
     let href = '';
     
     if (item.isGeneric) {
         href = `/dashboard/${pageSlug}`;
     } else {
-        if (page === 'dashboard') {
+        if (pageSlug === 'dashboard') {
             href = `/dashboard/${managementType}`;
         } else {
             href = `/dashboard/${managementType}/${pageSlug}`;
@@ -127,6 +124,41 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
+            
+            {/* Show these only when NOT on the default dashboard */}
+            {managementType !== 'default' && (
+              <>
+                 <SidebarMenuItem>
+                    <SidebarMenuButton
+                        asChild
+                        onClick={handleLinkClick}
+                        tooltip={t('sidebar.khetiSamachar')}
+                        isActive={pathname.startsWith('/dashboard/kheti-samachar')}
+                    >
+                        <Link href="/dashboard/kheti-samachar">
+                            <Newspaper />
+                            <span>{t('sidebar.khetiSamachar')}</span>
+                        </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+                {/* Conditionally render market prices */}
+                {managementType === 'crops' && (
+                    <SidebarMenuItem>
+                        <SidebarMenuButton
+                            asChild
+                            onClick={handleLinkClick}
+                            tooltip={t('sidebar.marketPrices')}
+                            isActive={pathname.startsWith('/dashboard/market-prices')}
+                        >
+                            <Link href="/dashboard/market-prices">
+                                <TrendingUp />
+                                <span>{t('sidebar.marketPrices')}</span>
+                            </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                )}
+              </>
+            )}
 
           {menuItems.map((item) => (
             <SidebarMenuItem key={item.href}>
@@ -134,7 +166,7 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
                 asChild
                 onClick={handleLinkClick}
                 tooltip={t(item.labelKey)}
-                isActive={pathname.startsWith(item.href)}
+                isActive={pathname.startsWith(item.href) && item.href !== `/dashboard/${managementType}`}
               >
                 <Link href={item.href}>
                   <item.icon />
@@ -148,3 +180,4 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
     </Sidebar>
   );
 }
+
