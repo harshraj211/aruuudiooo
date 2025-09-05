@@ -65,7 +65,7 @@ export const generateExpenseReportPDF = (transactions: Transaction[], farmerName
       theme: 'grid',
       styles: {
           font: 'helvetica',
-          fillColor: netBalance >= 0 ? [230, 245, 230] : [255, 230, 230], // Light green/red based on profit/loss
+          // Note: fillColor in didDrawCell doesn't work as expected in all versions, but we can set text color.
       },
       headStyles: { fillColor: [220, 220, 220], textColor: [0,0,0] },
       columnStyles: {
@@ -76,6 +76,8 @@ export const generateExpenseReportPDF = (transactions: Transaction[], farmerName
         if (data.section === 'body' && data.row.index === 2) {
             doc.setFont('helvetica', 'bold');
             doc.setTextColor(netBalance >= 0 ? 'green' : 'red');
+        } else {
+            doc.setTextColor('black'); // Reset to black for other cells
         }
       }
   });
@@ -110,7 +112,7 @@ export const generateExpenseReportPDF = (transactions: Transaction[], farmerName
   
 
   // 4. Footer
-  const pageCount = doc.internal.getNumberOfPages();
+  const pageCount = (doc.internal as any).getNumberOfPages();
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);
     doc.setFontSize(10);
@@ -120,3 +122,4 @@ export const generateExpenseReportPDF = (transactions: Transaction[], farmerName
   // 5. Save the PDF
   doc.save(`eKheti_Expense_Report_${reportDate.getFullYear()}_${reportDate.getMonth()+1}.pdf`);
 };
+

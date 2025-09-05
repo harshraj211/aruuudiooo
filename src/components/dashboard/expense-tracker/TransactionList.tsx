@@ -1,3 +1,4 @@
+
 'use client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -13,6 +14,7 @@ import { useTranslation } from '@/hooks/useTranslation';
 type TransactionListProps = {
   transactions: Transaction[];
   onDeleteTransaction: (id: string) => void;
+  cropName: string;
 };
 
 const currencySymbols = {
@@ -21,18 +23,18 @@ const currencySymbols = {
     EUR: '€',
 };
 
-export function TransactionList({ transactions, onDeleteTransaction }: TransactionListProps) {
+export function TransactionList({ transactions, onDeleteTransaction, cropName }: TransactionListProps) {
   const { t } = useTranslation();
   return (
-    <Card className='h-[calc(70vh+110px)]'>
+    <Card className='h-[calc(100vh-12rem)]'>
       <CardHeader>
-        <CardTitle>{t('expenseTrackerPage.transactionList.title')}</CardTitle>
+        <CardTitle>{t('expenseTrackerPage.transactionList.title')} for {cropName}</CardTitle>
         <CardDescription>
           {t('expenseTrackerPage.transactionList.description')}
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ScrollArea className="h-[calc(70vh)]">
+        <ScrollArea className="h-[calc(100vh-18rem)]">
         <Table>
           <TableHeader>
             <TableRow>
@@ -99,3 +101,4 @@ export function TransactionList({ transactions, onDeleteTransaction }: Transacti
     </Card>
   );
 }
+

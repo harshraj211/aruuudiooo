@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -46,10 +47,11 @@ const formSchema = z.object({
 });
 
 type AddTransactionFormProps = {
-    onSubmit: (data: Omit<Transaction, 'id'>) => void;
+    onSubmit: (data: Omit<Transaction, 'id' | 'cropId'>) => void;
+    disabled?: boolean;
 }
 
-export function AddTransactionForm({ onSubmit }: AddTransactionFormProps) {
+export function AddTransactionForm({ onSubmit, disabled = false }: AddTransactionFormProps) {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
   const { t } = useTranslation();
@@ -87,148 +89,151 @@ export function AddTransactionForm({ onSubmit }: AddTransactionFormProps) {
             <CardDescription>{t('expenseTrackerPage.addTransaction.description')}</CardDescription>
         </CardHeader>
         <CardContent>
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-4">
-                    <FormField
-                        control={form.control}
-                        name="type"
-                        render={({ field }) => (
-                            <FormItem className="space-y-3">
-                            <FormLabel>{t('expenseTrackerPage.addTransaction.typeLabel')}</FormLabel>
-                            <FormControl>
-                                <RadioGroup
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                                className="flex space-x-4"
-                                >
-                                <FormItem className="flex items-center space-x-2 space-y-0">
-                                    <FormControl>
-                                    <RadioGroupItem value="expense" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">{t('expenseTrackerPage.addTransaction.expense')}</FormLabel>
-                                </FormItem>
-                                <FormItem className="flex items-center space-x-2 space-y-0">
-                                    <FormControl>
-                                    <RadioGroupItem value="income" />
-                                    </FormControl>
-                                    <FormLabel className="font-normal">{t('expenseTrackerPage.addTransaction.income')}</FormLabel>
-                                </FormItem>
-                                </RadioGroup>
-                            </FormControl>
-                            <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <div className="flex gap-2">
+            <fieldset disabled={disabled || isPending} className="disabled:opacity-75">
+                <Form {...form}>
+                    <form onSubmit={form.handleSubmit(handleFormSubmit)} className="space-y-4">
                         <FormField
                             control={form.control}
-                            name="amount"
+                            name="type"
                             render={({ field }) => (
-                                <FormItem className="flex-1">
-                                    <FormLabel>{t('expenseTrackerPage.addTransaction.amountLabel')}</FormLabel>
+                                <FormItem className="space-y-3">
+                                <FormLabel>{t('expenseTrackerPage.addTransaction.typeLabel')}</FormLabel>
+                                <FormControl>
+                                    <RadioGroup
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                    className="flex space-x-4"
+                                    >
+                                    <FormItem className="flex items-center space-x-2 space-y-0">
+                                        <FormControl>
+                                        <RadioGroupItem value="expense" />
+                                        </FormControl>
+                                        <FormLabel className="font-normal">{t('expenseTrackerPage.addTransaction.expense')}</FormLabel>
+                                    </FormItem>
+                                    <FormItem className="flex items-center space-x-2 space-y-0">
+                                        <FormControl>
+                                        <RadioGroupItem value="income" />
+                                        </FormControl>
+                                        <FormLabel className="font-normal">{t('expenseTrackerPage.addTransaction.income')}</FormLabel>
+                                    </FormItem>
+                                    </RadioGroup>
+                                </FormControl>
+                                <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <div className="flex gap-2">
+                            <FormField
+                                control={form.control}
+                                name="amount"
+                                render={({ field }) => (
+                                    <FormItem className="flex-1">
+                                        <FormLabel>{t('expenseTrackerPage.addTransaction.amountLabel')}</FormLabel>
+                                        <FormControl>
+                                            <Input type="number" placeholder={t('expenseTrackerPage.addTransaction.amountPlaceholder')} {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                            control={form.control}
+                            name="currency"
+                            render={({ field }) => (
+                                <FormItem className="w-1/3">
+                                    <FormLabel>{t('expenseTrackerPage.addTransaction.currencyLabel')}</FormLabel>
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <FormControl>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder={t('expenseTrackerPage.addTransaction.currencyPlaceholder')} />
+                                        </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                        <SelectItem value="INR">₹ (INR)</SelectItem>
+                                        <SelectItem value="USD">$ (USD)</SelectItem>
+                                        <SelectItem value="EUR">€ (EUR)</SelectItem>
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                            />
+                        </div>
+                        <FormField
+                            control={form.control}
+                            name="category"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>{t('expenseTrackerPage.addTransaction.categoryLabel')}</FormLabel>
                                     <FormControl>
-                                        <Input type="number" placeholder={t('expenseTrackerPage.addTransaction.amountPlaceholder')} {...field} />
+                                        <Input placeholder={t('expenseTrackerPage.addTransaction.categoryPlaceholder')} {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
                         <FormField
-                        control={form.control}
-                        name="currency"
-                        render={({ field }) => (
-                            <FormItem className="w-1/3">
-                                <FormLabel>{t('expenseTrackerPage.addTransaction.currencyLabel')}</FormLabel>
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            control={form.control}
+                            name="date"
+                            render={({ field }) => (
+                                <FormItem className="flex flex-col">
+                                <FormLabel>{t('expenseTrackerPage.addTransaction.dateLabel')}</FormLabel>
+                                <Popover>
+                                    <PopoverTrigger asChild>
                                     <FormControl>
-                                    <SelectTrigger>
-                                        <SelectValue placeholder={t('expenseTrackerPage.addTransaction.currencyPlaceholder')} />
-                                    </SelectTrigger>
+                                        <Button
+                                        variant={"outline"}
+                                        className={cn(
+                                            "w-full pl-3 text-left font-normal",
+                                            !field.value && "text-muted-foreground"
+                                        )}
+                                        >
+                                        {field.value ? (
+                                            format(field.value, "PPP")
+                                        ) : (
+                                            <span>{t('expenseTrackerPage.addTransaction.datePlaceholder')}</span>
+                                        )}
+                                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                                        </Button>
                                     </FormControl>
-                                    <SelectContent>
-                                    <SelectItem value="INR">₹ (INR)</SelectItem>
-                                    <SelectItem value="USD">$ (USD)</SelectItem>
-                                    <SelectItem value="EUR">€ (EUR)</SelectItem>
-                                    </SelectContent>
-                                </Select>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-auto p-0" align="start">
+                                    <Calendar
+                                        mode="single"
+                                        selected={field.value}
+                                        onSelect={field.onChange}
+                                        disabled={(date) =>
+                                        date > new Date() || date < new Date("1900-01-01")
+                                        }
+                                        initialFocus
+                                    />
+                                    </PopoverContent>
+                                </Popover>
                                 <FormMessage />
-                            </FormItem>
-                        )}
+                                </FormItem>
+                            )}
                         />
-                    </div>
-                    <FormField
-                        control={form.control}
-                        name="category"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>{t('expenseTrackerPage.addTransaction.categoryLabel')}</FormLabel>
-                                <FormControl>
-                                    <Input placeholder={t('expenseTrackerPage.addTransaction.categoryPlaceholder')} {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="date"
-                        render={({ field }) => (
-                            <FormItem className="flex flex-col">
-                            <FormLabel>{t('expenseTrackerPage.addTransaction.dateLabel')}</FormLabel>
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                <FormControl>
-                                    <Button
-                                    variant={"outline"}
-                                    className={cn(
-                                        "w-full pl-3 text-left font-normal",
-                                        !field.value && "text-muted-foreground"
-                                    )}
-                                    >
-                                    {field.value ? (
-                                        format(field.value, "PPP")
-                                    ) : (
-                                        <span>{t('expenseTrackerPage.addTransaction.datePlaceholder')}</span>
-                                    )}
-                                    <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                                    </Button>
-                                </FormControl>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0" align="start">
-                                <Calendar
-                                    mode="single"
-                                    selected={field.value}
-                                    onSelect={field.onChange}
-                                    disabled={(date) =>
-                                    date > new Date() || date < new Date("1900-01-01")
-                                    }
-                                    initialFocus
-                                />
-                                </PopoverContent>
-                            </Popover>
-                            <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>{t('expenseTrackerPage.addTransaction.descriptionLabel')}</FormLabel>
-                                <FormControl>
-                                    <Textarea placeholder={t('expenseTrackerPage.addTransaction.descriptionPlaceholder')} {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <Button type="submit" className="w-full" disabled={isPending}>
-                        {isPending ? t('expenseTrackerPage.addTransaction.submitting') : t('expenseTrackerPage.addTransaction.submit')}
-                    </Button>
-                </form>
-            </Form>
+                        <FormField
+                            control={form.control}
+                            name="description"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>{t('expenseTrackerPage.addTransaction.descriptionLabel')}</FormLabel>
+                                    <FormControl>
+                                        <Textarea placeholder={t('expenseTrackerPage.addTransaction.descriptionPlaceholder')} {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <Button type="submit" className="w-full">
+                            {isPending ? t('expenseTrackerPage.addTransaction.submitting') : t('expenseTrackerPage.addTransaction.submit')}
+                        </Button>
+                    </form>
+                </Form>
+            </fieldset>
         </CardContent>
     </Card>
   );
 }
+

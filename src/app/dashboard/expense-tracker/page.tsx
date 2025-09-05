@@ -1,17 +1,23 @@
+
 'use client';
+
 import { AddTransactionForm } from '@/components/dashboard/expense-tracker/AddTransactionForm';
 import { ExpenseSummary } from '@/components/dashboard/expense-tracker/ExpenseSummary';
 import { TransactionList } from '@/components/dashboard/expense-tracker/TransactionList';
 import { generateExpenseReportPDF } from '@/lib/pdf-generator';
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
-import { FileDown } from 'lucide-react';
+import { FileDown, PlusCircle } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from '@/hooks/useTranslation';
-
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
 
 export type Transaction = {
   id: string;
+  cropId: string;
   type: 'income' | 'expense';
   category: string;
   amount: number;
@@ -20,61 +26,181 @@ export type Transaction = {
   currency: 'INR' | 'USD' | 'EUR';
 };
 
-// Mock data, in a real app this would come from Firestore
-const initialTransactions: Transaction[] = [];
+export type Crop = {
+    id: string;
+    name: string;
+}
+
+const CROPS_STORAGE_KEY = 'agriVision-crops';
+const TRANSACTIONS_STORAGE_KEY = 'agriVision-transactions';
 
 
 export default function ExpenseTrackerPage() {
-    const [transactions, setTransactions] = useState<Transaction[]>(initialTransactions);
+    const [transactions, setTransactions] = useState<Transaction[]>([]);
+    const [crops, setCrops] = useState<Crop[]>([]);
+    const [activeCropId, setActiveCropId] = useState<string | null>(null);
+    const [newCropName, setNewCropName] = useState('');
     const { user } = useAuth();
     const { t } = useTranslation();
+    const { toast } = useToast();
 
-    const handleAddTransaction = (transaction: Omit<Transaction, 'id'>) => {
-        // In a real app, you would save this to Firestore
-        console.log("Adding transaction (to be saved in Firestore):", transaction);
+    // Load data from localStorage on mount
+    useEffect(() => {
+        const storedCrops = localStorage.getItem(CROPS_STORAGE_KEY);
+        if (storedCrops) {
+            const loadedCrops: Crop[] = JSON.parse(storedCrops);
+            setCrops(loadedCrops);
+            if(loadedCrops.length > 0) {
+                setActiveCropId(loadedCrops[0].id);
+            }
+        }
+
+        const storedTransactions = localStorage.getItem(TRANSACTIONS_STORAGE_KEY);
+        if(storedTransactions) {
+            setTransactions(JSON.parse(storedTransactions).map((t: Transaction) => ({...t, date: new Date(t.date)})));
+        }
+    }, []);
+
+    const saveCrops = (newCrops: Crop[]) => {
+        setCrops(newCrops);
+        localStorage.setItem(CROPS_STORAGE_KEY, JSON.stringify(newCrops));
+    }
+
+    const saveTransactions = (newTransactions: Transaction[]) => {
+        setTransactions(newTransactions);
+        localStorage.setItem(TRANSACTIONS_STORAGE_KEY, JSON.stringify(newTransactions));
+    }
+
+    const handleAddCrop = () => {
+        if(!newCropName.trim()){
+            toast({ variant: 'destructive', title: 'Crop name cannot be empty.'});
+            return;
+        }
+        const newCrop: Crop = { id: Date.now().toString(), name: newCropName.trim() };
+        const updatedCrops = [...crops, newCrop];
+        saveCrops(updatedCrops);
+        setActiveCropId(newCrop.id);
+        setNewCropName('');
+        toast({ title: `Crop tracker "${newCrop.name}" created.` });
+    }
+
+    const handleAddTransaction = (transaction: Omit<Transaction, 'id' | 'cropId'>) => {
+        if (!activeCropId) {
+            toast({ variant: 'destructive', title: 'Please select a crop first.' });
+            return;
+        }
         const newTransaction: Transaction = {
-            id: new Date().toISOString(), // Use a better ID in production
+            id: new Date().toISOString(),
+            cropId: activeCropId,
             ...transaction
         };
-        setTransactions(prev => [newTransaction, ...prev]);
+        saveTransactions([newTransaction, ...transactions]);
     }
 
     const handleDeleteTransaction = (id: string) => {
-        // In a real app, you would delete this from Firestore
-        console.log("Deleting transaction (to be deleted from Firestore):", id);
-        setTransactions(prev => prev.filter(t => t.id !== id));
+        saveTransactions(transactions.filter(t => t.id !== id));
     }
     
     const handleExport = () => {
-        if (user) {
-            generateExpenseReportPDF(transactions, user.displayName || 'Farmer');
+        if (user && activeCrop) {
+            generateExpenseReportPDF(filteredTransactions, `${user.displayName} - ${activeCrop.name}`);
         }
     }
 
+    const activeCrop = useMemo(() => crops.find(c => c.id === activeCropId), [crops, activeCropId]);
+
+    const filteredTransactions = useMemo(() => {
+        return transactions.filter(t => t.cropId === activeCropId);
+    }, [transactions, activeCropId]);
+
   return (
     <main>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <div className="space-y-2">
             <h1 className="text-3xl font-bold">{t('expenseTrackerPage.title')}</h1>
             <p className="text-muted-foreground">
             {t('expenseTrackerPage.description')}
             </p>
         </div>
-        <Button onClick={handleExport} disabled={transactions.length === 0}>
-            <FileDown className="mr-2 h-4 w-4" />
-            {t('expenseTrackerPage.exportPdf')}
-        </Button>
+        <div className="flex items-center gap-4">
+             {crops.length > 0 && (
+                <Select onValueChange={setActiveCropId} value={activeCropId || ''}>
+                    <SelectTrigger className="w-[220px]">
+                        <SelectValue placeholder="Select a crop tracker" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {crops.map(crop => (
+                            <SelectItem key={crop.id} value={crop.id}>{crop.name}</SelectItem>
+                        ))}
+                    </SelectContent>
+                </Select>
+             )}
+            <Button onClick={handleExport} disabled={filteredTransactions.length === 0}>
+                <FileDown className="mr-2 h-4 w-4" />
+                {t('expenseTrackerPage.exportPdf')}
+            </Button>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-        <div className="lg:col-span-2 space-y-6">
-            <TransactionList transactions={transactions} onDeleteTransaction={handleDeleteTransaction} />
-        </div>
-        <div className="lg:col-span-1 space-y-6 sticky top-20">
-            <ExpenseSummary transactions={transactions} />
-            <AddTransactionForm onSubmit={handleAddTransaction} />
-        </div>
-      </div>
+       {crops.length === 0 ? (
+         <Card className="max-w-xl mx-auto my-16 text-center p-8">
+            <CardHeader>
+                <CardTitle>Create Your First Crop Tracker</CardTitle>
+                <CardDescription>To start tracking expenses, you need to add a crop first. For example, "Wheat Field 1" or "Summer Vegetables".</CardDescription>
+            </CardHeader>
+            <CardContent>
+                 <div className="flex items-center gap-2 max-w-sm mx-auto">
+                    <Input 
+                        placeholder="e.g., Wheat - Field A"
+                        value={newCropName}
+                        onChange={(e) => setNewCropName(e.target.value)}
+                    />
+                    <Button onClick={handleAddCrop} size="icon">
+                        <PlusCircle />
+                    </Button>
+                </div>
+            </CardContent>
+         </Card>
+        ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+                <div className="lg:col-span-2 space-y-6">
+                    <TransactionList 
+                        transactions={filteredTransactions} 
+                        onDeleteTransaction={handleDeleteTransaction} 
+                        cropName={activeCrop?.name || ''}
+                    />
+                </div>
+                <div className="lg:col-span-1 space-y-6 sticky top-20">
+                    <AddTransactionForm onSubmit={handleAddTransaction} disabled={!activeCropId} />
+                    <ExpenseSummary transactions={filteredTransactions} />
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>Manage Crop Trackers</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                             <div className="flex items-center gap-2">
+                                <Input 
+                                    placeholder="Add new crop tracker..."
+                                    value={newCropName}
+                                    onChange={(e) => setNewCropName(e.target.value)}
+                                />
+                                <Button onClick={handleAddCrop} size="icon">
+                                    <PlusCircle />
+                                </Button>
+                            </div>
+                             <div className="mt-4 space-y-2">
+                                {crops.map(crop => (
+                                    <div key={crop.id} className="text-sm p-2 rounded-md bg-secondary flex justify-between items-center">
+                                        <span>{crop.name}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
+        )}
     </main>
   );
 }
+
