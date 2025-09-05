@@ -30,7 +30,6 @@ import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { useToast } from '@/hooks/use-toast';
 import { getCityNameFromCoords } from '@/services/weather';
 import { Combobox } from '../ui/combobox';
-import { Icon, IconName } from '../ui/icon';
 
 const formSchema = z.object({
   cropType: z.string().min(1, 'Please enter or select a type.'),
@@ -213,13 +212,6 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
   const currentItemOptions = itemType === 'Crop' ? cropOptions : fruitOptions;
   const currentStageOptions = itemType === 'Crop' ? cropStageOptions : fruitStageOptions;
 
-  const getIconForValue = (value: string) => {
-    const selectedOption = currentItemOptions.find(o => o.value === value);
-    if (!selectedOption) return null;
-    const iconName = selectedOption.value.split(" ")[0] as IconName;
-    return <Icon name={iconName} className="h-5 w-5 text-muted-foreground" />;
-  }
-
   return (
     <Card>
       <CardHeader>
@@ -242,7 +234,6 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
                                 options={currentItemOptions}
                                 {...field}
                                 placeholder={`Select or type a ${itemType.toLowerCase()}...`}
-                                icon={getIconForValue(field.value)}
                             />
                             <FormMessage />
                         </FormItem>
@@ -368,3 +359,5 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
     </Card>
   );
 }
+
+    

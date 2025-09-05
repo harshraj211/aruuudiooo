@@ -15,12 +15,10 @@ import {
   CloudRain,
   Thermometer,
   Sprout,
-  Millets,
   Bean,
   Carrot,
   Citrus,
   Coffee,
-  Corn,
   Eggplant,
   Flower,
   Footprints,
@@ -238,10 +236,10 @@ const iconMap = {
   Thermometer,
   Sprout,
   Rice: Wheat,
-  Corn,
+  Corn: Sprout, // Using Sprout as a replacement for Corn
   Barley: Wheat,
   Sorghum: Wheat,
-  Millet: Millets,
+  Millet: Sprout,
   Oat: Wheat,
   Pea: Bean,
   Bean,
@@ -275,7 +273,6 @@ const iconMap = {
   Garlic: Circle, // Placeholder
   Ginger: Sprout,
   Turmeric: Sprout,
-
   Coriander: Leaf,
   Cumin: Sprout,
   Fennel: Sprout,
