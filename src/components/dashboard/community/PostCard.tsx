@@ -1,114 +1,149 @@
-
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Separator } from '@/components/ui/separator';
-import { ThumbsUp, MessageSquare, Send } from 'lucide-react';
-import { formatDistanceToNow } from 'date-fns';
-import { type Post } from './CreatePostForm';
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
-import { useToast } from '@/hooks/use-toast';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  useSidebar,
+} from '@/components/ui/sidebar';
+import { Logo } from '@/components/Logo';
+import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useEffect, useState } from 'react';
 
-type PostCardProps = {
-    post: Post;
-    onLike: (postId: string) => void;
-    onAddComment: (postId: string, commentText: string) => void;
-    currentUser: { displayName: string, email: string } | null;
-};
+type MenuItem = {
+  href: string;
+  labelKey: string;
+  icon: React.ElementType;
+  isGeneric?: boolean; // Flag for pages that are not type-specific
+}
 
-export function PostCard({ post, onLike, onAddComment, currentUser }: PostCardProps) {
-    const [commentText, setCommentText] = useState('');
-    const [showComments, setShowComments] = useState(false);
-    const { toast } = useToast();
+const baseMenuItems: Omit<MenuItem, 'href'>[] = [
+  { labelKey: 'sidebar.dashboard', icon: LayoutDashboard },
+  { labelKey: 'sidebar.marketPrices', icon: TrendingUp, isGeneric: true },
+  { labelKey: 'sidebar.khetiSamachar', icon: Newspaper, isGeneric: true },
+  { labelKey: 'sidebar.expenseTracker', icon: Wallet },
+  { labelKey: 'sidebar.diseaseDetection', icon: Leaf },
+  { labelKey: 'sidebar.chatbot', icon: BotMessageSquare },
+  { labelKey: 'sidebar.cropCalendar', icon: CalendarDays },
+  { labelKey: 'sidebar.calculators', icon: Calculator },
+  { labelKey: 'sidebar.notifications', icon: Bell },
+];
 
-    const handleCommentSubmit = () => {
-        if (!commentText.trim()) return;
-        onAddComment(post.id, commentText);
-        setCommentText('');
-        toast({title: 'Comment posted!'});
+export function SidebarNav({ managementType: initialManagementType }: { managementType: 'crops' | 'fruits' | 'default' }) {
+  const { setOpenMobile } = useSidebar();
+  const pathname = usePathname();
+  const { t } = useTranslation();
+  const [managementType, setManagementType] = useState(initialManagementType);
+
+  useEffect(() => {
+    let currentType = initialManagementType;
+    if (initialManagementType === 'default') {
+        if (pathname.includes('/crops')) {
+            currentType = 'crops';
+        } else if (pathname.includes('/fruits')) {
+            currentType = 'fruits';
+        }
+    }
+    setManagementType(currentType);
+  }, [pathname, initialManagementType]);
+
+
+  const handleLinkClick = () => {
+    setOpenMobile(false);
+  };
+  
+  const filteredMenuItems = baseMenuItems.filter(item => {
+    // On the default selection screen, only show generic items
+    if (managementType === 'default') {
+        return item.isGeneric;
+    }
+    // Hide market prices for fruits as it's not applicable
+    if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
+        return false;
+    }
+    return true;
+  });
+
+  const menuItems: MenuItem[] = filteredMenuItems.map(item => {
+    let page = item.labelKey.split('.')[1]; // e.g., 'dashboard' from 'sidebar.dashboard'
+    
+    let pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
+    
+    let href = '';
+    let resolvedManagementType = managementType;
+
+    if (item.isGeneric) {
+         href = `/dashboard/${pageSlug}`;
+    } else {
+        if (page === 'dashboard') {
+            href = `/dashboard/${resolvedManagementType}`;
+        } else if (page === 'crop-calendar') { // Special handling for calendar
+            const calendarSlug = resolvedManagementType === 'fruits' ? 'fruit-calendar' : 'crop-calendar';
+            href = `/dashboard/${resolvedManagementType}/${calendarSlug}`;
+        } else {
+            href = `/dashboard/${resolvedManagementType}/${pageSlug}`;
+        }
+    }
+
+    // Adjust label for calendar
+    let labelKey = item.labelKey;
+    if (item.labelKey === 'sidebar.cropCalendar') {
+        labelKey = resolvedManagementType === 'fruits' ? 'sidebar.fruitCalendar' : 'sidebar.cropCalendar';
+    }
+
+
+    return {
+      ...item,
+      href,
+      labelKey,
     };
+  }).filter(item => item.href);
 
-    return (
-        <Card>
-            <CardHeader className="flex flex-row items-start gap-4 space-y-0">
-                <Avatar>
-                    <AvatarFallback>{post.userName.charAt(0).toUpperCase()}</AvatarFallback>
-                </Avatar>
-                <div className="flex-1">
-                    <div className="flex items-center justify-between">
-                         <div>
-                            <p className="font-semibold">{post.userName}</p>
-                            <p className="text-xs text-muted-foreground">
-                                {formatDistanceToNow(new Date(post.timestamp), { addSuffix: true })}
-                            </p>
-                        </div>
-                        <Badge variant="secondary">{post.cropOrFruitName}</Badge>
-                    </div>
-                </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-                <p className="whitespace-pre-wrap">{post.content}</p>
-                {post.imageUrl && (
-                    <div className="relative aspect-video w-full">
-                        <Image src={post.imageUrl} alt="Post image" fill className="rounded-lg object-cover" />
-                    </div>
-                )}
-            </CardContent>
-            <CardFooter className="flex flex-col items-start gap-2">
-                <div className="flex items-center gap-4">
-                    <Button variant="ghost" size="sm" onClick={() => onLike(post.id)}>
-                        <ThumbsUp className="mr-2 h-4 w-4" /> {post.likes} Like{post.likes !== 1 && 's'}
-                    </Button>
-                    <Button variant="ghost" size="sm" onClick={() => setShowComments(!showComments)}>
-                        <MessageSquare className="mr-2 h-4 w-4" /> {post.comments?.length || 0} Comment{post.comments?.length !== 1 && 's'}
-                    </Button>
-                </div>
 
-                {showComments && (
-                    <div className="w-full space-y-4 pt-4">
-                        <Separator />
-                        <div className="w-full flex gap-2">
-                            <Textarea
-                                placeholder="Write a comment..."
-                                value={commentText}
-                                onChange={(e) => setCommentText(e.target.value)}
-                                rows={1}
-                                className="h-auto"
-                            />
-                            <Button onClick={handleCommentSubmit} size="icon" disabled={!commentText.trim()}>
-                                <Send className="h-4 w-4" />
-                            </Button>
-                        </div>
-                        <div className="space-y-4 max-h-60 overflow-y-auto pr-2">
-                             {(post.comments || []).sort((a,b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()).map(comment => (
-                                <div key={comment.id} className="flex items-start gap-3">
-                                     <Avatar className="h-8 w-8">
-                                        <AvatarFallback>{comment.userName.charAt(0).toUpperCase()}</AvatarFallback>
-                                    </Avatar>
-                                    <div className="flex-1 bg-secondary p-3 rounded-lg">
-                                        <div className="flex items-baseline justify-between">
-                                            <p className="font-semibold text-sm">{comment.userName}</p>
-                                            <p className="text-xs text-muted-foreground">
-                                                {formatDistanceToNow(new Date(comment.timestamp), { addSuffix: true })}
-                                            </p>
-                                        </div>
-                                        <p className="text-sm mt-1">{comment.comment}</p>
-                                    </div>
-                                </div>
-                            ))}
-                            {(!post.comments || post.comments.length === 0) && (
-                                <p className="text-sm text-center text-muted-foreground py-4">No comments yet. Be the first to reply!</p>
-                            )}
-                        </div>
-                    </div>
-                )}
-            </CardFooter>
-        </Card>
-    );
+  return (
+    <Sidebar>
+      <SidebarHeader>
+        <Logo />
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                onClick={handleLinkClick}
+                tooltip={t('sidebar.backToSelection')}
+                isActive={pathname === '/dashboard'}
+              >
+                <Link href="/dashboard">
+                  <Home />
+                  <span>{t('sidebar.home')}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+
+          {menuItems.map((item) => (
+            <SidebarMenuItem key={item.href}>
+              <SidebarMenuButton
+                asChild
+                onClick={handleLinkClick}
+                tooltip={t(item.labelKey)}
+                isActive={pathname.startsWith(item.href)}
+              >
+                <Link href={item.href}>
+                  <item.icon />
+                  <span>{t(item.labelKey)}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarContent>
+    </Sidebar>
+  );
 }

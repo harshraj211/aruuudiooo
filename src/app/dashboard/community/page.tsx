@@ -1,157 +1,149 @@
-
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
-import { useAuth } from '@/hooks/useAuth';
-import { CreatePostForm, Post } from '@/components/dashboard/community/CreatePostForm';
-import { PostCard } from '@/components/dashboard/community/PostCard';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
-import { cropData, fruitData } from '@/lib/item-data';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  useSidebar,
+} from '@/components/ui/sidebar';
+import { Logo } from '@/components/Logo';
+import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useEffect, useState } from 'react';
 
-const COMMUNITY_POSTS_KEY = 'agriVision-communityPosts';
+type MenuItem = {
+  href: string;
+  labelKey: string;
+  icon: React.ElementType;
+  isGeneric?: boolean; // Flag for pages that are not type-specific
+}
 
-export default function CommunityPage() {
-    const { user } = useAuth();
-    const [posts, setPosts] = useState<Post[]>([]);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [filterType, setFilterType] = useState('all');
+const baseMenuItems: Omit<MenuItem, 'href'>[] = [
+  { labelKey: 'sidebar.dashboard', icon: LayoutDashboard },
+  { labelKey: 'sidebar.marketPrices', icon: TrendingUp, isGeneric: true },
+  { labelKey: 'sidebar.khetiSamachar', icon: Newspaper, isGeneric: true },
+  { labelKey: 'sidebar.expenseTracker', icon: Wallet },
+  { labelKey: 'sidebar.diseaseDetection', icon: Leaf },
+  { labelKey: 'sidebar.chatbot', icon: BotMessageSquare },
+  { labelKey: 'sidebar.cropCalendar', icon: CalendarDays },
+  { labelKey: 'sidebar.calculators', icon: Calculator },
+  { labelKey: 'sidebar.notifications', icon: Bell },
+];
 
-    // Load posts from localStorage
-    useEffect(() => {
-        const storedPosts = localStorage.getItem(COMMUNITY_POSTS_KEY);
-        if (storedPosts) {
-            setPosts(JSON.parse(storedPosts).map((p: Post) => ({...p, timestamp: new Date(p.timestamp)})));
+export function SidebarNav({ managementType: initialManagementType }: { managementType: 'crops' | 'fruits' | 'default' }) {
+  const { setOpenMobile } = useSidebar();
+  const pathname = usePathname();
+  const { t } = useTranslation();
+  const [managementType, setManagementType] = useState(initialManagementType);
+
+  useEffect(() => {
+    let currentType = initialManagementType;
+    if (initialManagementType === 'default') {
+        if (pathname.includes('/crops')) {
+            currentType = 'crops';
+        } else if (pathname.includes('/fruits')) {
+            currentType = 'fruits';
         }
-    }, []);
+    }
+    setManagementType(currentType);
+  }, [pathname, initialManagementType]);
 
-    const savePosts = (newPosts: Post[]) => {
-        setPosts(newPosts.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
-        localStorage.setItem(COMMUNITY_POSTS_KEY, JSON.stringify(newPosts));
-    };
 
-    const handleCreatePost = (content: string, cropOrFruitName: string, type: 'crop' | 'fruit', imageUrl?: string) => {
-        if (!user) return;
-        const newPost: Post = {
-            id: Date.now().toString(),
-            userId: user.email ?? 'anonymous',
-            userName: user.displayName ?? 'Anonymous Farmer',
-            type,
-            cropOrFruitName,
-            content,
-            imageUrl: imageUrl || '',
-            timestamp: new Date(),
-            likes: 0,
-            comments: [],
-        };
-        savePosts([newPost, ...posts]);
-    };
+  const handleLinkClick = () => {
+    setOpenMobile(false);
+  };
+  
+  const filteredMenuItems = baseMenuItems.filter(item => {
+    // On the default selection screen, only show generic items
+    if (managementType === 'default') {
+        return item.isGeneric;
+    }
+    // Hide market prices for fruits as it's not applicable
+    if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
+        return false;
+    }
+    return true;
+  });
 
-    const handleLikePost = (postId: string) => {
-        const newPosts = posts.map(p => {
-            if (p.id === postId) {
-                // In a real app, you'd check if the user already liked it.
-                return { ...p, likes: p.likes + 1 };
-            }
-            return p;
-        });
-        savePosts(newPosts);
-    };
-
-    const handleAddComment = (postId: string, commentText: string) => {
-        if (!user) return;
-        const newPosts = posts.map(p => {
-            if (p.id === postId) {
-                const newComment = {
-                    id: Date.now().toString(),
-                    userId: user.email ?? 'anonymous',
-                    userName: user.displayName ?? 'Anonymous',
-                    comment: commentText,
-                    timestamp: new Date(),
-                };
-                return { ...p, comments: [...(p.comments || []), newComment] };
-            }
-            return p;
-        });
-        savePosts(newPosts);
-    };
-
-    const filteredPosts = useMemo(() => {
-        return posts
-            .filter(post => {
-                if (filterType === 'all') return true;
-                return post.cropOrFruitName.toLowerCase() === filterType.toLowerCase();
-            })
-            .filter(post => {
-                if (!searchTerm) return true;
-                return post.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                       post.userName.toLowerCase().includes(searchTerm.toLowerCase());
-            });
-    }, [posts, filterType, searchTerm]);
+  const menuItems: MenuItem[] = filteredMenuItems.map(item => {
+    let page = item.labelKey.split('.')[1]; // e.g., 'dashboard' from 'sidebar.dashboard'
     
-    const allItems = useMemo(() => {
-        const crops = Object.values(cropData).map(crop => ({ value: crop.name, label: crop.name }));
-        const fruits = Object.values(fruitData).map(fruit => ({ value: fruit.name, label: fruit.name }));
-        return [...crops, ...fruits].sort((a,b) => a.label.localeCompare(b.label));
-    }, []);
+    let pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
+    
+    let href = '';
+    let resolvedManagementType = managementType;
 
-    return (
-        <main>
-            <div className="mb-8 space-y-2">
-                <h1 className="text-3xl font-bold">Community Forum</h1>
-                <p className="text-muted-foreground">
-                    Ask questions, share advice, and connect with fellow farmers.
-                </p>
-            </div>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-                <div className="lg:col-span-2 space-y-6">
-                    <div className="flex flex-col md:flex-row gap-4">
-                        <div className="relative flex-1">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                            <Input 
-                                placeholder="Search posts or users..."
-                                className="pl-10"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                            />
-                        </div>
-                        <Select onValueChange={setFilterType} value={filterType}>
-                            <SelectTrigger className="w-full md:w-[240px]">
-                                <SelectValue placeholder="Filter by crop/fruit..." />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectItem value="all">All Crops/Fruits</SelectItem>
-                                {allItems.map(item => <SelectItem key={item.value} value={item.value}>{item.label}</SelectItem>)}
-                            </SelectContent>
-                        </Select>
-                    </div>
+    if (item.isGeneric) {
+         href = `/dashboard/${pageSlug}`;
+    } else {
+        if (page === 'dashboard') {
+            href = `/dashboard/${resolvedManagementType}`;
+        } else if (page === 'crop-calendar') { // Special handling for calendar
+            const calendarSlug = resolvedManagementType === 'fruits' ? 'fruit-calendar' : 'crop-calendar';
+            href = `/dashboard/${resolvedManagementType}/${calendarSlug}`;
+        } else {
+            href = `/dashboard/${resolvedManagementType}/${pageSlug}`;
+        }
+    }
 
-                    <div className="space-y-6">
-                         {filteredPosts.length > 0 ? (
-                            filteredPosts.map(post => (
-                                <PostCard 
-                                    key={post.id} 
-                                    post={post} 
-                                    onLike={handleLikePost} 
-                                    onAddComment={handleAddComment}
-                                    currentUser={user}
-                                />
-                            ))
-                        ) : (
-                            <div className="text-center py-16 text-muted-foreground bg-secondary/30 rounded-lg">
-                                <p>No posts found.</p>
-                                <p className="text-sm">Try adjusting your search or filter.</p>
-                            </div>
-                        )}
-                    </div>
-                </div>
+    // Adjust label for calendar
+    let labelKey = item.labelKey;
+    if (item.labelKey === 'sidebar.cropCalendar') {
+        labelKey = resolvedManagementType === 'fruits' ? 'sidebar.fruitCalendar' : 'sidebar.cropCalendar';
+    }
 
-                <div className="lg:col-span-1 sticky top-20">
-                    <CreatePostForm onSubmit={handleCreatePost} />
-                </div>
-            </div>
-        </main>
-    );
+
+    return {
+      ...item,
+      href,
+      labelKey,
+    };
+  }).filter(item => item.href);
+
+
+  return (
+    <Sidebar>
+      <SidebarHeader>
+        <Logo />
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                onClick={handleLinkClick}
+                tooltip={t('sidebar.backToSelection')}
+                isActive={pathname === '/dashboard'}
+              >
+                <Link href="/dashboard">
+                  <Home />
+                  <span>{t('sidebar.home')}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+
+          {menuItems.map((item) => (
+            <SidebarMenuItem key={item.href}>
+              <SidebarMenuButton
+                asChild
+                onClick={handleLinkClick}
+                tooltip={t(item.labelKey)}
+                isActive={pathname.startsWith(item.href)}
+              >
+                <Link href={item.href}>
+                  <item.icon />
+                  <span>{t(item.labelKey)}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
+      </SidebarContent>
+    </Sidebar>
+  );
 }

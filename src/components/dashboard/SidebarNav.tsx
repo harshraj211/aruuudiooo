@@ -11,7 +11,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/Logo';
-import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator, Users } from 'lucide-react';
+import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -26,7 +26,6 @@ type MenuItem = {
 
 const baseMenuItems: Omit<MenuItem, 'href'>[] = [
   { labelKey: 'sidebar.dashboard', icon: LayoutDashboard },
-  { labelKey: 'sidebar.communityForum', icon: Users, isGeneric: true },
   { labelKey: 'sidebar.marketPrices', icon: TrendingUp, isGeneric: true },
   { labelKey: 'sidebar.khetiSamachar', icon: Newspaper, isGeneric: true },
   { labelKey: 'sidebar.expenseTracker', icon: Wallet },
@@ -75,11 +74,6 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   const menuItems: MenuItem[] = filteredMenuItems.map(item => {
     let page = item.labelKey.split('.')[1]; // e.g., 'dashboard' from 'sidebar.dashboard'
     
-    // Special case for community forum to avoid hyphenation
-    if (page === 'communityForum') {
-        page = 'community';
-    }
-
     let pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
     
     let href = '';
