@@ -11,7 +11,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/Logo';
-import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator } from 'lucide-react';
+import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator, Users } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -60,9 +60,9 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   };
   
   const filteredMenuItems = baseMenuItems.filter(item => {
-    // On the default selection screen, show no items.
+    // On the default selection screen, only show home.
     if (managementType === 'default') {
-        return false;
+        return item.isGeneric;
     }
     // Hide market prices for fruits as it's not applicable
     if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
@@ -80,6 +80,9 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
     let resolvedManagementType = managementType;
 
     if (item.isGeneric) {
+        if(page === 'khetiSamachar'){
+             pageSlug = 'kheti-samachar';
+        }
          href = `/dashboard/${pageSlug}`;
     } else {
         if (page === 'dashboard') {
