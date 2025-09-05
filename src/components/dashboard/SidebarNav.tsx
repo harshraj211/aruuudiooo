@@ -41,14 +41,18 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   const [managementType, setManagementType] = useState(initialManagementType);
 
   useEffect(() => {
-    // If the initial type is default (e.g. on a generic page like /chatbot),
-    // try to infer from the referrer to maintain context.
+    // If the initial type is default (e.g. on a generic page like /kheti-samachar),
+    // try to infer from the URL path or referrer to maintain context.
     if (initialManagementType === 'default') {
-      if (document.referrer.includes('/dashboard/crops')) {
-        setManagementType('crops');
-      } else if (document.referrer.includes('/dashboard/fruits')) {
-        setManagementType('fruits');
-      }
+        if (pathname.includes('/crops/')) {
+            setManagementType('crops');
+        } else if (pathname.includes('/fruits/')) {
+            setManagementType('fruits');
+        } else if (document.referrer.includes('/dashboard/crops')) {
+            setManagementType('crops');
+        } else if (document.referrer.includes('/dashboard/fruits')) {
+            setManagementType('fruits');
+        }
     } else {
         setManagementType(initialManagementType);
     }
@@ -70,10 +74,10 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
     let page = item.labelKey.split('.')[1]; // e.g., 'dashboard' from 'sidebar.dashboard'
     
     // Pages that are specific to the managementType
-    const typeSpecificPages = ['dashboard', 'expenseTracker', 'diseaseDetection'];
+    const typeSpecificPages = ['dashboard', 'expenseTracker', 'diseaseDetection', 'chatbot'];
     
     // Pages that are generic and live under /dashboard/
-    const genericPages = ['marketPrices', 'chatbot', 'cropCalendar', 'notifications', 'khetiSamachar'];
+    const genericPages = ['marketPrices', 'cropCalendar', 'notifications', 'khetiSamachar'];
     
     let href = '';
 

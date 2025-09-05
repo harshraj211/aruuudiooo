@@ -53,6 +53,7 @@ export function ChatContainer({ managementType }: ChatContainerProps) {
                 setActiveConversationId(null);
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, CHAT_HISTORY_KEY]);
 
     // Save chat history to localStorage whenever it changes
