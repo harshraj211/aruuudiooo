@@ -108,6 +108,51 @@ const cropData = {
         },
         seedRateKgPerAcre: 4,
     },
+    tomato: {
+        type: 'crop', // Botanically a fruit, but managed like a crop
+        fertilizer: { npk: '100-60-60', urea: 80, dap: 50, potash: 50 },
+        pesticides: {
+            'fruit-borer': { name: 'Emamectin Benzoate', dosageMlPerLitre: 0.5 },
+            'early-blight': { name: 'Copper Oxychloride', dosageMlPerLitre: 2.5 },
+        },
+        seedRateKgPerAcre: 0.2, // ~200g
+    },
+    barley: {
+        type: 'crop',
+        fertilizer: { npk: '60-30-20', urea: 45, dap: 25, potash: 15 },
+        pesticides: {
+            'loose-smut': { name: 'Carboxin', dosageMlPerLitre: 2 },
+            aphids: { name: 'Imidacloprid', dosageMlPerLitre: 0.6 },
+        },
+        seedRateKgPerAcre: 40,
+    },
+    bajra: {
+        type: 'crop',
+        fertilizer: { npk: '40-20-0', urea: 35, dap: 18, potash: 0 },
+        pesticides: {
+            'shoot-fly': { name: 'Thiamethoxam', dosageMlPerLitre: 0.4 },
+            'downy-mildew': { name: 'Metalaxyl', dosageMlPerLitre: 2 },
+        },
+        seedRateKgPerAcre: 1.5,
+    },
+    jowar: {
+        type: 'crop',
+        fertilizer: { npk: '80-40-40', urea: 60, dap: 35, potash: 30 },
+        pesticides: {
+            'stem-borer': { name: 'Carbofuran', dosageMlPerLitre: 1.2 },
+            'grain-smut': { name: 'Thiram', dosageMlPerLitre: 2.5 },
+        },
+        seedRateKgPerAcre: 4,
+    },
+    sunflower: {
+        type: 'crop',
+        fertilizer: { npk: '60-90-60', urea: 40, dap: 70, potash: 50 },
+        pesticides: {
+            'head-borer': { name: 'Indoxacarb', dosageMlPerLitre: 0.5 },
+            'alternaria-blight': { name: 'Mancozeb', dosageMlPerLitre: 2.5 },
+        },
+        seedRateKgPerAcre: 2.5,
+    },
     mango: {
         type: 'fruit',
          fertilizer: { npk: '10-10-10', urea: 30, dap: 15, potash: 30 },
@@ -145,14 +190,32 @@ const cropData = {
         },
         seedRateKgPerAcre: 0, // Not applicable
     },
-    tomato: {
-        type: 'fruit', // Botanically a fruit
-        fertilizer: { npk: '100-60-60', urea: 80, dap: 50, potash: 50 },
+    pomegranate: {
+        type: 'fruit',
+        fertilizer: { npk: '10-10-10', urea: 25, dap: 15, potash: 20 },
         pesticides: {
-            'fruit-borer': { name: 'Emamectin Benzoate', dosageMlPerLitre: 0.5 },
-            'early-blight': { name: 'Copper Oxychloride', dosageMlPerLitre: 2.5 },
+            'bacterial-blight': { name: 'Streptocycline', dosageMlPerLitre: 0.5 },
+            'fruit-borer': { name: 'Lambda-Cyhalothrin', dosageMlPerLitre: 0.7 },
         },
-        seedRateKgPerAcre: 0.2, // ~200g
+        seedRateKgPerAcre: 0,
+    },
+    guava: {
+        type: 'fruit',
+        fertilizer: { npk: '15-10-15', urea: 20, dap: 10, potash: 15 },
+        pesticides: {
+            'fruit-fly': { name: 'Methyl Eugenol Trap', dosageMlPerLitre: 0 },
+            'wilt-disease': { name: 'Trichoderma viride', dosageMlPerLitre: 5 },
+        },
+        seedRateKgPerAcre: 0,
+    },
+    papaya: {
+        type: 'fruit',
+        fertilizer: { npk: '20-20-25', urea: 30, dap: 25, potash: 30 },
+        pesticides: {
+            'ringspot-virus': { name: 'Vector control (aphids)', dosageMlPerLitre: 0 },
+            'mealy-bug': { name: 'Lecanicillium lecanii', dosageMlPerLitre: 2 },
+        },
+        seedRateKgPerAcre: 0.1, // ~100g
     },
 };
 
@@ -574,5 +637,7 @@ export function Calculators({ itemType }: { itemType: ItemType }) {
         </Tabs>
     )
 }
+
+    
 
     
