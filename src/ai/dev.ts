@@ -8,3 +8,6 @@ import '@/ai/flows/integrate-weather-data-for-advisory.ts';
 import '@/ai/flows/get-market-prices.ts';
 import '@/ai/flows/generate-speech-from-text.ts';
 import '@/ai/flows/get-kheti-samachar.ts';
+import { startup } from '@/services/knowledge-base';
+
+startup();

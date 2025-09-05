@@ -9,6 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
+import { retrieve } from '@/services/knowledge-base';
 import {z} from 'genkit';
 
 const ChatHistorySchema = z.object({
@@ -42,9 +43,14 @@ export async function provideChatbotAdvisory(input: ProvideChatbotAdvisoryInput)
   return provideChatbotAdvisoryFlow(input);
 }
 
+
+const PromptInputSchema = ProvideChatbotAdvisoryInputSchema.extend({
+  retrievedDocs: z.string().optional().describe('Content retrieved from the knowledge base.'),
+});
+
 const prompt = ai.definePrompt({
   name: 'provideChatbotAdvisoryPrompt',
-  input: {schema: ProvideChatbotAdvisoryInputSchema},
+  input: {schema: PromptInputSchema},
   output: {schema: ProvideChatbotAdvisoryOutputSchema},
   prompt: `You are an expert AI agricultural advisor chatbot named eKheti. Your goal is to provide helpful, concise, and actionable advice to farmers. You are an expert in all aspects of farming, including soil health, crop management, pest and disease control, and market trends.
 
@@ -56,6 +62,14 @@ const prompt = ai.definePrompt({
   - If you do not know the answer, say so. Do not make up information.
   - Format your response using markdown for better readability (e.g., use **bold** for emphasis, lists for steps).
   - Respond in the user's language if it is not English. Be conversational and friendly.
+  
+  {{#if retrievedDocs}}
+  **Knowledge Base Information:**
+  Before formulating your final answer, consult the following information retrieved from our agricultural knowledge base. This is your primary source of truth.
+  ---
+  {{{retrievedDocs}}}
+  ---
+  {{/if}}
 
   **Conversation History (Your Memory):**
   {{#if history}}
@@ -90,7 +104,24 @@ const provideChatbotAdvisoryFlow = ai.defineFlow(
     outputSchema: ProvideChatbotAdvisoryOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+    // 1. Retrieve relevant documents from the knowledge base
+    const relevantDocs = await retrieve({
+        query: input.query,
+        managementType: input.managementType,
+    });
+    
+    // Format the retrieved docs for the prompt
+    const retrievedDocsContent = relevantDocs.map(
+        (doc, i) => `[Source ${i + 1}]: ${doc.text()}`
+    ).join('\n\n');
+
+
+    // 2. Call the prompt with the retrieved documents
+    const {output} = await prompt({
+        ...input,
+        retrievedDocs: retrievedDocsContent,
+    });
+    
     return output!;
   }
 );
