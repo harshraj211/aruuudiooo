@@ -63,6 +63,51 @@ const cropData = {
         },
         seedRateKgPerAcre: 2000, // In terms of setts/acre
     },
+    soybean: {
+        type: 'crop',
+        fertilizer: { npk: '20-60-20', urea: 20, dap: 40, potash: 20 },
+        pesticides: {
+            'girdle-beetle': { name: 'Thiamethoxam', dosageMlPerLitre: 0.5 },
+            'white-fly': { name: 'Imidacloprid', dosageMlPerLitre: 0.7 },
+        },
+        seedRateKgPerAcre: 30,
+    },
+    groundnut: {
+        type: 'crop',
+        fertilizer: { npk: '20-40-40', urea: 15, dap: 35, potash: 30 },
+        pesticides: {
+            'leaf-miner': { name: 'Dimethoate', dosageMlPerLitre: 1.5 },
+            'white-grub': { name: 'Chlorpyrifos', dosageMlPerLitre: 2.5 },
+        },
+        seedRateKgPerAcre: 40,
+    },
+    mustard: {
+        type: 'crop',
+        fertilizer: { npk: '60-30-30', urea: 50, dap: 25, potash: 25 },
+        pesticides: {
+            'mustard-aphid': { name: 'Oxydemeton-methyl', dosageMlPerLitre: 1 },
+            sawfly: { name: 'Quinalphos', dosageMlPerLitre: 1.5 },
+        },
+        seedRateKgPerAcre: 2,
+    },
+    potato: {
+        type: 'crop',
+        fertilizer: { npk: '120-60-60', urea: 100, dap: 50, potash: 50 },
+        pesticides: {
+            'late-blight': { name: 'Mancozeb', dosageMlPerLitre: 2.5 },
+            'potato-tuber-moth': { name: 'Cypermethrin', dosageMlPerLitre: 1 },
+        },
+        seedRateKgPerAcre: 800, // In terms of tubers/acre
+    },
+    onion: {
+        type: 'crop',
+        fertilizer: { npk: '100-50-50', urea: 80, dap: 40, potash: 40 },
+        pesticides: {
+            thrips: { name: 'Fipronil', dosageMlPerLitre: 1 },
+            'purple-blotch': { name: 'Mancozeb', dosageMlPerLitre: 2 },
+        },
+        seedRateKgPerAcre: 4,
+    },
     mango: {
         type: 'fruit',
          fertilizer: { npk: '10-10-10', urea: 30, dap: 15, potash: 30 },
@@ -90,7 +135,25 @@ const cropData = {
             'panama-wilt': { name: 'Carbendazim', dosageMlPerLitre: 1 },
         },
         seedRateKgPerAcre: 0, // Not applicable
-    }
+    },
+    grapes: {
+        type: 'fruit',
+        fertilizer: { npk: '15-15-20', urea: 20, dap: 30, potash: 40 },
+        pesticides: {
+            'downy-mildew': { name: 'Mancozeb + Metalaxyl', dosageMlPerLitre: 2 },
+            'flea-beetle': { name: 'Imidacloprid', dosageMlPerLitre: 0.4 },
+        },
+        seedRateKgPerAcre: 0, // Not applicable
+    },
+    tomato: {
+        type: 'fruit', // Botanically a fruit
+        fertilizer: { npk: '100-60-60', urea: 80, dap: 50, potash: 50 },
+        pesticides: {
+            'fruit-borer': { name: 'Emamectin Benzoate', dosageMlPerLitre: 0.5 },
+            'early-blight': { name: 'Copper Oxychloride', dosageMlPerLitre: 2.5 },
+        },
+        seedRateKgPerAcre: 0.2, // ~200g
+    },
 };
 
 type CropName = keyof typeof cropData;
@@ -511,3 +574,5 @@ export function Calculators({ itemType }: { itemType: ItemType }) {
         </Tabs>
     )
 }
+
+    
