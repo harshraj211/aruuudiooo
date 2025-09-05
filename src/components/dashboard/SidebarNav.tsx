@@ -68,12 +68,6 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
     if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
         return false;
     }
-    if (managementType === 'fruits' && item.labelKey === 'sidebar.calculators') {
-        return false; // Calculators only for crops for now as requested
-    }
-     if (managementType === 'crops' && item.labelKey === 'sidebar.cropCalendar') {
-        // In crops section, "Crop Calendar" should just be "Calendar"
-    }
     return true;
   });
 
