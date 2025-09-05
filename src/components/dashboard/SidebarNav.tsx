@@ -11,7 +11,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/Logo';
-import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home } from 'lucide-react';
+import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -30,6 +30,7 @@ const baseMenuItems: Omit<MenuItem, 'href'>[] = [
   { labelKey: 'sidebar.diseaseDetection', icon: Leaf },
   { labelKey: 'sidebar.chatbot', icon: BotMessageSquare },
   { labelKey: 'sidebar.cropCalendar', icon: CalendarDays },
+  { labelKey: 'sidebar.calculators', icon: Calculator },
   { labelKey: 'sidebar.notifications', icon: Bell },
   { labelKey: 'sidebar.khetiSamachar', icon: Newspaper },
 ];
@@ -67,6 +68,9 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
     if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
         return false;
     }
+    if (managementType === 'fruits' && item.labelKey === 'sidebar.calculators') {
+        return false; // Calculators only for crops for now as requested
+    }
      if (managementType === 'crops' && item.labelKey === 'sidebar.cropCalendar') {
         // In crops section, "Crop Calendar" should just be "Calendar"
     }
@@ -77,7 +81,7 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
     let page = item.labelKey.split('.')[1]; // e.g., 'dashboard' from 'sidebar.dashboard'
     
     // Pages that are specific to the managementType
-    const typeSpecificPages = ['dashboard', 'expenseTracker', 'diseaseDetection', 'chatbot', 'cropCalendar', 'notifications'];
+    const typeSpecificPages = ['dashboard', 'expenseTracker', 'diseaseDetection', 'chatbot', 'cropCalendar', 'notifications', 'calculators'];
     
     // Pages that are generic and live under /dashboard/
     const genericPages = ['marketPrices', 'khetiSamachar'];

@@ -11,7 +11,8 @@
         "fruitCalendar": "Fruit Calendar",
         "khetiSamachar": "Agri News",
         "home": "Home",
-        "backToSelection": "Back to Selection"
+        "backToSelection": "Back to Selection",
+        "calculators": "Calculators"
     },
     "dashboard": {
         "welcome": "Welcome back, {{name}}!",
@@ -219,6 +220,68 @@
             "submitting": "Adding...",
             "toastSuccessTitle": "Transaction Added",
             "toastSuccessDescription": "Your {{type}} of {{amount}} {{currency}} has been recorded."
+        }
+    },
+    "calculatorsPage": {
+        "title": "Farming Calculators",
+        "description": "Calculate fertilizer, pesticide, and seed requirements for your crops.",
+        "tabs": {
+            "fertilizer": "Fertilizer",
+            "pesticide": "Pesticide",
+            "seed": "Seed"
+        },
+        "inputs": {
+            "cropType": "Crop Type",
+            "fruitType": "Fruit Type",
+            "cropPlaceholder": "Select a crop",
+            "fruitPlaceholder": "Select a fruit",
+            "landSize": "Land Size",
+            "unit": "Unit",
+            "pestOrDisease": "Pest / Disease",
+            "pestPlaceholder": "Select a pest or disease"
+        },
+        "units": {
+            "acre": "Acre",
+            "hectare": "Hectare",
+            "sqmeter": "Sq. Meter",
+            "sqfeet": "Sq. Feet"
+        },
+        "buttons": {
+            "calculate": "Calculate"
+        },
+        "fertilizer": {
+            "title": "Fertilizer Calculator",
+            "description": "Calculate the exact amount of fertilizer needed for your field.",
+            "result": {
+                "title": "Fertilizer Required",
+                "urea": "Urea",
+                "dap": "DAP",
+                "potash": "Potash",
+                "npk": "Recommended NPK"
+            }
+        },
+        "pesticide": {
+            "title": "Pesticide Calculator",
+            "description": "Determine the correct pesticide and water mixture for spraying.",
+             "result": {
+                "title": "Pesticide Mixture",
+                "mix": "Mix",
+                "in": "in",
+                "litresWater": "litres of water"
+            }
+        },
+        "seed": {
+            "title": "Seed Calculator",
+            "description": "Estimate the total amount of seed required for sowing.",
+             "result": {
+                "title": "Seed Requirement",
+                "youWillNeed": "You will need",
+                "ofSeed": "of seed"
+            }
+        },
+        "error": {
+            "noData": "Calculation data not available for the selected crop. Please try another.",
+            "noSeedData": "Seed rate data is not applicable or available for the selected item."
         }
     }
 }

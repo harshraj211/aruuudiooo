@@ -11,7 +11,8 @@
         "fruitCalendar": "फल कैलेंडर",
         "khetiSamachar": "खेती समाचार",
         "home": "होम",
-        "backToSelection": "चयन पर वापस"
+        "backToSelection": "चयन पर वापस",
+        "calculators": "कैलकुलेटर"
     },
     "dashboard": {
         "welcome": "वापसी पर स्वागत है, {{name}}!",
@@ -213,6 +214,68 @@
             "submitting": "जोड़ा जा रहा है...",
             "toastSuccessTitle": "लेनदेन जोड़ा गया",
             "toastSuccessDescription": "आपका {{amount}} {{currency}} का {{type}} दर्ज किया गया है।"
+        }
+    },
+     "calculatorsPage": {
+        "title": "खेती कैलकुलेटर",
+        "description": "अपनी फसलों के लिए उर्वरक, कीटनाशक और बीज की आवश्यकताओं की गणना करें।",
+        "tabs": {
+            "fertilizer": "उर्वरक",
+            "pesticide": "कीटनाशक",
+            "seed": "बीज"
+        },
+        "inputs": {
+            "cropType": "फसल का प्रकार",
+            "fruitType": "फल का प्रकार",
+            "cropPlaceholder": "एक फसल चुनें",
+            "fruitPlaceholder": "एक फल चुनें",
+            "landSize": "भूमि का आकार",
+            "unit": "इकाई",
+            "pestOrDisease": "कीट / रोग",
+            "pestPlaceholder": "एक कीट या रोग चुनें"
+        },
+        "units": {
+            "acre": "एकड़",
+            "hectare": "हेक्टेयर",
+            "sqmeter": "वर्ग मीटर",
+            "sqfeet": "वर्ग फुट"
+        },
+        "buttons": {
+            "calculate": "गणना करें"
+        },
+        "fertilizer": {
+            "title": "उर्वरक कैलकुलेटर",
+            "description": "अपने खेत के लिए आवश्यक उर्वरक की सटीक मात्रा की गणना करें।",
+            "result": {
+                "title": "आवश्यक उर्वरक",
+                "urea": "यूरिया",
+                "dap": "डीएपी",
+                "potash": "पोटाश",
+                "npk": "अनुशंसित एनपीके"
+            }
+        },
+        "pesticide": {
+            "title": "कीटनाशक कैलकुलेटर",
+            "description": "छिड़काव के लिए सही कीटनाशक और पानी के मिश्रण का निर्धारण करें।",
+             "result": {
+                "title": "कीटनाशक मिश्रण",
+                "mix": "मिलाएं",
+                "in": "में",
+                "litresWater": "लीटर पानी"
+            }
+        },
+        "seed": {
+            "title": "बीज कैलकुलेटर",
+            "description": "बुवाई के लिए आवश्यक बीज की कुल मात्रा का अनुमान लगाएं।",
+             "result": {
+                "title": "बीज की आवश्यकता",
+                "youWillNeed": "आपको आवश्यकता होगी",
+                "ofSeed": "बीज का"
+            }
+        },
+        "error": {
+            "noData": "चयनित फसल के लिए गणना डेटा उपलब्ध नहीं है। कृपया कोई दूसरा प्रयास करें।",
+            "noSeedData": "चयनित वस्तु के लिए बीज दर डेटा लागू या उपलब्ध नहीं है।"
         }
     }
 }

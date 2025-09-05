@@ -8,7 +8,8 @@
         "chatbot": "ચેટબોટ",
         "khetiSamachar": "ખેતી સમાચાર",
         "home": "ઘર",
-        "backToSelection": "પસંદગી પર પાછા"
+        "backToSelection": "પસંદગી પર પાછા",
+        "calculators": "કેલ્ક્યુલેટર"
     },
     "dashboard": {
         "welcome": "ફરી સ્વાગત છે, {{name}}!",
@@ -111,7 +112,7 @@
             "deleteConfirm": "કાઢી નાખો"
         },
         "addTransaction": {
-            "title": "વ्यवહાર ઉમેરો",
+            "title": "વ્યવહાર ઉમેરો",
             "description": "નવી આવક અથવા ખર્ચ રેકોર્ડ કરો.",
             "typeLabel": "પ્રકાર",
             "expense": "ખર્ચ",
@@ -126,10 +127,72 @@
             "datePlaceholder": "તારીખ પસંદ કરો",
             "descriptionLabel": "વર્ણન",
             "descriptionPlaceholder": "વૈકલ્પિક: ટૂંકી નોંધ ઉમેરો",
-            "submit": "વ्यवહાર ઉમેરો",
+            "submit": "વ્યવહાર ઉમેરો",
             "submitting": "ઉમેરી રહ્યું છે...",
-            "toastSuccessTitle": "વ्यवહાર ઉમેરાયો",
+            "toastSuccessTitle": "વ્યવહાર ઉમેરાયો",
             "toastSuccessDescription": "તમારો {{amount}} {{currency}} નો {{type}} રેકોર્ડ કરવામાં આવ્યો છે."
+        }
+    },
+    "calculatorsPage": {
+        "title": "ખેતી કેલ્ક્યુલેટર",
+        "description": "તમારા પાક માટે ખાતર, જંતુનાશક અને બીજની જરૂરિયાતોની ગણતરી કરો.",
+        "tabs": {
+            "fertilizer": "ખાતર",
+            "pesticide": "જંતુનાશક",
+            "seed": "બીજ"
+        },
+        "inputs": {
+            "cropType": "પાકનો પ્રકાર",
+            "fruitType": "ફળનો પ્રકાર",
+            "cropPlaceholder": "એક પાક પસંદ કરો",
+            "fruitPlaceholder": "એક ફળ પસંદ કરો",
+            "landSize": "જમીનનું કદ",
+            "unit": "એકમ",
+            "pestOrDisease": "જીવાત / રોગ",
+            "pestPlaceholder": "એક જીવાત અથવા રોગ પસંદ કરો"
+        },
+        "units": {
+            "acre": "એકર",
+            "hectare": "હેક્ટર",
+            "sqmeter": "ચોરસ મીટર",
+            "sqfeet": "ચોરસ ફૂટ"
+        },
+        "buttons": {
+            "calculate": "ગણતરી કરો"
+        },
+        "fertilizer": {
+            "title": "ખાતર કેલ્ક્યુલેટર",
+            "description": "તમારા ખેતર માટે જરૂરી ખાતરની ચોક્કસ માત્રાની ગણતરી કરો.",
+            "result": {
+                "title": "જરૂરી ખાતર",
+                "urea": "યુરિયા",
+                "dap": "ડીએપી",
+                "potash": "પોટાશ",
+                "npk": "ભલામણ કરેલ એનપીકે"
+            }
+        },
+        "pesticide": {
+            "title": "જંતુનાશક કેલ્ક્યુલેટર",
+            "description": "છંટકાવ માટે સાચા જંતુનાશક અને પાણીના મિશ્રણનું નિર્ધારણ કરો.",
+             "result": {
+                "title": "જંતુનાશક મિશ્રણ",
+                "mix": "મિશ્રણ કરો",
+                "in": "માં",
+                "litresWater": "લિટર પાણી"
+            }
+        },
+        "seed": {
+            "title": "બીજ કેલ્ક્યુલેટર",
+            "description": "વાવણી માટે જરૂરી બીજની કુલ માત્રાનો અંદાજ લગાવો.",
+             "result": {
+                "title": "બીજની જરૂરિયાત",
+                "youWillNeed": "તમારે જરૂર પડશે",
+                "ofSeed": "બીજની"
+            }
+        },
+        "error": {
+            "noData": "પસંદ કરેલ પાક માટે ગણતરી ડેટા ઉપલબ્ધ નથી. કૃપા કરીને બીજો પ્રયાસ કરો.",
+            "noSeedData": "પસંદ કરેલ વસ્તુ માટે બીજ દર ડેટા લાગુ પડતો નથી અથવા ઉપલબ્ધ નથી."
         }
     }
 }
