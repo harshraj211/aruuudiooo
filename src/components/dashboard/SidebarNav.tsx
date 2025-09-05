@@ -11,7 +11,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/Logo';
-import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator, Users } from 'lucide-react';
+import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -60,7 +60,7 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   };
   
   const filteredMenuItems = baseMenuItems.filter(item => {
-    // On the default selection screen, only show home.
+    // On the default selection screen, only show home and generic items.
     if (managementType === 'default') {
         return item.isGeneric;
     }
@@ -72,33 +72,30 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   });
 
   const menuItems: MenuItem[] = filteredMenuItems.map(item => {
-    let page = item.labelKey.split('.')[1]; // e.g., 'dashboard' from 'sidebar.dashboard'
-    
-    let pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
-    
-    let href = '';
-    let resolvedManagementType = managementType;
-
-    if (item.isGeneric) {
-        if(page === 'khetiSamachar'){
-             pageSlug = 'kheti-samachar';
-        }
-         href = `/dashboard/${pageSlug}`;
-    } else {
-        if (page === 'dashboard') {
-            href = `/dashboard/${resolvedManagementType}`;
-        } else if (page === 'crop-calendar') { // Special handling for calendar
-            const calendarSlug = resolvedManagementType === 'fruits' ? 'fruit-calendar' : 'crop-calendar';
-            href = `/dashboard/${resolvedManagementType}/${calendarSlug}`;
-        } else {
-            href = `/dashboard/${resolvedManagementType}/${pageSlug}`;
-        }
-    }
+    const isCalendar = item.labelKey === 'sidebar.cropCalendar';
 
     // Adjust label for calendar
     let labelKey = item.labelKey;
-    if (item.labelKey === 'sidebar.cropCalendar') {
-        labelKey = resolvedManagementType === 'fruits' ? 'sidebar.fruitCalendar' : 'sidebar.cropCalendar';
+    if (isCalendar) {
+        labelKey = managementType === 'fruits' ? 'sidebar.fruitCalendar' : 'sidebar.cropCalendar';
+    }
+
+    // Get page from the (potentially updated) labelKey
+    let page = labelKey.split('.')[1]; // e.g., 'dashboard', 'fruitCalendar', 'khetiSamachar'
+    
+    // Convert camelCase to kebab-case for the URL slug
+    let pageSlug = page.replace(/([A-Z])/g, '-$1').toLowerCase();
+
+    let href = '';
+    
+    if (item.isGeneric) {
+        href = `/dashboard/${pageSlug}`;
+    } else {
+        if (page === 'dashboard') {
+            href = `/dashboard/${managementType}`;
+        } else {
+            href = `/dashboard/${managementType}/${pageSlug}`;
+        }
     }
 
 
