@@ -3,8 +3,8 @@
  */
 'use server';
 
-import { Document, index, retrieve as genkitRetrieve, fromText, defineIndexer } from 'genkit';
-import { googleCloud } from 'genkit/google-cloud';
+import { Document, index, retrieve as genkitRetrieve, fromText } from 'genkit';
+import { googleCloud } from '@genkit-ai/google-cloud';
 import { googleAI } from '@genkit-ai/googleai';
 
 // Sample documents for the knowledge base.
