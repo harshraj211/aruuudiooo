@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { FileDown } from 'lucide-react';
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, CartesianGrid } from 'recharts';
-import { ChartTooltipContent } from '@/components/ui/chart';
+import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useTranslation } from '@/hooks/useTranslation';
 
@@ -49,9 +49,9 @@ export function YearlyWeatherReport() {
   const { t } = useTranslation();
 
   const chartConfig = {
-    data: {
-      label: 'Data',
-      color: 'hsl(var(--chart-1))',
+    [dataType]: {
+      label: dataType.charAt(0).toUpperCase() + dataType.slice(1),
+      color: 'hsl(var(--primary))',
     },
   };
   
@@ -85,42 +85,49 @@ export function YearlyWeatherReport() {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="h-[300px] w-full">
-            <ResponsiveContainer>
-                <LineChart data={yearlyData} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
-                    <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
-                    <YAxis
-                      tickLine={false}
-                      axisLine={false}
-                      tickMargin={8}
-                      tickFormatter={(value) => `${value}${yAxisLabel}`}
-                    />
-                    <Tooltip
-                        cursor={{ strokeDasharray: '3 3' }}
-                        content={
-                            <ChartTooltipContent
+        <ChartContainer config={chartConfig} className="h-[300px] w-full">
+            <LineChart
+                accessibilityLayer
+                data={yearlyData}
+                margin={{
+                    top: 5,
+                    right: 20,
+                    left: -10,
+                    bottom: 5,
+                }}
+            >
+                <CartesianGrid vertical={false} strokeDasharray="3 3" stroke="hsl(var(--border) / 0.5)" />
+                <XAxis
+                    dataKey="month"
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    tickFormatter={(value) => value.slice(0, 3)}
+                />
+                <YAxis
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    tickFormatter={(value) => `${value}${yAxisLabel}`}
+                />
+                <Tooltip
+                    cursor={false}
+                    content={
+                        <ChartTooltipContent
                             formatter={(value) => `${value}${yAxisLabel}`}
                             indicator="dot"
-                            />
-                        }
-                    />
-                    <Line
-                        dataKey={dataType}
-                        type="monotone"
-                        stroke="hsl(var(--primary))"
-                        strokeWidth={2}
-                        dot={{
-                            fill: "hsl(var(--primary))",
-                            r: 4,
-                        }}
-                        activeDot={{
-                            r: 6,
-                        }}
-                    />
-                </LineChart>
-            </ResponsiveContainer>
-        </div>
+                        />
+                    }
+                />
+                <Line
+                    dataKey={dataType}
+                    type="monotone"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth={2}
+                    dot={true}
+                />
+            </LineChart>
+        </ChartContainer>
       </CardContent>
     </Card>
   );
