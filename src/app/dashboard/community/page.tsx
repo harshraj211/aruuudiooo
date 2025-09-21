@@ -108,10 +108,10 @@ export default function CommunityPage() {
     }, []);
 
     const filteredPosts = useMemo(() => {
-        if (filter === 'all') return posts;
-        if (filter === 'crops') return posts.filter(p => p.type === 'crop');
-        if (filter === 'fruits') return posts.filter(p => p.type === 'fruit');
-        return posts.filter(p => p.cropOrFruitName === filter);
+        if (filter === 'all') return posts.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+        if (filter === 'crops') return posts.filter(p => p.type === 'crop').sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+        if (filter === 'fruits') return posts.filter(p => p.type === 'fruit').sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+        return posts.filter(p => p.cropOrFruitName === filter).sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
     }, [posts, filter]);
 
 
@@ -159,4 +159,3 @@ export default function CommunityPage() {
         </main>
     );
 }
-
