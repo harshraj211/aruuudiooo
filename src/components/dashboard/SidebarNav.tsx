@@ -1,4 +1,3 @@
-
 'use client';
 
 import {
@@ -11,12 +10,11 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/Logo';
-import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator, Users } from 'lucide-react';
+import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator, Users, Sun } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useEffect, useState } from 'react';
-import { WeatherWidget } from './WeatherWidget';
 
 type MenuItem = {
   href: string;
@@ -30,6 +28,7 @@ const baseMenuItems: Omit<MenuItem, 'href'>[] = [
   { labelKey: 'sidebar.marketPrices', icon: TrendingUp, isGeneric: true },
   { labelKey: 'sidebar.khetiSamachar', icon: Newspaper, isGeneric: true },
   { labelKey: 'sidebar.communityForum', icon: Users, isGeneric: true },
+  { labelKey: 'sidebar.weather', icon: Sun, isGeneric: true },
   { labelKey: 'sidebar.expenseTracker', icon: Wallet },
   { labelKey: 'sidebar.diseaseDetection', icon: Leaf },
   { labelKey: 'sidebar.chatbot', icon: BotMessageSquare },
@@ -52,12 +51,11 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   useEffect(() => {
     if (isClient) {
         let currentType = initialManagementType;
-        if (initialManagementType === 'default') {
-            if (pathname.includes('/crops')) {
-                currentType = 'crops';
-            } else if (pathname.includes('/fruits')) {
-                currentType = 'fruits';
-            }
+        if (initialManagementType === 'default' && pathname !== '/dashboard') {
+             const storedType = localStorage.getItem('agriVision-managementType');
+             if (storedType === 'crops' || storedType === 'fruits') {
+                currentType = storedType;
+             }
         }
         setManagementType(currentType);
     }
@@ -69,9 +67,11 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   };
   
   const filteredMenuItems = baseMenuItems.filter(item => {
+    // Hide non-generic items on the main dashboard selection screen
     if (managementType === 'default' && !item.isGeneric) {
        return false;
     }
+    // Hide market prices for fruits
     if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
         return false;
     }
@@ -146,7 +146,6 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
                 </SidebarMenuItem>
             ))}
         </SidebarMenu>
-         {isClient && <WeatherWidget />}
       </SidebarContent>
     </Sidebar>
   );

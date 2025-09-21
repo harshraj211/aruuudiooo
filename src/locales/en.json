@@ -13,7 +13,8 @@
         "home": "Home",
         "backToSelection": "Back to Selection",
         "calculators": "Calculators",
-        "communityForum": "Community Forum"
+        "communityForum": "Community Forum",
+        "weather": "Weather"
     },
     "dashboard": {
         "welcome": "Welcome back, {{name}}!",
@@ -283,6 +284,23 @@
         "error": {
             "noData": "Calculation data not available for the selected crop. Please try another.",
             "noSeedData": "Seed rate data is not applicable or available for the selected item."
+        }
+    },
+    "weatherPage": {
+        "title": "Current Weather",
+        "description": "Check the current weather conditions for your location.",
+        "temperature": "Temperature",
+        "humidity": "Humidity",
+        "windSpeed": "Wind Speed",
+        "manageAlerts": "Manage Weather Alerts",
+        "locating": "Locating",
+        "useCurrentLocation": "Use My Current Location",
+        "error": {
+            "title": "Could Not Load Weather",
+            "noLocation": "Your location is not set. Please set it to view weather information.",
+            "noApiKey": "The weather service is not configured correctly.",
+            "fetchFailed": "Failed to fetch weather data. Please check your connection or location and try again.",
+            "setLocationPrompt": "You can set your location in the main advisory section or use the button below."
         }
     }
 }
