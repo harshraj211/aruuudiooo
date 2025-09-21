@@ -5,35 +5,35 @@
 
 @layer base {
   :root {
-    --background: 48 20% 98%; /* Lighter, almost white beige */
-    --foreground: 20 10% 15%;
-    --card: 0 0% 100%;
-    --card-foreground: 20 10% 15%;
+    --background: 0 0% 96%; /* #F5F5F5 */
+    --foreground: 0 0% 13%; /* #212121 */
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 0 0% 13%;
     --popover: 0 0% 100%;
-    --popover-foreground: 20 10% 15%;
-    --primary: 94 38% 30%; /* A deeper, more natural green */
-    --primary-foreground: 60 90% 98%;
-    --secondary: 94 15% 90%;
-    --secondary-foreground: 94 38% 20%;
-    --muted: 94 10% 88%;
-    --muted-foreground: 20 10% 40%;
-    --accent: 33 80% 50%; /* A vibrant, earthy orange */
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84.2% 60.2%;
+    --popover-foreground: 0 0% 13%;
+    --primary: 122 46% 34%; /* #2E7D32 */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 94% 56%; /* #F9A825 - Used as secondary, but mapping to accent from user */
+    --secondary-foreground: 0 0% 13%;
+    --muted: 0 0% 90%;
+    --muted-foreground: 0 0% 38%; /* #616161 */
+    --accent: 40 94% 56%; /* #F9A825 */
+    --accent-foreground: 0 0% 13%;
+    --destructive: 0 65% 50%; /* #D32F2F */
     --destructive-foreground: 0 0% 98%;
-    --border: 94 10% 80%;
-    --input: 94 10% 92%;
-    --ring: 94 38% 30%;
+    --border: 0 0% 74%; /* #BDBDBD */
+    --input: 0 0% 84%;
+    --ring: 122 46% 34%;
     --radius: 0.5rem;
     
-    --sidebar-background: 94 15% 97%;
-    --sidebar-foreground: 94 38% 10%;
-    --sidebar-primary: 94 38% 30%;
-    --sidebar-primary-foreground: 60 90% 98%;
-    --sidebar-accent: 94 20% 90%;
-    --sidebar-accent-foreground: 94 38% 10%;
-    --sidebar-border: 94 10% 85%;
-    --sidebar-ring: 94 38% 30%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 0 0% 13%;
+    --sidebar-primary: 122 46% 34%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 13%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 122 46% 34%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
@@ -42,34 +42,34 @@
   }
 
   .dark {
-    --background: 94 10% 10%;
-    --foreground: 0 0% 98%;
-    --card: 94 10% 14%;
-    --card-foreground: 0 0% 98%;
-    --popover: 94 10% 10%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 94 40% 60%;
-    --primary-foreground: 94 30% 10%;
-    --secondary: 94 10% 20%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 94 10% 20%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 33 85% 60%;
-    --accent-foreground: 33 85% 10%;
-    --destructive: 0 62.8% 30.6%;
+    --background: 0 0% 13%;
+    --foreground: 0 0% 96%;
+    --card: 0 0% 18%;
+    --card-foreground: 0 0% 96%;
+    --popover: 0 0% 13%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 122 40% 60%;
+    --primary-foreground: 0 0% 10%;
+    --secondary: 40 85% 65%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 74%;
+    --accent: 40 85% 65%;
+    --accent-foreground: 0 0% 10%;
+    --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 98%;
-    --border: 94 10% 25%;
-    --input: 94 10% 25%;
-    --ring: 94 40% 60%;
+    --border: 0 0% 30%;
+    --input: 0 0% 30%;
+    --ring: 122 40% 60%;
     
-    --sidebar-background: 94 10% 15%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 94 40% 60%;
-    --sidebar-primary-foreground: 94 30% 10%;
-    --sidebar-accent: 94 10% 22%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 94 10% 25%;
-    --sidebar-ring: 94 40% 60%;
+    --sidebar-background: 0 0% 15%;
+    --sidebar-foreground: 0 0% 96%;
+    --sidebar-primary: 122 40% 60%;
+    --sidebar-primary-foreground: 0 0% 10%;
+    --sidebar-accent: 0 0% 22%;
+    --sidebar-accent-foreground: 0 0% 96%;
+    --sidebar-border: 0 0% 25%;
+    --sidebar-ring: 122 40% 60%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
@@ -89,4 +89,3 @@
     @apply font-headline;
   }
 }
-
