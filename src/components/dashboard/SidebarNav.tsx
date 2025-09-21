@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -37,36 +38,22 @@ const baseMenuItems: Omit<MenuItem, 'href'>[] = [
   { labelKey: 'sidebar.notifications', icon: Bell },
 ];
 
-export function SidebarNav({ managementType: initialManagementType }: { managementType: 'crops' | 'fruits' | 'default' }) {
+export function SidebarNav({ managementType }: { managementType: 'crops' | 'fruits' | 'default' }) {
   const { setOpenMobile } = useSidebar();
   const pathname = usePathname();
   const { t } = useTranslation();
-  const [managementType, setManagementType] = useState(initialManagementType);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  useEffect(() => {
-    if (isClient) {
-        let currentType = initialManagementType;
-        if (initialManagementType === 'default' && pathname !== '/dashboard') {
-             const storedType = localStorage.getItem('agriVision-managementType');
-             if (storedType === 'crops' || storedType === 'fruits') {
-                currentType = storedType;
-             }
-        }
-        setManagementType(currentType);
-    }
-  }, [pathname, initialManagementType, isClient]);
-
-
   const handleLinkClick = () => {
     setOpenMobile(false);
   };
   
   const filteredMenuItems = baseMenuItems.filter(item => {
+    if (!isClient) return false; // Render nothing on the server for dynamic items
     // Hide non-generic items on the main dashboard selection screen
     if (managementType === 'default' && !item.isGeneric) {
        return false;
@@ -121,7 +108,7 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
                 asChild
                 onClick={handleLinkClick}
                 tooltip={t('sidebar.backToSelection')}
-                isActive={pathname === '/dashboard'}
+                isActive={isClient && pathname === '/dashboard'}
               >
                 <Link href="/dashboard">
                   <Home />
@@ -136,7 +123,7 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
                     asChild
                     onClick={handleLinkClick}
                     tooltip={t(item.labelKey)}
-                    isActive={pathname.startsWith(item.href) && (item.href !== `/dashboard/${managementType}` || pathname === `/dashboard/${managementType}`)}
+                    isActive={isClient && pathname.startsWith(item.href) && (item.href !== `/dashboard/${managementType}` || pathname === `/dashboard/${managementType}`)}
                 >
                     <Link href={item.href}>
                     <item.icon />

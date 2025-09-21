@@ -15,38 +15,31 @@ export default function DashboardLayout({
 }) {
   const pathname = usePathname();
   const [managementType, setManagementType] = useState<'crops' | 'fruits' | 'default'>('default');
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    let currentType: 'crops' | 'fruits' | 'default' = 'default';
 
-  useEffect(() => {
-    if (isClient) {
-        let currentType: 'crops' | 'fruits' | 'default' = 'default';
-
-        if (pathname.startsWith('/dashboard/crops')) {
-          currentType = 'crops';
-          localStorage.setItem(MANAGEMENT_TYPE_KEY, 'crops');
-        } else if (pathname.startsWith('/dashboard/fruits')) {
-          currentType = 'fruits';
-          localStorage.setItem(MANAGEMENT_TYPE_KEY, 'fruits');
-        } else if (pathname === '/dashboard') {
-          currentType = 'default';
-        } else {
-          const storedType = localStorage.getItem(MANAGEMENT_TYPE_KEY);
-          if (storedType === 'crops' || storedType === 'fruits') {
-            currentType = storedType;
-          }
-        }
-        setManagementType(currentType);
+    if (pathname.startsWith('/dashboard/crops')) {
+      currentType = 'crops';
+      localStorage.setItem(MANAGEMENT_TYPE_KEY, 'crops');
+    } else if (pathname.startsWith('/dashboard/fruits')) {
+      currentType = 'fruits';
+      localStorage.setItem(MANAGEMENT_TYPE_KEY, 'fruits');
+    } else if (pathname === '/dashboard') {
+      currentType = 'default';
+    } else {
+      const storedType = localStorage.getItem(MANAGEMENT_TYPE_KEY);
+      if (storedType === 'crops' || storedType === 'fruits') {
+        currentType = storedType;
+      }
     }
-  }, [pathname, isClient]);
+    setManagementType(currentType);
+  }, [pathname]);
 
 
   return (
       <SidebarProvider>
-        {isClient ? <SidebarNav managementType={managementType} /> : <SidebarNav managementType="default" /> }
+        <SidebarNav managementType={managementType} />
         <SidebarInset>
           <Header />
           <div className="flex-1 p-4 sm:p-6 lg:p-8">
