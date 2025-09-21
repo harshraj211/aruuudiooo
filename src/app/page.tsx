@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Leaf, BotMessageSquare, Sun, Camera, WifiOff, UserCheck } from 'lucide-react';
+import { Leaf, BotMessageSquare, Sun, Camera, TrendingUp, Wallet, Calculator, Users, Languages, CalendarDays, UserCheck, WifiOff } from 'lucide-react';
 import { Logo } from '@/components/Logo';
 
 export default function Home() {
@@ -46,7 +46,7 @@ export default function Home() {
                 </div>
               </div>
               <Image
-                src="https://picsum.photos/600/400"
+                src="https://picsum.photos/seed/farm/600/400"
                 width="600"
                 height="400"
                 alt="A lush green farm under a clear blue sky"
@@ -110,6 +110,72 @@ export default function Home() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-muted-foreground">Our AI-powered chatbot is available 24/7 to provide you with instant support for your farming queries.</p>
+                </CardContent>
+              </Card>
+               <Card>
+                <CardHeader className="flex flex-row items-center gap-4">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <TrendingUp className="h-6 w-6 text-primary" />
+                  </div>
+                  <CardTitle>Market Price Tracking</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Stay updated with the latest crop prices from various mandis to sell at the right time.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center gap-4">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <Wallet className="h-6 w-6 text-primary" />
+                  </div>
+                  <CardTitle>Expense Tracker</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Manage your farm's finances by tracking income and expenses for each crop or fruit.</p>
+                </CardContent>
+              </Card>
+               <Card>
+                <CardHeader className="flex flex-row items-center gap-4">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <Calculator className="h-6 w-6 text-primary" />
+                  </div>
+                  <CardTitle>Farming Calculators</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Calculate requirements for fertilizer, pesticides, and seeds based on your land size.</p>
+                </CardContent>
+              </Card>
+               <Card>
+                <CardHeader className="flex flex-row items-center gap-4">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <Users className="h-6 w-6 text-primary" />
+                  </div>
+                  <CardTitle>Community Forum</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Connect with other farmers, ask questions, and share your knowledge and experiences.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center gap-4">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <Languages className="h-6 w-6 text-primary" />
+                  </div>
+                  <CardTitle>Multi-Language Support</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Use the app in English, Hindi, and many other regional Indian languages.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader className="flex flex-row items-center gap-4">
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <CalendarDays className="h-6 w-6 text-primary" />
+                  </div>
+                  <CardTitle>Activity Calendar</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">Schedule and get reminders for important farming activities like irrigation and harvesting.</p>
                 </CardContent>
               </Card>
               <Card>
