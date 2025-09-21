@@ -1,9 +1,6 @@
 
 
 import type {NextConfig} from 'next';
-import { config } from 'dotenv';
-
-config({ path: '.env' });
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -49,13 +46,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  env: {
-    // This makes the variable available to server-side code
-    OPENWEATHERMAP_API_KEY: process.env.OPENWEATHERMAP_API_KEY,
-    GEMINI_API_KEY: process.env.GEMINI_API_KEY,
-    NEWSDATA_API_KEY: process.env.NEWSDATA_API_KEY,
-    AGMARKNET_API_KEY: process.env.AGMARKNET_API_KEY,
-  }
 };
 
 export default nextConfig;
