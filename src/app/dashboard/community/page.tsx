@@ -4,7 +4,6 @@
 import { useState, useEffect } from 'react';
 import { CreatePostForm, Post, Comment } from '@/components/dashboard/community/CreatePostForm';
 import { PostCard } from '@/components/dashboard/community/PostCard';
-import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cropData, fruitData } from '@/lib/item-data';
@@ -14,7 +13,6 @@ const COMMUNITY_POSTS_KEY = 'agriVision-communityPosts';
 
 export default function CommunityPage() {
     const [posts, setPosts] = useState<Post[]>([]);
-    const { user } = useAuth();
     const { t } = useTranslation();
     const [filter, setFilter] = useState('all');
 
@@ -63,11 +61,10 @@ export default function CommunityPage() {
     }
 
     const handleCreatePost = (content: string, cropOrFruitName: string, type: 'crop' | 'fruit', imageUrl?: string) => {
-        if (!user) return;
         const newPost: Post = {
             id: Date.now().toString(),
-            userId: user.email,
-            userName: user.displayName,
+            userId: 'farmer@example.com',
+            userName: 'Pro Farmer',
             type: type,
             cropOrFruitName: cropOrFruitName,
             content,
@@ -85,11 +82,10 @@ export default function CommunityPage() {
     }
 
     const handleAddComment = (postId: string, commentText: string) => {
-        if (!user) return;
         const newComment: Comment = {
             id: Date.now().toString(),
-            userId: user.email,
-            userName: user.displayName,
+            userId: 'farmer@example.com',
+            userName: 'Pro Farmer',
             comment: commentText,
             timestamp: new Date(),
         };

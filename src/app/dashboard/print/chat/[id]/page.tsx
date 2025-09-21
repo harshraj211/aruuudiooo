@@ -4,7 +4,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { Conversation, Message } from '@/lib/chat-types';
-import { useAuth } from '@/hooks/useAuth';
 import { Logo } from '@/components/Logo';
 import Image from 'next/image';
 import { Bot, User, FileText } from 'lucide-react';
@@ -19,14 +18,13 @@ const CHAT_HISTORY_KEY = 'agriVision-chatHistory';
 
 export default function PrintChatPage() {
     const params = useParams();
-    const { user } = useAuth();
     const [conversation, setConversation] = useState<Conversation | null>(null);
     const [loading, setLoading] = useState(true);
     const printRef = useRef(null);
 
     useEffect(() => {
-        if (params.id && user) {
-            const storedHistory = localStorage.getItem(`${CHAT_HISTORY_KEY}-${user.email}`);
+        if (params.id) {
+            const storedHistory = localStorage.getItem(`${CHAT_HISTORY_KEY}-farmer@example.com`);
             if (storedHistory) {
                 const conversations: Conversation[] = JSON.parse(storedHistory);
                 const foundConversation = conversations.find(c => c.id === params.id);
@@ -34,7 +32,7 @@ export default function PrintChatPage() {
             }
         }
         setLoading(false);
-    }, [params.id, user]);
+    }, [params.id]);
     
     const handlePrint = useReactToPrint({
         content: () => printRef.current,
@@ -99,7 +97,7 @@ export default function PrintChatPage() {
                         Conversation from {new Date(conversation.createdAt).toLocaleString()}
                     </p>
                      <p className="text-sm text-muted-foreground">
-                        User: {user?.displayName} ({user?.email})
+                        User: Pro Farmer (farmer@example.com)
                     </p>
                 </div>
                 

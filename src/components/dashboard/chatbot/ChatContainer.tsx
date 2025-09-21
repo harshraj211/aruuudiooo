@@ -2,7 +2,6 @@
 'use client';
 
 import { useState, useEffect, useTransition } from 'react';
-import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import { provideChatbotAdvisory, ProvideChatbotAdvisoryInput } from '@/ai/flows/provide-chatbot-advisory';
 import { generateSpeechFromText } from '@/ai/flows/generate-speech-from-text';
@@ -28,7 +27,6 @@ export function ChatContainer({ managementType }: ChatContainerProps) {
     const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
     const [isSending, startSending] = useTransition();
     const [isSheetOpen, setIsSheetOpen] = useState(false);
-    const { user } = useAuth();
     const { toast } = useToast();
     const { language } = useTranslation();
 
@@ -43,29 +41,29 @@ export function ChatContainer({ managementType }: ChatContainerProps) {
 
     // Load chat history from localStorage on component mount
     useEffect(() => {
-        if (user) {
-            const storedHistory = localStorage.getItem(`${CHAT_HISTORY_KEY}-${user.email}`);
-            const loadedConversations: Conversation[] = storedHistory ? JSON.parse(storedHistory) : [];
-            
-            if (loadedConversations.length > 0) {
-                setConversations(loadedConversations.map(c => ({...c, createdAt: new Date(c.createdAt)})));
-                setActiveConversationId(loadedConversations[0].id);
-            } else {
-                setConversations([]);
-                setActiveConversationId(null);
-            }
+        const userEmail = 'farmer@example.com'; // Hardcoded user
+        const storedHistory = localStorage.getItem(`${CHAT_HISTORY_KEY}-${userEmail}`);
+        const loadedConversations: Conversation[] = storedHistory ? JSON.parse(storedHistory) : [];
+        
+        if (loadedConversations.length > 0) {
+            setConversations(loadedConversations.map(c => ({...c, createdAt: new Date(c.createdAt)})));
+            setActiveConversationId(loadedConversations[0].id);
+        } else {
+            setConversations([]);
+            setActiveConversationId(null);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [user, CHAT_HISTORY_KEY]);
+    }, [CHAT_HISTORY_KEY]);
 
     // Save chat history to localStorage whenever it changes
     useEffect(() => {
-        if (user && conversations.length > 0) {
-            localStorage.setItem(`${CHAT_HISTORY_KEY}-${user.email}`, JSON.stringify(conversations));
-        } else if (user && conversations.length === 0) {
-             localStorage.removeItem(`${CHAT_HISTORY_KEY}-${user.email}`);
+        const userEmail = 'farmer@example.com'; // Hardcoded user
+        if (conversations.length > 0) {
+            localStorage.setItem(`${CHAT_HISTORY_KEY}-${userEmail}`, JSON.stringify(conversations));
+        } else {
+             localStorage.removeItem(`${CHAT_HISTORY_KEY}-${userEmail}`);
         }
-    }, [conversations, user, CHAT_HISTORY_KEY]);
+    }, [conversations, CHAT_HISTORY_KEY]);
 
 
     const handleNewChat = () => {

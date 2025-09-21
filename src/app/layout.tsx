@@ -3,7 +3,6 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { LanguageProvider } from '@/hooks/useTranslation';
-import { AuthProvider } from '@/hooks/useAuth';
 
 export const metadata: Metadata = {
   title: 'eKheti',
@@ -23,9 +22,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <AuthProvider>
-            {children}
-        </AuthProvider>
+        {children}
         <Toaster />
       </body>
     </LanguageProvider>

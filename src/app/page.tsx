@@ -85,14 +85,8 @@ export default function Home() {
           <Logo />
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
-          <Link
-            href="/login"
-            className="text-sm font-medium hover:underline underline-offset-4 text-primary"
-          >
-            Login
-          </Link>
           <Button asChild>
-            <Link href="/signup">Get Started Free</Link>
+            <Link href="/dashboard">Go to Dashboard</Link>
           </Button>
         </nav>
       </header>
@@ -113,7 +107,7 @@ export default function Home() {
                 </p>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Button asChild size="lg">
-                    <Link href="/signup">
+                    <Link href="/dashboard">
                       Start Farming Smarter
                     </Link>
                   </Button>
@@ -152,8 +146,8 @@ export default function Home() {
                         <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 border-2 border-primary/20 mb-4">
                             <span className="text-3xl font-bold text-primary">1</span>
                         </div>
-                        <h3 className="text-xl font-bold mb-2">Sign Up & Setup</h3>
-                        <p className="text-muted-foreground">Create your account and add basic details about your farm and crops.</p>
+                        <h3 className="text-xl font-bold mb-2">Open the App</h3>
+                        <p className="text-muted-foreground">Just open the dashboard and choose the tool you need.</p>
                     </div>
                      <div className="relative flex flex-col items-center text-center">
                         <div className="absolute top-10 left-[calc(50%_+_2rem)] hidden w-full border-t-2 border-dashed border-border md:block"></div>
@@ -238,8 +232,8 @@ export default function Home() {
                     <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">Ready to Transform Your Farm?</h2>
                     <p className="max-w-xl text-muted-foreground">Join thousands of farmers who are building a more profitable and sustainable future with eKheti.</p>
                      <Button asChild size="lg" className="mt-4">
-                        <Link href="/signup">
-                           Get Started for Free <ArrowRight className="ml-2 h-5 w-5" />
+                        <Link href="/dashboard">
+                           Go to Dashboard <ArrowRight className="ml-2 h-5 w-5" />
                         </Link>
                     </Button>
                 </div>
@@ -264,4 +258,3 @@ export default function Home() {
     </div>
   );
 }
-

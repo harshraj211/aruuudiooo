@@ -1,7 +1,6 @@
 
 'use client';
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { UserNav } from "./UserNav";
 import { Logo } from "../Logo";
 import Link from "next/link";
 import { Button } from "../ui/button";
@@ -69,7 +68,6 @@ export function Header() {
             </DropdownMenuContent>
         </DropdownMenu>
 
-        <UserNav />
     </header>
   );
 }

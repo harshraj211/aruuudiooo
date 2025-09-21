@@ -8,7 +8,6 @@ import { generateExpenseReportPDF } from '@/lib/pdf-generator';
 import { useState, useEffect, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { FileDown, PlusCircle, Trash2 } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -56,7 +55,6 @@ export default function ExpenseTrackerPage() {
     const [items, setItems] = useState<TrackedItem[]>([]);
     const [activeItemId, setActiveItemId] = useState<string | null>(null);
     const [newItemName, setNewItemName] = useState('');
-    const { user } = useAuth();
     const { t } = useTranslation();
     const { toast } = useToast();
 
@@ -138,8 +136,8 @@ export default function ExpenseTrackerPage() {
     }
     
     const handleExport = () => {
-        if (user && activeItem) {
-            generateExpenseReportPDF(filteredTransactions, `${user.displayName} - ${activeItem.name}`);
+        if (activeItem) {
+            generateExpenseReportPDF(filteredTransactions, `Farmer - ${activeItem.name}`);
         }
     }
 
