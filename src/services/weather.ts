@@ -40,7 +40,7 @@ export type DailyForecastData = {
 
 /**
  * Fetches the current weather forecast for a given location.
- * @param location The city/location string (e.g., "Punjab, India").
+ * @param location The city/location string (e.g., "Punjab, India") or a coordinate object.
  * @param apiKey Your OpenWeatherMap API key.
  * @returns A promise that resolves to the current weather data.
  */
@@ -84,7 +84,7 @@ export async function getCurrentWeather(location: LocationInput, apiKey: string)
 
 /**
  * Fetches a 5-day weather forecast.
- * @param location The city/location string.
+ * @param location The city/location string or a coordinate object.
  * @param apiKey Your OpenWeatherMap API key.
  * @returns A promise that resolves to an array of daily forecast data.
  */

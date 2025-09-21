@@ -37,15 +37,24 @@ const nextConfig: NextConfig = {
         hostname: 'openweathermap.org',
         port: '',
         pathname: '/img/wn/**',
-      }
+      },
+      {
+        protocol: 'https',
+        hostname: 'newsdata.io',
+      },
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
     ],
   },
   env: {
+    // This makes the variable available to server-side code
     OPENWEATHERMAP_API_KEY: process.env.OPENWEATHERMAP_API_KEY,
-  },
-  publicRuntimeConfig: {
-    OPENWEATHERMAP_API_KEY: process.env.OPENWEATHERMAP_API_KEY,
-  },
+    GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+    // For client-side code, Next.js requires the NEXT_PUBLIC_ prefix
+    NEXT_PUBLIC_OPENWEATHERMAP_API_KEY: process.env.OPENWEATHERMAP_API_KEY,
+  }
 };
 
 export default nextConfig;

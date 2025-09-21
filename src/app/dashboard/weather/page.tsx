@@ -67,7 +67,7 @@ export default function WeatherPage() {
             // Try to get location from IP or browser geolocation as a fallback
              if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
-                    async (position) => {
+                    (position) => {
                         const { latitude, longitude } = position.coords;
                         fetchWeatherForLocation({ lat: latitude, lon: longitude });
                     },

@@ -14,7 +14,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 type WeatherViewProps = {
-    onLocationSubmit: (location: string) => void;
+    onLocationSubmit: (location: string | { lat: number, lon: number }) => void;
     currentWeather: CurrentWeatherData | null;
     forecast: DailyForecastData[];
     isLoading: boolean;
@@ -29,11 +29,15 @@ export function WeatherView({ onLocationSubmit, currentWeather, forecast, isLoad
     const { toast } = useToast();
     
     useEffect(() => {
-        const savedLocation = localStorage.getItem('agriVision-location');
-        if (savedLocation) {
-            setLocationInput(savedLocation);
+        if(currentWeather?.location) {
+            setLocationInput(currentWeather.location);
+        } else {
+             const savedLocation = localStorage.getItem('agriVision-location');
+            if (savedLocation) {
+                setLocationInput(savedLocation);
+            }
         }
-    }, []);
+    }, [currentWeather]);
 
     const handleLocationSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -51,21 +55,8 @@ export function WeatherView({ onLocationSubmit, currentWeather, forecast, isLoad
         navigator.geolocation.getCurrentPosition(
             async (position) => {
                 const { latitude, longitude } = position.coords;
-                const apiKey = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
-                if (!apiKey) {
-                    toast({ variant: "destructive", title: "API Key not configured" });
-                    setIsLocating(false);
-                    return;
-                };
-                try {
-                    const cityName = await getCityNameFromCoords({ lat: latitude, lon: longitude }, apiKey);
-                    setLocationInput(cityName);
-                    onLocationSubmit(cityName);
-                } catch (err) {
-                     toast({ variant: "destructive", title: "Could not fetch location name."});
-                } finally {
-                    setIsLocating(false);
-                }
+                onLocationSubmit({ lat: latitude, lon: longitude });
+                setIsLocating(false);
             },
             () => {
                 toast({ variant: "destructive", title: "Geolocation Error", description: "Could not access your location. Please enable location services in your browser settings."});
