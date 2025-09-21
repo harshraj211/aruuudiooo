@@ -87,7 +87,15 @@ export function YearlyWeatherReport({ location }: YearlyWeatherReportProps) {
     setIsDownloading(true);
     
     try {
-        const dataUrl = await toPng(chartRef.current, { cacheBust: true, quality: 0.95 });
+        const dataUrl = await toPng(chartRef.current, { 
+            cacheBust: true, 
+            quality: 0.95,
+            // This option is crucial to fix the cross-origin font issue.
+            fetchRequestInit: {
+                headers: new Headers(),
+                credentials: 'omit'
+            }
+        });
         const doc = new jsPDF();
 
         // Header
