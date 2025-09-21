@@ -312,6 +312,11 @@
             "noLocation": "Your location is not set. Please search for a location to view weather information.",
             "noApiKey": "The weather service is not configured correctly.",
             "fetchFailed": "Failed to fetch weather data. Please check the location and your connection, then try again."
+        },
+        "yearlyReport": {
+            "title": "Yearly Weather Report",
+            "description": "View monthly averages for the last 12 months.",
+            "rainfall": "Rainfall"
         }
     }
 }
