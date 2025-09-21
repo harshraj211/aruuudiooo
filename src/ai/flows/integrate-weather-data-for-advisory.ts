@@ -10,7 +10,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import { getForecast } from '@/services/weather';
+import { getCurrentWeather } from '@/services/weather';
 import {z} from 'genkit';
 
 const IntegrateWeatherDataForAdvisoryInputSchema = z.object({
@@ -89,7 +89,7 @@ const integrateWeatherDataForAdvisoryFlow = ai.defineFlow(
     
     if (apiKey) {
         try {
-            weatherData = await getForecast(input.location, apiKey);
+            weatherData = await getCurrentWeather(input.location, apiKey);
         } catch (e) {
             console.error("Failed to fetch weather in flow:", e);
             // We can continue without weather data, the prompt is designed to handle this.

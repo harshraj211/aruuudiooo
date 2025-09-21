@@ -287,20 +287,31 @@
         }
     },
     "weatherPage": {
-        "title": "Current Weather",
-        "description": "Check the current weather conditions for your location.",
+        "title": "Weather Dashboard",
+        "description": "Check current conditions and the 5-day forecast for your location.",
         "temperature": "Temperature",
         "humidity": "Humidity",
-        "windSpeed": "Wind Speed",
-        "manageAlerts": "Manage Weather Alerts",
-        "locating": "Locating",
-        "useCurrentLocation": "Use My Current Location",
+        "windSpeed": "Wind",
+        "highLow": "High/Low",
+        "advisory": "Advisory",
+        "advisoryText": "Check alerts for rain or frost",
+        "forecastTitle": "5-Day Forecast",
+        "searchPlaceholder": "Enter city name, e.g., Delhi",
+        "searchButton": "Search",
+        "day": {
+            "sunday": "Sun",
+            "monday": "Mon",
+            "tuesday": "Tue",
+            "wednesday": "Wed",
+            "thursday": "Thu",
+            "friday": "Fri",
+            "saturday": "Sat"
+        },
         "error": {
             "title": "Could Not Load Weather",
-            "noLocation": "Your location is not set. Please set it to view weather information.",
+            "noLocation": "Your location is not set. Please search for a location to view weather information.",
             "noApiKey": "The weather service is not configured correctly.",
-            "fetchFailed": "Failed to fetch weather data. Please check your connection or location and try again.",
-            "setLocationPrompt": "You can set your location in the main advisory section or use the button below."
+            "fetchFailed": "Failed to fetch weather data. Please check the location and your connection, then try again."
         }
     }
 }

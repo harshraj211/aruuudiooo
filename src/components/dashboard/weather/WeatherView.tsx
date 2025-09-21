@@ -1,105 +1,93 @@
 
 'use client';
 
-import { useEffect, useState } from "react";
-import { getForecast } from "@/services/weather";
+import { useEffect, useState, FormEvent } from "react";
+import { getCurrentWeather, getDailyForecast, getCityNameFromCoords, CurrentWeatherData, DailyForecastData } from "@/services/weather";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Sun, Cloud, CloudRain, Wind, Droplets, MapPin, AlertCircle, Thermometer } from "lucide-react";
+import { Thermometer, Wind, Droplets, MapPin, AlertCircle, ArrowDown, ArrowUp, Search, LocateFixed, Loader2 } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { getCityNameFromCoords } from "@/services/weather";
+import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
 
-
-type WeatherData = {
-    location: string;
-    temperature: number;
-    condition: string;
-    humidity: number;
-    windSpeed: number;
-}
-
-const WeatherIcon = ({ condition, className }: { condition: string; className?: string }) => {
-    const props = { className: className || "h-24 w-24 text-amber-400" };
-    switch (condition.toLowerCase()) {
-        case 'sunny':
-        case 'clear':
-            return <Sun {...props} />;
-        case 'cloudy':
-        case 'partly cloudy':
-        case 'scattered clouds':
-        case 'broken clouds':
-            return <Cloud {...props} className="h-24 w-24 text-gray-400" />;
-        case 'rainy':
-        case 'shower rain':
-        case 'rain':
-            return <CloudRain {...props} className="h-24 w-24 text-blue-400" />;
-        default:
-            return <Sun {...props} />;
-    }
-}
 
 export function WeatherView() {
-    const [weather, setWeather] = useState<WeatherData | null>(null);
+    const [currentWeather, setCurrentWeather] = useState<CurrentWeatherData | null>(null);
+    const [forecast, setForecast] = useState<DailyForecastData[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const { t } = useTranslation();
+    const [locationInput, setLocationInput] = useState('');
     const [isLocating, setIsLocating] = useState(false);
+    
+    const { t } = useTranslation();
     const { toast } = useToast();
 
+    const fetchWeather = async (location: string) => {
+        setIsLoading(true);
+        setError(null);
+        
+        const apiKey = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
+
+        if (!apiKey) {
+            setError(t('weatherPage.error.noApiKey'));
+            setIsLoading(false);
+            return;
+        }
+
+        try {
+            const [currentData, forecastData] = await Promise.all([
+                getCurrentWeather(location, apiKey),
+                getDailyForecast(location, apiKey)
+            ]);
+            setCurrentWeather(currentData);
+            setForecast(forecastData);
+            localStorage.setItem('agriVision-location', currentData.location);
+            setLocationInput(currentData.location);
+        } catch (err) {
+            console.error(err);
+            setError(t('weatherPage.error.fetchFailed'));
+            setCurrentWeather(null);
+            setForecast([]);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const fetchWeather = async () => {
-            setIsLoading(true);
-            setError(null);
-            
-            const location = localStorage.getItem('agriVision-location');
-            const apiKey = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
-
-            if (!location) {
-                setError(t('weatherPage.error.noLocation'));
-                setIsLoading(false);
-                return;
-            }
-             if (!apiKey) {
-                setError(t('weatherPage.error.noApiKey'));
-                setIsLoading(false);
-                return;
-            }
-
-            try {
-                const data = await getForecast(location, apiKey);
-                setWeather({ ...data, location });
-            } catch (err) {
-                console.error(err);
-                setError(t('weatherPage.error.fetchFailed'));
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchWeather();
+        const savedLocation = localStorage.getItem('agriVision-location');
+        if (savedLocation) {
+            setLocationInput(savedLocation);
+            fetchWeather(savedLocation);
+        } else {
+            setError(t('weatherPage.error.noLocation'));
+            setIsLoading(false);
+        }
     }, [t]);
 
-    const handleSetLocation = () => {
+    const handleLocationSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        if (locationInput.trim()) {
+            fetchWeather(locationInput.trim());
+        }
+    };
+
+    const handleUseMyLocation = () => {
         if (!navigator.geolocation) {
-             toast({
-                variant: "destructive",
-                title: "Geolocation Not Supported",
-            });
+             toast({ variant: "destructive", title: "Geolocation Not Supported" });
             return;
         }
         setIsLocating(true);
         navigator.geolocation.getCurrentPosition(
             async (position) => {
                 const { latitude, longitude } = position.coords;
-                 const apiKey = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
+                const apiKey = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
                 if (!apiKey) return;
                 try {
-                    const cityName = await getCityNameFromCoords({lat: latitude, lon: longitude}, apiKey);
-                    localStorage.setItem('agriVision-location', cityName);
-                    window.location.reload(); // Reload to fetch weather for new location
+                    const cityName = await getCityNameFromCoords({ lat: latitude, lon: longitude }, apiKey);
+                    fetchWeather(cityName);
                 } catch (err) {
                      toast({ variant: "destructive", title: "Could not fetch location name."});
                 } finally {
@@ -112,69 +100,117 @@ export function WeatherView() {
             }
         );
     }
-
-
-    if (isLoading) {
-        return <Skeleton className="h-96 w-full" />;
-    }
     
-    if (error || !weather) {
-         return (
-            <Card className="text-center p-8">
-                <CardHeader>
-                    <AlertCircle className="h-12 w-12 mx-auto mb-4 text-destructive" />
-                    <CardTitle>{t('weatherPage.error.title')}</CardTitle>
-                    <CardDescription>{error}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <p className="mb-4">{t('weatherPage.error.setLocationPrompt')}</p>
-                    <Button onClick={handleSetLocation} disabled={isLocating}>
-                         {isLocating ? <>{t('weatherPage.locating')}...</> : <>{t('weatherPage.useCurrentLocation')}</>}
-                    </Button>
-                </CardContent>
-            </Card>
-        )
-    }
+    const WeatherIcon = ({ iconCode, alt, className }: { iconCode: string, alt: string, className?: string }) => (
+        <Image
+            src={`https://openweathermap.org/img/wn/${iconCode}@2x.png`}
+            alt={alt}
+            width={100}
+            height={100}
+            className={cn("mx-auto", className)}
+            unoptimized
+        />
+    );
+
 
     return (
-        <Card className="bg-gradient-to-br from-primary/5 to-accent/5 hover:shadow-xl transition-shadow duration-300">
-            <CardHeader className="text-center">
-                <CardDescription className="flex items-center justify-center gap-2">
-                    <MapPin className="h-4 w-4"/>
-                    {weather.location}
-                </CardDescription>
-                <div className="flex justify-center items-center gap-4 py-4">
-                     <WeatherIcon condition={weather.condition} />
-                     <div>
-                        <CardTitle className="text-7xl font-bold">{weather.temperature}°C</CardTitle>
-                        <p className="font-semibold text-lg text-muted-foreground">{weather.condition}</p>
-                     </div>
-                </div>
-            </CardHeader>
-            <CardContent>
-                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                    <Card className="p-4">
-                         <Thermometer className="h-8 w-8 mx-auto mb-2 text-red-500"/>
-                        <p className="font-bold text-2xl">{weather.temperature}°C</p>
-                        <p className="text-muted-foreground">{t('weatherPage.temperature')}</p>
-                    </Card>
-                    <Card className="p-4">
-                         <Droplets className="h-8 w-8 mx-auto mb-2 text-blue-500"/>
-                        <p className="font-bold text-2xl">{weather.humidity}%</p>
-                        <p className="text-muted-foreground">{t('weatherPage.humidity')}</p>
-                    </Card>
-                     <Card className="p-4">
-                        <Wind className="h-8 w-8 mx-auto mb-2 text-gray-500"/>
-                        <p className="font-bold text-2xl">{weather.windSpeed} km/h</p>
-                        <p className="text-muted-foreground">{t('weatherPage.windSpeed')}</p>
-                    </Card>
-                </div>
-            </CardContent>
-            <CardFooter className="justify-center">
-                <Button asChild variant="link">
-                    <Link href="/dashboard/crops/notifications">{t('weatherPage.manageAlerts')}</Link>
+        <div className="space-y-6">
+            <form onSubmit={handleLocationSubmit} className="flex gap-2">
+                <Input 
+                    type="text"
+                    value={locationInput}
+                    onChange={(e) => setLocationInput(e.target.value)}
+                    placeholder={t('weatherPage.searchPlaceholder')}
+                    className="flex-grow"
+                    disabled={isLoading}
+                />
+                <Button type="button" size="icon" variant="outline" onClick={handleUseMyLocation} disabled={isLoading || isLocating}>
+                    {isLocating ? <Loader2 className="animate-spin" /> : <LocateFixed />}
                 </Button>
-            </CardFooter>
-        </Card>
-    )
+                <Button type="submit" disabled={isLoading}>
+                    <Search className="mr-2 h-4 w-4" />
+                    {t('weatherPage.searchButton')}
+                </Button>
+            </form>
+
+            {isLoading ? (
+                <div className="space-y-6">
+                    <Skeleton className="h-64 w-full" />
+                    <div className="flex space-x-4 overflow-hidden">
+                        {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-40 w-32 flex-shrink-0" />)}
+                    </div>
+                </div>
+            ) : error || !currentWeather ? (
+                <Card className="text-center p-8">
+                    <CardHeader>
+                        <AlertCircle className="h-12 w-12 mx-auto mb-4 text-destructive" />
+                        <CardTitle>{t('weatherPage.error.title')}</CardTitle>
+                        <CardDescription>{error || t('weatherPage.error.noLocation')}</CardDescription>
+                    </CardHeader>
+                </Card>
+            ) : (
+                <>
+                <Card className="bg-gradient-to-br from-primary/10 to-accent/10 hover:shadow-xl transition-shadow duration-300">
+                    <CardHeader className="text-center">
+                        <CardDescription className="flex items-center justify-center gap-2">
+                            <MapPin className="h-4 w-4"/>
+                            {currentWeather.location}
+                        </CardDescription>
+                         <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-6 py-4">
+                            <WeatherIcon iconCode={currentWeather.icon} alt={currentWeather.condition} className="h-28 w-28" />
+                            <div className="text-center sm:text-left">
+                                <CardTitle className="text-7xl font-bold">{currentWeather.temperature}°C</CardTitle>
+                                <p className="font-semibold text-lg text-muted-foreground capitalize">{currentWeather.condition}</p>
+                            </div>
+                         </div>
+                    </CardHeader>
+                    <CardContent>
+                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                            <Card className="p-3">
+                                <Thermometer className="h-6 w-6 mx-auto mb-2 text-red-500"/>
+                                <p className="font-bold text-lg flex items-center justify-center gap-2">
+                                   <ArrowUp size={16}/> {currentWeather.temp_max}° / <ArrowDown size={16}/> {currentWeather.temp_min}°
+                                </p>
+                                <p className="text-xs text-muted-foreground">{t('weatherPage.highLow')}</p>
+                            </Card>
+                             <Card className="p-3">
+                                <Droplets className="h-6 w-6 mx-auto mb-2 text-blue-500"/>
+                                <p className="font-bold text-lg">{currentWeather.humidity}%</p>
+                                <p className="text-xs text-muted-foreground">{t('weatherPage.humidity')}</p>
+                            </Card>
+                             <Card className="p-3">
+                                <Wind className="h-6 w-6 mx-auto mb-2 text-gray-500"/>
+                                <p className="font-bold text-lg">{currentWeather.windSpeed} km/h</p>
+                                <p className="text-xs text-muted-foreground">{t('weatherPage.windSpeed')}</p>
+                            </Card>
+                             <Card className="p-3 bg-accent/20">
+                                <p className="font-bold text-lg">{t('weatherPage.advisory')}</p>
+                                <p className="text-xs text-muted-foreground">{t('weatherPage.advisoryText')}</p>
+                            </Card>
+                        </div>
+                    </CardContent>
+                </Card>
+
+                <div>
+                    <h3 className="text-xl font-bold mb-4">{t('weatherPage.forecastTitle')}</h3>
+                    <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4">
+                        {forecast.map((day, index) => (
+                             <Card key={day.date} className={cn("flex-shrink-0 w-36 text-center p-3 transition-all hover:scale-105 hover:shadow-lg", index === 0 ? "border-primary/50" : "")}>
+                                <CardHeader className="p-2">
+                                    <CardTitle className="text-base">{t(`weatherPage.day.${day.dayOfWeek.toLowerCase()}`)}</CardTitle>
+                                    <CardDescription className="text-xs">{new Date(day.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric'})}</CardDescription>
+                                </CardHeader>
+                                <CardContent className="p-2">
+                                    <WeatherIcon iconCode={day.icon} alt={day.condition} className="w-16 h-16" />
+                                    <p className="font-bold text-lg">{day.temp_max}°</p>
+                                    <p className="text-muted-foreground">{day.temp_min}°</p>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                </div>
+                </>
+            )}
+        </div>
+    );
 }
