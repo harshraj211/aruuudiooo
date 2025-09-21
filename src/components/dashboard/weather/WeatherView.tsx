@@ -2,7 +2,7 @@
 'use client';
 
 import { useEffect, useState, FormEvent } from "react";
-import { getCurrentWeather, getDailyForecast, getCityNameFromCoords, CurrentWeatherData, DailyForecastData } from "@/services/weather";
+import { getCityNameFromCoords, CurrentWeatherData, DailyForecastData } from "@/services/weather";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Thermometer, Wind, Droplets, MapPin, AlertCircle, ArrowDown, ArrowUp, Search, LocateFixed, Loader2 } from "lucide-react";
@@ -13,64 +13,32 @@ import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
+type WeatherViewProps = {
+    onLocationSubmit: (location: string) => void;
+    currentWeather: CurrentWeatherData | null;
+    forecast: DailyForecastData[];
+    isLoading: boolean;
+    error: string | null;
+}
 
-export function WeatherView() {
-    const [currentWeather, setCurrentWeather] = useState<CurrentWeatherData | null>(null);
-    const [forecast, setForecast] = useState<DailyForecastData[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+export function WeatherView({ onLocationSubmit, currentWeather, forecast, isLoading, error }: WeatherViewProps) {
     const [locationInput, setLocationInput] = useState('');
     const [isLocating, setIsLocating] = useState(false);
     
     const { t } = useTranslation();
     const { toast } = useToast();
-
-    const fetchWeather = async (location: string) => {
-        setIsLoading(true);
-        setError(null);
-        
-        const apiKey = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
-
-        if (!apiKey) {
-            setError(t('weatherPage.error.noApiKey'));
-            setIsLoading(false);
-            return;
-        }
-
-        try {
-            const [currentData, forecastData] = await Promise.all([
-                getCurrentWeather(location, apiKey),
-                getDailyForecast(location, apiKey)
-            ]);
-            setCurrentWeather(currentData);
-            setForecast(forecastData);
-            localStorage.setItem('agriVision-location', currentData.location);
-            setLocationInput(currentData.location);
-        } catch (err) {
-            console.error(err);
-            setError(t('weatherPage.error.fetchFailed'));
-            setCurrentWeather(null);
-            setForecast([]);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
+    
     useEffect(() => {
         const savedLocation = localStorage.getItem('agriVision-location');
         if (savedLocation) {
             setLocationInput(savedLocation);
-            fetchWeather(savedLocation);
-        } else {
-            setError(t('weatherPage.error.noLocation'));
-            setIsLoading(false);
         }
-    }, [t]);
+    }, []);
 
     const handleLocationSubmit = (e: FormEvent) => {
         e.preventDefault();
         if (locationInput.trim()) {
-            fetchWeather(locationInput.trim());
+            onLocationSubmit(locationInput.trim());
         }
     };
 
@@ -87,7 +55,8 @@ export function WeatherView() {
                 if (!apiKey) return;
                 try {
                     const cityName = await getCityNameFromCoords({ lat: latitude, lon: longitude }, apiKey);
-                    fetchWeather(cityName);
+                    setLocationInput(cityName);
+                    onLocationSubmit(cityName);
                 } catch (err) {
                      toast({ variant: "destructive", title: "Could not fetch location name."});
                 } finally {
@@ -122,12 +91,12 @@ export function WeatherView() {
                     onChange={(e) => setLocationInput(e.target.value)}
                     placeholder={t('weatherPage.searchPlaceholder')}
                     className="flex-grow"
-                    disabled={isLoading}
+                    disabled={isLoading || isLocating}
                 />
                 <Button type="button" size="icon" variant="outline" onClick={handleUseMyLocation} disabled={isLoading || isLocating}>
                     {isLocating ? <Loader2 className="animate-spin" /> : <LocateFixed />}
                 </Button>
-                <Button type="submit" disabled={isLoading}>
+                <Button type="submit" disabled={isLoading || isLocating}>
                     <Search className="mr-2 h-4 w-4" />
                     {t('weatherPage.searchButton')}
                 </Button>
