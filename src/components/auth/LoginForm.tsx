@@ -1,9 +1,9 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
-
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -17,6 +17,8 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { useTransition } from 'react';
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '@/lib/firebase';
 
 const formSchema = z.object({
   email: z.string().email({ message: 'Invalid email address.' }),
@@ -36,31 +38,44 @@ export function LoginForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    startTransition(() => {
-      // Mock login logic
-      console.log('Logging in with:', values);
-      toast({
-        title: 'Login Successful',
-        description: 'Redirecting to your dashboard...',
-      });
-      // In a real app, you'd call Firebase here.
-      // e.g., await signInWithEmailAndPassword(auth, values.email, values.password);
-      router.push('/dashboard');
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    startTransition(async () => {
+        try {
+            await signInWithEmailAndPassword(auth, values.email, values.password);
+            toast({
+                title: 'Login Successful',
+                description: 'Redirecting to your dashboard...',
+            });
+            router.push('/dashboard');
+            router.refresh(); // Force a refresh to update auth state across app
+        } catch (error: any) {
+            toast({
+                variant: 'destructive',
+                title: 'Login Failed',
+                description: error.message,
+            });
+        }
     });
   }
 
   const handleGoogleSignIn = () => {
-    startTransition(() => {
-      // Mock Google sign-in
-      console.log('Signing in with Google...');
-      toast({
-        title: 'Login Successful',
-        description: 'Redirecting to your dashboard...',
-      });
-      // In a real app, you'd call Firebase here.
-      // e.g., await signInWithPopup(auth, new GoogleAuthProvider());
-      router.push('/dashboard');
+    startTransition(async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+            await signInWithPopup(auth, provider);
+            toast({
+                title: 'Login Successful',
+                description: 'Redirecting to your dashboard...',
+            });
+            router.push('/dashboard');
+            router.refresh();
+        } catch (error: any) {
+             toast({
+                variant: 'destructive',
+                title: 'Google Sign-In Failed',
+                description: error.message,
+            });
+        }
     });
   };
 

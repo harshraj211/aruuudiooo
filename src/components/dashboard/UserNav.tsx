@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -15,15 +16,25 @@ import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from 'next/navigation';
 import { Skeleton } from "../ui/skeleton";
 import { UserSquare } from "lucide-react";
+import { signOut } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+import { useToast } from "@/hooks/use-toast";
+
 
 export function UserNav() {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const { toast } = useToast();
 
-  const handleLogout = () => {
-    // Mock logout
-    console.log('Logging out...');
-    router.push('/');
+  const handleLogout = async () => {
+    try {
+        await signOut(auth);
+        toast({ title: 'Logged Out', description: 'You have been successfully logged out.' });
+        router.push('/');
+        router.refresh();
+    } catch (error: any) {
+        toast({ variant: 'destructive', title: 'Logout Failed', description: error.message });
+    }
   }
 
   if (loading) {
@@ -40,7 +51,7 @@ export function UserNav() {
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
             <AvatarFallback>
-              <UserSquare className="h-6 w-6" />
+              {user.displayName ? user.displayName.charAt(0).toUpperCase() : <UserSquare className="h-6 w-6" />}
             </AvatarFallback>
           </Avatar>
         </Button>

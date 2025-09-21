@@ -1,4 +1,5 @@
 
+
 import type {NextConfig} from 'next';
 import { config } from 'dotenv';
 
@@ -32,6 +33,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+       {
+        protocol: 'https',
+        hostname: 'openweathermap.org',
+        port: '',
+        pathname: '/img/wn/**',
+      },
       {
         protocol: 'https',
         hostname: 'newsdata.io',
@@ -46,11 +53,9 @@ const nextConfig: NextConfig = {
     // This makes the variable available to server-side code
     OPENWEATHERMAP_API_KEY: process.env.OPENWEATHERMAP_API_KEY,
     GEMINI_API_KEY: process.env.GEMINI_API_KEY,
-    // For client-side code, Next.js requires the NEXT_PUBLIC_ prefix
-    NEXT_PUBLIC_OPENWEATHERMAP_API_KEY: process.env.OPENWEATHERMAP_API_KEY,
+    NEWSDATA_API_KEY: process.env.NEWSDATA_API_KEY,
+    AGMARKNET_API_KEY: process.env.AGMARKNET_API_KEY,
   }
 };
 
 export default nextConfig;
-
-    

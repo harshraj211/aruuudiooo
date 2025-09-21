@@ -1,3 +1,4 @@
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,6 +18,9 @@ import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
 import { useTransition } from 'react';
+import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth, db } from '@/lib/firebase';
+import { doc, setDoc } from "firebase/firestore";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -46,31 +50,69 @@ export function SignUpForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    startTransition(() => {
-      // Mock signup logic
-      console.log('Creating account with:', values);
-      toast({
-        title: 'Account Created',
-        description: "We've created your account for you. Redirecting to dashboard...",
-      });
-      // In a real app, you'd call Firebase here to create user and then create a firestore doc.
-      // e.g., const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
-      // await setDoc(doc(db, "users", userCredential.user.uid), { ... });
-      router.push('/dashboard');
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    startTransition(async () => {
+      try {
+          const userCredential = await createUserWithEmailAndPassword(auth, values.email, values.password);
+          const user = userCredential.user;
+
+          await updateProfile(user, { displayName: values.name });
+
+          await setDoc(doc(db, "users", user.uid), {
+              uid: user.uid,
+              displayName: values.name,
+              email: values.email,
+              phone: values.phone || '',
+              location: values.location,
+              cropDetails: values.cropDetails || '',
+              soilDetails: values.soilDetails || '',
+              createdAt: new Date()
+          });
+
+          toast({
+              title: 'Account Created',
+              description: "We've created your account for you. Redirecting to dashboard...",
+          });
+          router.push('/dashboard');
+          router.refresh();
+      } catch (error: any) {
+          toast({
+              variant: 'destructive',
+              title: 'Sign-up Failed',
+              description: error.message,
+          });
+      }
     });
   }
 
   const handleGoogleSignIn = () => {
-     startTransition(() => {
-        // Mock Google sign-in
-        console.log('Signing up with Google...');
-        toast({
-            title: 'Account Created',
-            description: "We've created your account for you. Redirecting to dashboard...",
-        });
-        // In a real app, you'd call Firebase here.
-        router.push('/dashboard');
+     startTransition(async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+
+             await setDoc(doc(db, "users", user.uid), {
+              uid: user.uid,
+              displayName: user.displayName,
+              email: user.email,
+              createdAt: new Date()
+            }, { merge: true }); // Merge to not overwrite existing data if user signs up with google after email.
+
+
+            toast({
+                title: 'Account Created',
+                description: "We've created your account for you. Redirecting to dashboard...",
+            });
+            router.push('/dashboard');
+            router.refresh();
+        } catch (error: any) {
+            toast({
+                variant: 'destructive',
+                title: 'Google Sign-up Failed',
+                description: error.message,
+            });
+        }
      });
   };
 
