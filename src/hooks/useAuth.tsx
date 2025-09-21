@@ -2,9 +2,6 @@
 'use client';
 
 import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
-// We are removing firebase from this hook to bypass the auth errors.
-// import { auth } from '@/lib/firebase';
-// import { onAuthStateChanged, User } from 'firebase/auth';
 import { useRouter, usePathname } from 'next/navigation';
 
 // Define a mock user type that matches the structure your app expects.
@@ -21,25 +18,34 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const publicPaths = ['/', '/login', '/signup'];
-
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<MockUser | null>(null);
     const [loading, setLoading] = useState(true);
+    const pathname = usePathname();
 
     useEffect(() => {
-        // Simulate a logged-in user to bypass the auth error.
+        // This is the mock implementation.
+        // It sets a fake user and bypasses the real Firebase authentication.
         setUser({
-            uid: 'mock-user-id',
+            uid: 'mock-user-id-123',
             displayName: 'Pro Farmer',
             email: 'farmer@example.com',
         });
         setLoading(false);
     }, []);
 
+    // This part is important: it prevents an infinite redirect loop for public pages.
+    const publicPaths = ['/', '/login', '/signup'];
+    const isPublicPath = publicPaths.includes(pathname);
+
+    // If loading, and not a public path, show a loading indicator to prevent flashes of content.
+    if (loading && !isPublicPath) {
+        return <div className="flex items-center justify-center h-screen">Loading...</div>;
+    }
+
     return (
         <AuthContext.Provider value={{ user, loading }}>
-            {loading && !publicPaths.includes(usePathname()) ? <div>Loading...</div> : children}
+            {children}
         </AuthContext.Provider>
     );
 };
