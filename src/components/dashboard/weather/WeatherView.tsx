@@ -52,7 +52,11 @@ export function WeatherView({ onLocationSubmit, currentWeather, forecast, isLoad
             async (position) => {
                 const { latitude, longitude } = position.coords;
                 const apiKey = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
-                if (!apiKey) return;
+                if (!apiKey) {
+                    toast({ variant: "destructive", title: "API Key not configured" });
+                    setIsLocating(false);
+                    return;
+                };
                 try {
                     const cityName = await getCityNameFromCoords({ lat: latitude, lon: longitude }, apiKey);
                     setLocationInput(cityName);
@@ -64,7 +68,7 @@ export function WeatherView({ onLocationSubmit, currentWeather, forecast, isLoad
                 }
             },
             () => {
-                toast({ variant: "destructive", title: "Geolocation Error"});
+                toast({ variant: "destructive", title: "Geolocation Error", description: "Could not access your location. Please enable location services in your browser settings."});
                 setIsLocating(false);
             }
         );

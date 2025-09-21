@@ -20,7 +20,7 @@ export default function WeatherPage() {
     const { toast } = useToast();
 
 
-    const fetchWeatherForLocation = async (loc: string) => {
+    const fetchWeatherForLocation = async (loc: string | { lat: number, lon: number }) => {
         if (!loc) {
             setError(t('weatherPage.error.noLocation'));
             setIsLoading(false);
@@ -64,8 +64,23 @@ export default function WeatherPage() {
             setLocation(savedLocation);
             fetchWeatherForLocation(savedLocation);
         } else {
-            setError(t('weatherPage.error.noLocation'));
-            setIsLoading(false);
+            // Try to get location from IP or browser geolocation as a fallback
+             if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    async (position) => {
+                        const { latitude, longitude } = position.coords;
+                        fetchWeatherForLocation({ lat: latitude, lon: longitude });
+                    },
+                    () => {
+                        // If geolocation fails, set the error
+                        setError(t('weatherPage.error.noLocation'));
+                        setIsLoading(false);
+                    }
+                );
+            } else {
+                setError(t('weatherPage.error.noLocation'));
+                setIsLoading(false);
+            }
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

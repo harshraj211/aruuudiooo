@@ -1,3 +1,4 @@
+
 /**
  * @fileOverview A service to fetch weather data from OpenWeatherMap.
  */
@@ -43,9 +44,16 @@ export type DailyForecastData = {
  * @param apiKey Your OpenWeatherMap API key.
  * @returns A promise that resolves to the current weather data.
  */
-export async function getCurrentWeather(location: string, apiKey: string): Promise<CurrentWeatherData> {
+export async function getCurrentWeather(location: LocationInput, apiKey: string): Promise<CurrentWeatherData> {
     const baseUrl = "https://api.openweathermap.org/data/2.5/weather";
-    const url = `${baseUrl}?q=${encodeURIComponent(location)}&appid=${apiKey}&units=metric`;
+    let url: string;
+
+    if (typeof location === 'string') {
+        url = `${baseUrl}?q=${encodeURIComponent(location)}&appid=${apiKey}&units=metric`;
+    } else {
+        url = `${baseUrl}?lat=${location.lat}&lon=${location.lon}&appid=${apiKey}&units=metric`;
+    }
+
 
     try {
         const response = await fetch(url);
@@ -80,9 +88,15 @@ export async function getCurrentWeather(location: string, apiKey: string): Promi
  * @param apiKey Your OpenWeatherMap API key.
  * @returns A promise that resolves to an array of daily forecast data.
  */
-export async function getDailyForecast(location: string, apiKey: string): Promise<DailyForecastData[]> {
+export async function getDailyForecast(location: LocationInput, apiKey: string): Promise<DailyForecastData[]> {
     const baseUrl = "https://api.openweathermap.org/data/2.5/forecast";
-    const url = `${baseUrl}?q=${encodeURIComponent(location)}&appid=${apiKey}&units=metric`;
+    let url: string;
+
+    if (typeof location === 'string') {
+        url = `${baseUrl}?q=${encodeURIComponent(location)}&appid=${apiKey}&units=metric`;
+    } else {
+        url = `${baseUrl}?lat=${location.lat}&lon=${location.lon}&appid=${apiKey}&units=metric`;
+    }
 
     try {
         const response = await fetch(url);
