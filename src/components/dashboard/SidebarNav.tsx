@@ -11,11 +11,12 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/Logo';
-import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator } from 'lucide-react';
+import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator, Users } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useEffect, useState } from 'react';
+import { WeatherWidget } from './WeatherWidget';
 
 type MenuItem = {
   href: string;
@@ -28,6 +29,7 @@ const baseMenuItems: Omit<MenuItem, 'href'>[] = [
   { labelKey: 'sidebar.dashboard', icon: LayoutDashboard },
   { labelKey: 'sidebar.marketPrices', icon: TrendingUp, isGeneric: true },
   { labelKey: 'sidebar.khetiSamachar', icon: Newspaper, isGeneric: true },
+  { labelKey: 'sidebar.communityForum', icon: Users, isGeneric: true },
   { labelKey: 'sidebar.expenseTracker', icon: Wallet },
   { labelKey: 'sidebar.diseaseDetection', icon: Leaf },
   { labelKey: 'sidebar.chatbot', icon: BotMessageSquare },
@@ -41,18 +43,25 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   const pathname = usePathname();
   const { t } = useTranslation();
   const [managementType, setManagementType] = useState(initialManagementType);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    let currentType = initialManagementType;
-    if (initialManagementType === 'default') {
-        if (pathname.includes('/crops')) {
-            currentType = 'crops';
-        } else if (pathname.includes('/fruits')) {
-            currentType = 'fruits';
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (isClient) {
+        let currentType = initialManagementType;
+        if (initialManagementType === 'default') {
+            if (pathname.includes('/crops')) {
+                currentType = 'crops';
+            } else if (pathname.includes('/fruits')) {
+                currentType = 'fruits';
+            }
         }
+        setManagementType(currentType);
     }
-    setManagementType(currentType);
-  }, [pathname, initialManagementType]);
+  }, [pathname, initialManagementType, isClient]);
 
 
   const handleLinkClick = () => {
@@ -60,11 +69,9 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
   };
   
   const filteredMenuItems = baseMenuItems.filter(item => {
-    // On the default selection screen, only show home and generic items.
-    if (managementType === 'default') {
-       return item.isGeneric;
+    if (managementType === 'default' && !item.isGeneric) {
+       return false;
     }
-    // Hide market prices for fruits as it's not applicable
     if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
         return false;
     }
@@ -73,15 +80,13 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
 
   const menuItems: MenuItem[] = filteredMenuItems.map(item => {
     const isCalendar = item.labelKey === 'sidebar.cropCalendar';
-
-    // Adjust label for calendar
     let labelKey = item.labelKey;
+    let pageSlug = labelKey.split('.')[1].replace(/([A-Z])/g, '-$1').toLowerCase();
+
     if (isCalendar) {
         labelKey = managementType === 'fruits' ? 'sidebar.fruitCalendar' : 'sidebar.cropCalendar';
+        pageSlug = managementType === 'fruits' ? 'fruit-calendar' : 'crop-calendar';
     }
-
-    // Get page from the (potentially updated) labelKey
-    let pageSlug = labelKey.split('.')[1].replace(/([A-Z])/g, '-$1').toLowerCase();
 
     let href = '';
     
@@ -125,7 +130,7 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
               </SidebarMenuButton>
             </SidebarMenuItem>
 
-            {managementType !== 'default' && menuItems.map((item) => (
+            {menuItems.map((item) => (
                 <SidebarMenuItem key={item.href}>
                 <SidebarMenuButton
                     asChild
@@ -141,6 +146,7 @@ export function SidebarNav({ managementType: initialManagementType }: { manageme
                 </SidebarMenuItem>
             ))}
         </SidebarMenu>
+         {isClient && <WeatherWidget />}
       </SidebarContent>
     </Sidebar>
   );
