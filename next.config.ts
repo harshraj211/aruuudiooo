@@ -1,6 +1,3 @@
-
-require('dotenv').config();
-
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
@@ -10,6 +7,13 @@ const nextConfig: NextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  env: {
+    GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+    NEXT_PUBLIC_OPENWEATHERMAP_API_KEY: process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY,
+    OPENWEATHERMAP_API_KEY: process.env.OPENWEATHERMAP_API_KEY,
+    AGMARKNET_API_KEY: process.env.AGMARKNET_API_KEY,
+    NEWSDATA_API_KEY: process.env.NEWSDATA_API_KEY,
   },
   images: {
     remotePatterns: [
