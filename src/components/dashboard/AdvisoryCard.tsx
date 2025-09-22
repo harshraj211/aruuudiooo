@@ -184,7 +184,7 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
   const [result, setResult] = useState<AdvisoryResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
-  const apiKey = "992f9e0186412429d5145892550b0732";
+  const apiKey = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
 
   const { t, language } = useTranslation();
 
