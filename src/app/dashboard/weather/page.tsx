@@ -18,6 +18,7 @@ export default function WeatherPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const { toast } = useToast();
+    const apiKey = "992f9e0186412429d5145892550b0732";
 
 
     const fetchWeatherForLocation = async (loc: string | { lat: number, lon: number }) => {
@@ -30,8 +31,6 @@ export default function WeatherPage() {
         setIsLoading(true);
         setError(null);
         
-        const apiKey = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
-
         if (!apiKey) {
             setError(t('weatherPage.error.noApiKey'));
             setIsLoading(false);

@@ -184,6 +184,7 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
   const [result, setResult] = useState<AdvisoryResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
+  const apiKey = "992f9e0186412429d5145892550b0732";
 
   const { t, language } = useTranslation();
 
@@ -237,7 +238,6 @@ export function AdvisoryCard({ itemType = 'Crop' }: AdvisoryCardProps) {
         async (position) => {
             const { latitude, longitude } = position.coords;
             try {
-                const apiKey = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
                 if (!apiKey) {
                     toast({
                         variant: "destructive",
