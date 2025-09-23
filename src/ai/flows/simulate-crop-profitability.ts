@@ -8,7 +8,7 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'genkit';
+import { z } from 'zod';
 import { getCurrentWeather } from '@/services/weather';
 import { getMarketPrices } from './get-market-prices';
 
@@ -109,7 +109,7 @@ const prompt = ai.definePrompt({
         - Set the 'bestCropChoice' field to the name of the simulated crop, as this is the only one you are evaluating.
         - If profitability is 'Low', suggest a more suitable crop for the region in the 'alternativeCropSuggestion' field.
 
-    Your final output MUST be in the specified JSON format.
+    IMPORTANT: Your final output MUST be in the specified JSON format only. Do not include any other text, greetings, or explanations before or after the JSON object.
     `,
 });
 
