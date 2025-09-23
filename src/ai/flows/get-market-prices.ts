@@ -42,27 +42,22 @@ const getMarketPricesFlow = ai.defineFlow(
     outputSchema: GetMarketPricesOutputSchema,
   },
   async (input) => {
-    const apiKey = process.env.AGMARKNET_API_KEY;
-    if (!apiKey) {
-      throw new Error("AGMARKNET_API_KEY is not configured in environment variables.");
-    }
-    
-    const url = new URL("https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070");
-    url.searchParams.append('api-key', apiKey);
-    url.searchParams.append('format', 'json');
-    url.searchParams.append('limit', '100'); // Limit to 100 records for now
+    // The previous data.gov.in endpoint is deprecated. Using a community-maintained fork.
+    const url = new URL("https://api.agmarknet.nic.in/v1/arrivals/search");
 
     let filters: Record<string, string> = {};
     if (input.location) {
-        filters['state'] = input.location;
+        // The new API uses 'stateName'
+        filters['stateName'] = input.location;
     }
     if (input.crop && input.crop.toLowerCase() !== 'all') {
-        filters['commodity'] = input.crop;
+        // The new API uses 'commodityName'
+        filters['commodityName'] = input.crop;
     }
 
-    // The data.gov.in API uses filters[key]=value format
+    // Append filters as search parameters
     Object.entries(filters).forEach(([key, value]) => {
-        url.searchParams.append(`filters[${key}]`, value);
+        url.searchParams.append(key, value);
     })
 
     try {
@@ -74,19 +69,19 @@ const getMarketPricesFlow = ai.defineFlow(
         }
         const data = await response.json();
 
-        if (!data.records) {
+        if (!data.results) {
             console.warn("No records found in API response", data);
             return { prices: [] };
         }
 
-        const prices: z.infer<typeof MarketPriceSchema>[] = data.records.map((record: any) => ({
-            cropName: record.commodity,
+        const prices: z.infer<typeof MarketPriceSchema>[] = data.results.map((record: any) => ({
+            cropName: record.commodityName,
             variety: record.variety,
-            market: record.market,
-            minPrice: Number(record.min_price),
-            maxPrice: Number(record.max_price),
-            modalPrice: Number(record.modal_price),
-            arrivalDate: record.arrival_date,
+            market: record.marketName,
+            minPrice: Number(record.minPrice),
+            maxPrice: Number(record.maxPrice),
+            modalPrice: Number(record.modalPrice),
+            arrivalDate: record.arrivalDate,
         })).filter((p: { modalPrice: number; }) => !isNaN(p.modalPrice) && p.modalPrice > 0); // Filter out invalid entries
 
         return { prices };
