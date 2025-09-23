@@ -12,7 +12,6 @@ import { Loader2, Search } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useTranslation } from '@/hooks/useTranslation';
-import { HistoricalPriceChart } from './HistoricalPriceChart';
 
 type MarketPrice = GetMarketPricesOutput['prices'][0];
 
@@ -103,8 +102,6 @@ export function MarketPricesView() {
           </form>
         </CardContent>
       </Card>
-
-      {location && <HistoricalPriceChart location={location} />}
       
       <Card>
         <CardHeader>
@@ -161,4 +158,3 @@ export function MarketPricesView() {
     </div>
   );
 }
-
