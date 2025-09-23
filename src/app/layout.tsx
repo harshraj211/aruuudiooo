@@ -1,5 +1,5 @@
 
-import type {Metadata} from 'next';
+import type {Metadata, Viewport} from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { LanguageProvider } from '@/hooks/useTranslation';
@@ -7,7 +7,13 @@ import { LanguageProvider } from '@/hooks/useTranslation';
 export const metadata: Metadata = {
   title: 'eKheti',
   description: 'Smart Crop Advisory for modern farming.',
+  manifest: '/manifest.json',
 };
+
+export const viewport: Viewport = {
+  themeColor: '#2E7D32',
+}
+
 
 export default function RootLayout({
   children,
