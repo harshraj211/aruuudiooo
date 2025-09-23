@@ -29,7 +29,7 @@ const parseDate = (dateString: string) => {
 
 export function MarketPricesView() {
   const [location, setLocation] = useState('Punjab');
-  const [crop, setCrop] = useState('Wheat');
+  const [crop, setCrop] = useState('All');
   const [prices, setPrices] = useState<MarketPrice[]>([]);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
