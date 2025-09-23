@@ -112,8 +112,8 @@ export function WeatherView({ onLocationSubmit, currentWeather, forecast, isLoad
             {isLoading ? (
                 <div className="space-y-6">
                     <Skeleton className="h-[26rem] w-full" />
-                    <div className="flex space-x-4 overflow-hidden">
-                        {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-40 w-32 flex-shrink-0" />)}
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {[...Array(5)].map((_, i) => <Skeleton key={i} className="h-48 w-full" />)}
                     </div>
                 </div>
             ) : error || !currentWeather ? (
@@ -158,18 +158,20 @@ export function WeatherView({ onLocationSubmit, currentWeather, forecast, isLoad
 
                 <div>
                     <h3 className="text-xl font-bold mb-4">{t('weatherPage.forecastTitle')}</h3>
-                    <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4">
-                        {forecast.map((day, index) => (
-                             <Card key={day.date} className={cn("flex-shrink-0 w-36 text-center p-3 transition-all hover:scale-105 hover:shadow-lg", index === 0 ? "border-primary/50" : "")}>
-                                <CardHeader className="p-2">
-                                    <CardTitle className="text-base">{t(`weatherPage.day.${day.dayOfWeek.toLowerCase()}`)}</CardTitle>
-                                    <CardDescription className="text-xs">{new Date(day.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric'})}</CardDescription>
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {forecast.slice(0, 5).map((day) => (
+                             <Card key={day.date} className="p-4 text-center transition-all hover:shadow-lg hover:scale-105 bg-background/50">
+                                <CardHeader className="p-0">
+                                    <CardTitle className="text-lg">{t(`weatherPage.day.${day.dayOfWeek.toLowerCase()}`)}</CardTitle>
                                 </CardHeader>
-                                <CardContent className="p-2">
-                                    <WeatherIcon iconCode={day.icon} alt={day.condition} className="w-16 h-16" />
-                                    <p className="font-bold text-lg">{day.temp_max}°</p>
-                                    <p className="text-muted-foreground">{day.temp_min}°</p>
+                                <CardContent className="p-0 my-2">
+                                    <WeatherIcon iconCode={day.icon} alt={day.condition} className="w-20 h-20" />
+                                    <p className="font-bold text-3xl">{Math.round((day.temp_max + day.temp_min) / 2)}°C</p>
                                 </CardContent>
+                                <CardFooter className="flex-col p-0 text-sm">
+                                    <p className="capitalize text-muted-foreground">{day.condition}</p>
+                                    <p className="text-muted-foreground/80">{day.temp_max}° / {day.temp_min}°</p>
+                                </CardFooter>
                             </Card>
                         ))}
                     </div>
