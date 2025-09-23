@@ -51,18 +51,15 @@ const getMarketPricesFlow = ai.defineFlow(
     url.searchParams.append('limit', '500'); // Get a decent number of records
     url.searchParams.append('offset', '0');
 
-    let filters: Record<string, string> = {};
     if (input.location) {
         // The API is inconsistent, sometimes it needs state, sometimes district.
-        // Let's try to be flexible.
-        filters['state'] = input.location;
+        // Let's try to be flexible by adding a filter for the state.
+        url.searchParams.append('filters[state]', input.location);
     }
     if (input.crop && input.crop.toLowerCase() !== 'all') {
-        filters['commodity'] = input.crop;
+        url.searchParams.append('filters[commodity]', input.crop);
     }
     
-    url.searchParams.set('filters', JSON.stringify(filters));
-
     try {
         const response = await fetch(url.toString());
         
@@ -75,7 +72,7 @@ const getMarketPricesFlow = ai.defineFlow(
         const data = await response.json();
 
         if (!data.records) {
-            console.warn("No records found in API response for filters:", filters, data);
+            console.warn("No records found in API response for filters:", input, data);
             return { prices: [] };
         }
 
