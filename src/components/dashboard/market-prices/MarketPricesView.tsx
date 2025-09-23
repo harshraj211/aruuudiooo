@@ -11,13 +11,14 @@ import { Loader2, Search } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useTranslation } from '@/hooks/useTranslation';
+import { HistoricalPriceChart } from './HistoricalPriceChart';
 
 type MarketPrice = GetMarketPricesOutput['prices'][0];
 
 const popularCrops = ["All", "Wheat", "Paddy", "Cotton", "Maize", "Sugarcane", "Potato", "Tomato", "Onion"];
 
 // Helper to parse dd/mm/yyyy dates
-const parseDate = (dateString: string) => {
+export const parseDate = (dateString: string) => {
     const parts = dateString.split('/');
     if (parts.length === 3) {
       // parts[1] - 1 because months are 0-indexed in JS
@@ -29,7 +30,7 @@ const parseDate = (dateString: string) => {
 
 export function MarketPricesView() {
   const [location, setLocation] = useState('Punjab');
-  const [crop, setCrop] = useState('All');
+  const [crop, setCrop] = useState('Wheat');
   const [prices, setPrices] = useState<MarketPrice[]>([]);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -40,7 +41,8 @@ export function MarketPricesView() {
     startTransition(async () => {
       try {
         const result = await getMarketPrices({ location, crop });
-        setPrices(result.prices);
+        const sortedPrices = result.prices.sort((a,b) => parseDate(b.arrivalDate).getTime() - parseDate(a.arrivalDate).getTime());
+        setPrices(sortedPrices);
       } catch (e) {
         console.error(e);
         setError('Failed to fetch market prices. Please try again.');
@@ -100,6 +102,8 @@ export function MarketPricesView() {
           </form>
         </CardContent>
       </Card>
+
+      <HistoricalPriceChart location={location} initialCrops={[crop === 'All' ? 'Wheat' : crop]} />
       
       <Card>
         <CardHeader>
