@@ -16,6 +16,17 @@ type MarketPrice = GetMarketPricesOutput['prices'][0];
 
 const popularCrops = ["All", "Wheat", "Paddy", "Cotton", "Maize", "Sugarcane", "Potato", "Tomato", "Onion"];
 
+// Helper to parse dd/mm/yyyy dates
+const parseDate = (dateString: string) => {
+    const parts = dateString.split('/');
+    if (parts.length === 3) {
+      // parts[1] - 1 because months are 0-indexed in JS
+      return new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]));
+    }
+    return new Date(dateString); // fallback
+};
+
+
 export function MarketPricesView() {
   const [location, setLocation] = useState('Punjab');
   const [crop, setCrop] = useState('All');
@@ -130,7 +141,7 @@ export function MarketPricesView() {
                                 <p className="text-xs text-muted-foreground">{price.variety}</p>
                             </TableCell>
                             <TableCell>{price.market}</TableCell>
-                            <TableCell>{new Date(price.arrivalDate).toLocaleDateString()}</TableCell>
+                            <TableCell>{parseDate(price.arrivalDate).toLocaleDateString()}</TableCell>
                             <TableCell className="text-right text-red-600">₹{price.minPrice.toLocaleString()}</TableCell>
                             <TableCell className="text-right text-green-600">₹{price.maxPrice.toLocaleString()}</TableCell>
                             <TableCell className="text-right font-semibold">₹{price.modalPrice.toLocaleString()}</TableCell>
