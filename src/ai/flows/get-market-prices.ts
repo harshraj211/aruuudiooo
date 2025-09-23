@@ -61,7 +61,12 @@ const getMarketPricesFlow = ai.defineFlow(
     })
 
     try {
-        const response = await fetch(url.toString());
+        const response = await fetch(url.toString(), {
+            headers: {
+                'Accept': 'application/json',
+                'User-Agent': 'AgriVisionApp/1.0', // Some APIs require a user agent
+            }
+        });
         if (!response.ok) {
             const errorText = await response.text();
             console.error('Agmarknet API request failed:', response.status, errorText);
