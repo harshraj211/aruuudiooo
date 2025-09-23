@@ -54,17 +54,22 @@ export function HistoricalPriceChart({ location }: { location: string }) {
                     const allPricesResponses = await Promise.all(allPricesPromises);
                     
                     const processedData: { [date: string]: { date: string, [crop: string]: number } } = {};
+                    const oneMonthAgo = new Date();
+                    oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
 
                     allPricesResponses.forEach((response, index) => {
                         const cropName = selectedCrops[index];
                         response.prices.forEach(price => {
-                            const dateStr = new Date(parseDate(price.arrivalDate)).toISOString().split('T')[0];
-                            if (!processedData[dateStr]) {
-                                processedData[dateStr] = { date: dateStr };
-                            }
-                            // Average if multiple prices for same day, though unlikely with this data structure
-                            if (!processedData[dateStr][cropName]) {
-                                processedData[dateStr][cropName] = price.modalPrice;
+                            const arrivalDate = new Date(parseDate(price.arrivalDate));
+                            if (arrivalDate >= oneMonthAgo) {
+                                const dateStr = arrivalDate.toISOString().split('T')[0];
+                                if (!processedData[dateStr]) {
+                                    processedData[dateStr] = { date: dateStr };
+                                }
+                                // Average if multiple prices for same day, though unlikely with this data structure
+                                if (!processedData[dateStr][cropName]) {
+                                    processedData[dateStr][cropName] = price.modalPrice;
+                                }
                             }
                         });
                     });
@@ -100,7 +105,7 @@ export function HistoricalPriceChart({ location }: { location: string }) {
         <Card>
             <CardHeader>
                 <CardTitle>Historical Price Trends in {location}</CardTitle>
-                <CardDescription>Compare modal prices (₹ per Quintal) for different crops over time.</CardDescription>
+                <CardDescription>Compare modal prices (₹ per Quintal) for different crops over the last 30 days.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
                 <div>
@@ -157,7 +162,7 @@ export function HistoricalPriceChart({ location }: { location: string }) {
                         </ChartContainer>
                     ) : (
                         <div className="flex h-full w-full items-center justify-center text-muted-foreground">
-                            <p>No data to display. Select crops and a location to see the chart.</p>
+                            <p>No data to display for the last 30 days. Select crops and a location to see the chart.</p>
                         </div>
                     )}
                 </div>
@@ -165,4 +170,3 @@ export function HistoricalPriceChart({ location }: { location: string }) {
         </Card>
     );
 }
-

@@ -48,7 +48,7 @@ const getMarketPricesFlow = ai.defineFlow(
     
     url.searchParams.append('api-key', '579b464db66ec23bdd000001cdd3946e44ce4aad7209ff7b23ac571b');
     url.searchParams.append('format', 'json');
-    url.searchParams.append('limit', '500'); // Get a decent number of records
+    url.searchParams.append('limit', '2000'); // Get a decent number of records
 
     let filters: Record<string, string> = {};
     if (input.location) {
