@@ -51,39 +51,32 @@ function MultiSelect({
   return (
     <Popover open={open} onOpenChange={setOpen} {...props}>
       <PopoverTrigger asChild>
-        <div className={cn("relative w-full", className)}>
-            <div className="flex flex-wrap gap-1 rounded-md border border-input bg-background p-1.5 min-h-10 items-center">
-                {selected.length === 0 && <span className="text-sm text-muted-foreground px-2">{placeholder}</span>}
+        <Button
+            variant="outline"
+            role="combobox"
+            aria-expanded={open}
+            className={cn("w-full justify-between h-auto min-h-10", className)}
+            onClick={() => setOpen(!open)}
+        >
+            <div className="flex flex-wrap gap-1">
+                {selected.length === 0 && <span className="text-sm text-muted-foreground font-normal">{placeholder}</span>}
                 {selected.map((item) => (
                     <Badge
                         variant="secondary"
                         key={item}
                         className="py-1"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleUnselect(item);
+                        }}
                     >
                         {options.find(opt => opt.value === item)?.label || item}
-                        <button
-                            type="button"
-                            className="ml-1 rounded-full outline-none ring-offset-background focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter") {
-                                    handleUnselect(item);
-                                }
-                            }}
-                            onMouseDown={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                            }}
-                            onClick={() => handleUnselect(item)}
-                        >
-                            <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
-                        </button>
+                        <X className="ml-1 h-3 w-3" />
                     </Badge>
                 ))}
             </div>
-             <div className="absolute right-2 top-1/2 -translate-y-1/2">
-                <ChevronsUpDown className="h-4 w-4 opacity-50" />
-            </div>
-        </div>
+             <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full p-0" align="start">
         <Command>
