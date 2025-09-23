@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useTransition, useEffect } from 'react';
@@ -17,7 +18,7 @@ type MarketPrice = GetMarketPricesOutput['prices'][0];
 const popularCrops = ["All", "Wheat", "Paddy", "Cotton", "Maize", "Sugarcane", "Potato", "Tomato", "Onion"];
 
 // Helper to parse dd/mm/yyyy dates
-export const parseDate = (dateString: string) => {
+const parseDate = (dateString: string) => {
     const parts = dateString.split('/');
     if (parts.length === 3) {
       // parts[1] - 1 because months are 0-indexed in JS
@@ -142,7 +143,7 @@ export function MarketPricesView() {
                                 <p className="text-xs text-muted-foreground">{price.variety}</p>
                             </TableCell>
                             <TableCell>{price.market}</TableCell>
-                            <TableCell>{parseDate(price.arrivalDate).toLocaleDateString()}</TableCell>
+                            <TableCell>{price.arrivalDate}</TableCell>
                             <TableCell className="text-right text-red-600">₹{price.minPrice.toLocaleString()}</TableCell>
                             <TableCell className="text-right text-green-600">₹{price.maxPrice.toLocaleString()}</TableCell>
                             <TableCell className="text-right font-semibold">₹{price.modalPrice.toLocaleString()}</TableCell>
