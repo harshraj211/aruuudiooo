@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Droplets, Leaf, Sprout, TestTube2, SprayCan, BrainCircuit } from 'lucide-react';
+import { Droplets, Leaf, Sprout, TestTube2, SprayCan, BrainCircuit, Loader2 } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 import { z } from 'zod';
 import { useForm, Controller } from 'react-hook-form';
@@ -79,8 +79,6 @@ const cropData: Record<string, any> = {
     tea: { type: 'crop', fertilizer: { npk: '20-10-20', urea: 15, dap: 8, potash: 18 }, pesticides: { 'tea-mosquito-bug': { name: 'Lambda-Cyhalothrin', dosageMlPerLitre: 0.5 } }, seedRateKgPerAcre: 0, },
     coffee: { type: 'crop', fertilizer: { npk: '15-10-15', urea: 12, dap: 8, potash: 12 }, pesticides: { 'white-stem-borer': { name: 'Chlorpyrifos', dosageMlPerLitre: 2 } }, seedRateKgPerAcre: 0, },
     rubber: { type: 'crop', fertilizer: { npk: '12-12-12', urea: 10, dap: 10, potash: 10 }, pesticides: { 'abnormal-leaf-fall': { name: 'Copper Oxychloride', dosageMlPerLitre: 2.5 } }, seedRateKgPerAcre: 0, },
-    coconut: { type: 'fruit', fertilizer: { npk: '5-5-15', urea: 20, dap: 15, potash: 40 }, pesticides: { 'rhizome-weevil': { name: 'Chlorpyrifos', dosageMlPerLitre: 2.5 } }, seedRateKgPerAcre: 0, },
-    'areca nut': { type: 'fruit', fertilizer: { npk: '10-10-14', urea: 25, dap: 20, potash: 30 }, pesticides: { 'foot-rot': { name: 'Bordeaux mixture', dosageMlPerLitre: 10 } }, seedRateKgPerAcre: 0, },
     cocoa: { type: 'crop', fertilizer: { npk: '15-15-15', urea: 30, dap: 25, potash: 30 }, pesticides: { 'tea-mosquito-bug': { name: 'Imidacloprid', dosageMlPerLitre: 0.5 } }, seedRateKgPerAcre: 0, },
     
     // Existing Fruits
@@ -125,6 +123,8 @@ const cropData: Record<string, any> = {
     raspberry: { type: 'fruit', fertilizer: { npk: '10-10-10', urea: 15, dap: 10, potash: 12 }, pesticides: { 'cane-borer': { name: 'Fenpropathrin', dosageMlPerLitre: 1 } }, seedRateKgPerAcre: 0 },
     blueberry: { type: 'fruit', fertilizer: { npk: '10-10-10', urea: 12, dap: 8, potash: 10 }, pesticides: { 'mummy-berry': { name: 'Fenbuconazole', dosageMlPerLitre: 1 } }, seedRateKgPerAcre: 0 },
     blackberry: { type: 'fruit', fertilizer: { npk: '10-10-10', urea: 14, dap: 9, potash: 11 }, pesticides: { 'orange-rust': { name: 'Myclobutanil', dosageMlPerLitre: 0.5 } }, seedRateKgPerAcre: 0 },
+    coconut: { type: 'fruit', fertilizer: { npk: '5-5-15', urea: 20, dap: 15, potash: 40 }, pesticides: { 'rhizome-weevil': { name: 'Chlorpyrifos', dosageMlPerLitre: 2.5 } }, seedRateKgPerAcre: 0, },
+    'areca nut': { type: 'fruit', fertilizer: { npk: '10-10-14', urea: 25, dap: 20, potash: 30 }, pesticides: { 'foot-rot': { name: 'Bordeaux mixture', dosageMlPerLitre: 10 } }, seedRateKgPerAcre: 0, },
 };
 
 type CropName = keyof typeof cropData;
@@ -164,6 +164,7 @@ const seedSchema = baseSchema.extend({
 function FertilizerCalculator({ itemType }: { itemType: ItemType }) {
     const { t } = useTranslation();
     const [result, setResult] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const form = useForm<z.infer<typeof fertilizerSchema>>({
         resolver: zodResolver(fertilizerSchema),
@@ -171,25 +172,32 @@ function FertilizerCalculator({ itemType }: { itemType: ItemType }) {
     });
 
     function onSubmit(values: z.infer<typeof fertilizerSchema>) {
-        const landInAcres = values.landSize * unitConversionFactors[values.unit as Unit];
-        const item = values.item.toLowerCase() as CropName;
-        const fert = cropData[item]?.fertilizer;
+        setIsLoading(true);
+        setResult(null);
 
-        if (!fert) {
-            setResult(t('calculatorsPage.error.noData'));
-            return;
-        }
+        setTimeout(() => {
+            const landInAcres = values.landSize * unitConversionFactors[values.unit as Unit];
+            const item = values.item.toLowerCase() as CropName;
+            const fert = cropData[item]?.fertilizer;
 
-        const urea = (fert.urea * landInAcres).toFixed(2);
-        const dap = (fert.dap * landInAcres).toFixed(2);
-        const potash = (fert.potash * landInAcres).toFixed(2);
+            if (!fert) {
+                setResult(t('calculatorsPage.error.noData'));
+                setIsLoading(false);
+                return;
+            }
 
-        setResult(
-          `${t('calculatorsPage.fertilizer.result.urea')}: ${urea} kg\n` +
-          `${t('calculatorsPage.fertilizer.result.dap')}: ${dap} kg\n` +
-          `${t('calculatorsPage.fertilizer.result.potash')}: ${potash} kg\n` +
-          `${t('calculatorsPage.fertilizer.result.npk')}: ${fert.npk}`
-        );
+            const urea = (fert.urea * landInAcres).toFixed(2);
+            const dap = (fert.dap * landInAcres).toFixed(2);
+            const potash = (fert.potash * landInAcres).toFixed(2);
+
+            setResult(
+              `${t('calculatorsPage.fertilizer.result.urea')}: ${urea} kg\n` +
+              `${t('calculatorsPage.fertilizer.result.dap')}: ${dap} kg\n` +
+              `${t('calculatorsPage.fertilizer.result.potash')}: ${potash} kg\n` +
+              `${t('calculatorsPage.fertilizer.result.npk')}: ${fert.npk}`
+            );
+            setIsLoading(false);
+        }, 1500);
     }
     
     const relevantItems = Object.keys(cropData).filter(key => {
@@ -257,7 +265,10 @@ function FertilizerCalculator({ itemType }: { itemType: ItemType }) {
                         )}
                     />
                 </div>
-                <Button type="submit" className="w-full">{t('calculatorsPage.buttons.calculate')}</Button>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                    {t('calculatorsPage.buttons.calculate')}
+                </Button>
                 {result && <ResultCard icon={<TestTube2 />} title={t('calculatorsPage.fertilizer.result.title')} content={result} />}
             </form>
         </Form>
@@ -268,6 +279,8 @@ function FertilizerCalculator({ itemType }: { itemType: ItemType }) {
 function PesticideCalculator({ itemType }: { itemType: ItemType }) {
     const { t } = useTranslation();
     const [result, setResult] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+
     const form = useForm<z.infer<typeof pesticideSchema>>({
         resolver: zodResolver(pesticideSchema),
         defaultValues: { item: '', pest: '', landSize: 1, unit: 'acre' },
@@ -277,22 +290,29 @@ function PesticideCalculator({ itemType }: { itemType: ItemType }) {
     const itemPesticides = selectedItem ? cropData[selectedItem]?.pesticides : null;
 
     function onSubmit(values: z.infer<typeof pesticideSchema>) {
-        const landInAcres = values.landSize * unitConversionFactors[values.unit as Unit];
-        const pest = cropData[values.item.toLowerCase() as CropName]?.pesticides[values.pest as keyof typeof cropData[CropName]['pesticides']];
+        setIsLoading(true);
+        setResult(null);
 
-        if (!pest) {
-            setResult(t('calculatorsPage.error.noData'));
-            return;
-        }
+        setTimeout(() => {
+            const landInAcres = values.landSize * unitConversionFactors[values.unit as Unit];
+            const pest = cropData[values.item.toLowerCase() as CropName]?.pesticides[values.pest as keyof typeof cropData[CropName]['pesticides']];
 
-        // Standard assumption: 150-200 litres of water per acre for spray
-        const waterPerAcre = 150;
-        const totalWater = (waterPerAcre * landInAcres).toFixed(2);
-        const totalPesticide = (parseFloat(totalWater) * pest.dosageMlPerLitre).toFixed(2);
+            if (!pest) {
+                setResult(t('calculatorsPage.error.noData'));
+                setIsLoading(false);
+                return;
+            }
 
-        setResult(
-            `${t('calculatorsPage.pesticide.result.mix')} ${totalPesticide} ml ${pest.name} ${t('calculatorsPage.pesticide.result.in')} ${totalWater} ${t('calculatorsPage.pesticide.result.litresWater')}.`
-        );
+            // Standard assumption: 150-200 litres of water per acre for spray
+            const waterPerAcre = 150;
+            const totalWater = (waterPerAcre * landInAcres).toFixed(2);
+            const totalPesticide = (parseFloat(totalWater) * pest.dosageMlPerLitre).toFixed(2);
+
+            setResult(
+                `${t('calculatorsPage.pesticide.result.mix')} ${totalPesticide} ml ${pest.name} ${t('calculatorsPage.pesticide.result.in')} ${totalWater} ${t('calculatorsPage.pesticide.result.litresWater')}.`
+            );
+            setIsLoading(false);
+        }, 1500);
     }
     
     const relevantItems = Object.keys(cropData).filter(key => {
@@ -381,7 +401,10 @@ function PesticideCalculator({ itemType }: { itemType: ItemType }) {
                         )}
                     />
                 </div>
-                <Button type="submit" className="w-full">{t('calculatorsPage.buttons.calculate')}</Button>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                    {t('calculatorsPage.buttons.calculate')}
+                </Button>
                 {result && <ResultCard icon={<SprayCan />} title={t('calculatorsPage.pesticide.result.title')} content={result} />}
             </form>
         </Form>
@@ -391,24 +414,33 @@ function PesticideCalculator({ itemType }: { itemType: ItemType }) {
 function SeedCalculator({ itemType }: { itemType: ItemType }) {
     const { t } = useTranslation();
     const [result, setResult] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+
     const form = useForm<z.infer<typeof seedSchema>>({
         resolver: zodResolver(seedSchema),
         defaultValues: { item: '', landSize: 1, unit: 'acre' },
     });
 
     function onSubmit(values: z.infer<typeof seedSchema>) {
-        const landInAcres = values.landSize * unitConversionFactors[values.unit as Unit];
-        const seedRate = cropData[values.item.toLowerCase() as CropName]?.seedRateKgPerAcre;
+        setIsLoading(true);
+        setResult(null);
 
-        if (seedRate === undefined || seedRate === 0) {
-            setResult(t('calculatorsPage.error.noSeedData'));
-            return;
-        }
+        setTimeout(() => {
+            const landInAcres = values.landSize * unitConversionFactors[values.unit as Unit];
+            const seedRate = cropData[values.item.toLowerCase() as CropName]?.seedRateKgPerAcre;
 
-        const totalSeed = (seedRate * landInAcres).toFixed(2);
-        setResult(
-            `${t('calculatorsPage.seed.result.youWillNeed')} ~${totalSeed} kg ${t('calculatorsPage.seed.result.ofSeed')}.`
-        );
+            if (seedRate === undefined || seedRate === 0) {
+                setResult(t('calculatorsPage.error.noSeedData'));
+                setIsLoading(false);
+                return;
+            }
+
+            const totalSeed = (seedRate * landInAcres).toFixed(2);
+            setResult(
+                `${t('calculatorsPage.seed.result.youWillNeed')} ~${totalSeed} kg ${t('calculatorsPage.seed.result.ofSeed')}.`
+            );
+            setIsLoading(false);
+        }, 1500);
     }
     
     const cropItems = Object.keys(cropData).filter(key => {
@@ -475,7 +507,10 @@ function SeedCalculator({ itemType }: { itemType: ItemType }) {
                         )}
                     />
                 </div>
-                <Button type="submit" className="w-full">{t('calculatorsPage.buttons.calculate')}</Button>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                    {t('calculatorsPage.buttons.calculate')}
+                </Button>
                 {result && <ResultCard icon={<Sprout />} title={t('calculatorsPage.seed.result.title')} content={result} />}
             </form>
         </Form>
@@ -545,10 +580,3 @@ export function Calculators({ itemType }: { itemType: ItemType }) {
         </Tabs>
     )
 }
-
-    
-
-    
-
-
-    
