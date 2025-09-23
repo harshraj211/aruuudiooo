@@ -15,7 +15,8 @@
         "calculators": "Calculators",
         "communityForum": "Community Forum",
         "weather": "Weather",
-        "voiceAssistant": "🎙️ Voice Assistant"
+        "voiceAssistant": "🎙️ Voice Assistant",
+        "cropSimulation": "📊 Crop Simulation"
     },
     "dashboard": {
         "welcome": "Welcome back, {{name}}!",
@@ -225,7 +226,7 @@
             "toastSuccessDescription": "Your {{type}} of {{amount}} {{currency}} has been recorded."
         }
     },
-    "calculatorsPage": {
+     "calculatorsPage": {
         "title": "Farming Calculators",
         "description": "Calculate fertilizer, pesticide, and seed requirements for your crops.",
         "tabs": {

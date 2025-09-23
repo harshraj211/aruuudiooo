@@ -10,7 +10,7 @@ import {
   useSidebar,
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/Logo';
-import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator, Users, Sun, Mic } from 'lucide-react';
+import { BotMessageSquare, LayoutDashboard, Leaf, TrendingUp, Wallet, Bell, CalendarDays, Newspaper, Home, Calculator, Users, Sun, Mic, BarChart } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -30,6 +30,7 @@ const baseMenuItems: Omit<MenuItem, 'href'>[] = [
   { labelKey: 'sidebar.communityForum', icon: Users, isGeneric: true },
   { labelKey: 'sidebar.weather', icon: Sun, isGeneric: true },
   { labelKey: 'sidebar.voiceAssistant', icon: Mic, isGeneric: true },
+  { labelKey: 'sidebar.cropSimulation', icon: BarChart, isGeneric: true },
   { labelKey: 'sidebar.expenseTracker', icon: Wallet },
   { labelKey: 'sidebar.diseaseDetection', icon: Leaf },
   { labelKey: 'sidebar.chatbot', icon: BotMessageSquare },
@@ -59,7 +60,7 @@ export function SidebarNav({ managementType }: { managementType: 'crops' | 'frui
        return false;
     }
     // Hide market prices for fruits
-    if (managementType === 'fruits' && item.labelKey === 'sidebar.marketPrices') {
+    if (managementType === 'fruits' && (item.labelKey === 'sidebar.marketPrices' || item.labelKey === 'sidebar.cropSimulation')) {
         return false;
     }
     return true;
