@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState, useTransition, useEffect } from 'react';
+import { useState, useTransition, useEffect, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,10 +12,9 @@ import { Loader2, Search } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useTranslation } from '@/hooks/useTranslation';
+import { cropData } from '@/lib/item-data';
 
 type MarketPrice = GetMarketPricesOutput['prices'][0];
-
-const popularCrops = ["All", "Wheat", "Paddy", "Cotton", "Maize", "Sugarcane", "Potato", "Tomato", "Onion"];
 
 // Helper to parse dd/mm/yyyy dates
 const parseDate = (dateString: string) => {
@@ -36,6 +35,11 @@ export function MarketPricesView() {
   const [error, setError] = useState<string | null>(null);
   const { t } = useTranslation();
 
+  const popularCrops = useMemo(() => {
+    const cropNames = Object.values(cropData).map(c => c.name);
+    return ["All", ...cropNames.sort()];
+  }, []);
+
   const fetchPrices = () => {
     setError(null);
     startTransition(async () => {
@@ -45,7 +49,7 @@ export function MarketPricesView() {
         setPrices(sortedPrices);
       } catch (e) {
         console.error(e);
-        setError('Failed to fetch market prices. Please try again.');
+        setError('Failed to fetch market prices. The external API might be temporarily unavailable or your filter combination returned no results. Please try again later or adjust your search.');
         setPrices([]);
       }
     });
@@ -137,7 +141,7 @@ export function MarketPricesView() {
                     </TableHeader>
                     <TableBody>
                         {prices.map((price, index) => (
-                        <TableRow key={index}>
+                        <TableRow key={`${price.market}-${price.cropName}-${price.arrivalDate}-${index}`}>
                             <TableCell>
                                 <p className="font-medium">{price.cropName}</p>
                                 <p className="text-xs text-muted-foreground">{price.variety}</p>

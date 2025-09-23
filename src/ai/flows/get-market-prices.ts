@@ -5,7 +5,7 @@
  *
  * - getMarketPrices - A function that fetches market prices for a given location and crop.
  * - GetMarketPricesInput - The input type for the getMarketPrices function.
- * - GetMarketPricesOutput - The return type for the getMarketPrices function.
+ * - GetMarketPricesOutput - The return type for the getMarketprices function.
  */
 
 import {ai} from '@/ai/genkit';
@@ -46,31 +46,36 @@ const getMarketPricesFlow = ai.defineFlow(
     // The previous data.gov.in endpoint is deprecated. Using a community-maintained fork.
     const url = new URL("https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070");
     
-    url.searchParams.append('api-key', '579b464db66ec23bdd000001cdd3946e44ce4aad7209ff7b23ac571b');
+    url.searchParams.append('api-key', '579b464db66ec23bdd000001c778e3be6290459551881dcc39f66586');
     url.searchParams.append('format', 'json');
     url.searchParams.append('limit', '500'); // Get a decent number of records
+    url.searchParams.append('offset', '0');
 
     let filters: Record<string, string> = {};
     if (input.location) {
+        // The API is inconsistent, sometimes it needs state, sometimes district.
+        // Let's try to be flexible.
         filters['state'] = input.location;
     }
     if (input.crop && input.crop.toLowerCase() !== 'all') {
         filters['commodity'] = input.crop;
     }
     
-    url.searchParams.append('filters', JSON.stringify(filters));
+    url.searchParams.set('filters', JSON.stringify(filters));
 
     try {
         const response = await fetch(url.toString());
+        
         if (!response.ok) {
             const errorText = await response.text();
             console.error('Data.gov.in API request failed:', response.status, errorText);
             throw new Error(`API request failed with status ${response.status}: ${errorText}`);
         }
+        
         const data = await response.json();
 
         if (!data.records) {
-            console.warn("No records found in API response", data);
+            console.warn("No records found in API response for filters:", filters, data);
             return { prices: [] };
         }
 
