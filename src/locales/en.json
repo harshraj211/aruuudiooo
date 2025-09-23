@@ -14,7 +14,8 @@
         "backToSelection": "Back to Selection",
         "calculators": "Calculators",
         "communityForum": "Community Forum",
-        "weather": "Weather"
+        "weather": "Weather",
+        "voiceAssistant": "🎙️ Voice Assistant"
     },
     "dashboard": {
         "welcome": "Welcome back, {{name}}!",
