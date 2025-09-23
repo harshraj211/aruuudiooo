@@ -27,6 +27,12 @@ export type CurrentWeatherData = {
     icon: string;
     temp_max: number;
     temp_min: number;
+    feels_like: number;
+    pressure: number;
+    precipitation: number;
+    sunrise: string;
+    sunset: string;
+    lastUpdated: string;
 }
 
 export type DailyForecastData = {
@@ -63,17 +69,23 @@ export async function getCurrentWeather(location: LocationInput, apiKey: string)
         }
         const data = await response.json();
         
-        const mainCondition = data.weather[0]?.main || 'Clear';
+        const mainCondition = data.weather[0]?.description || data.weather[0]?.main || 'Clear';
 
         return {
             location: `${data.name}, ${data.sys.country}`,
             temperature: Math.round(data.main.temp),
-            condition: mainCondition,
+            condition: mainCondition.replace(/\b\w/g, (l: string) => l.toUpperCase()), // Capitalize each word
             humidity: data.main.humidity,
             windSpeed: Math.round(data.wind.speed * 3.6), // Convert m/s to km/h
             icon: data.weather[0].icon,
             temp_max: Math.round(data.main.temp_max),
             temp_min: Math.round(data.main.temp_min),
+            feels_like: Math.round(data.main.feels_like),
+            pressure: data.main.pressure,
+            precipitation: data.rain?.['1h'] || 0, // Precipitation in the last hour in mm
+            sunrise: new Date(data.sys.sunrise * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
+            sunset: new Date(data.sys.sunset * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
+            lastUpdated: new Date(data.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true }),
         };
     } catch (error) {
         console.error("Error fetching current weather:", error);
